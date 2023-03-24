@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.opponent {
+  height: 25vh;
+  background-color: #0010f2;
+  border: 1px #000;
+}
+  
+.middle {
+  height: 50vh;
+  background-color: #000000;
+}
+  
+.player {
+  height: 25vh;
+  background-color: #f20000;
+  border: 1px #000;
+}
+
+.faceDown {
+  width: 50px;
+  height: 75px;
+  background-image: url('path/to/card-image.png');
+  background-size: cover;
+  margin: 10px;
+}
