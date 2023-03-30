@@ -98,14 +98,13 @@ class Game:
         self.yarg_id = None
         self.applewood_id = None
 
-    def chooseCards(self, a, y):
-        if a not in self.applewood.hand or y not in self.yarg.hand:
+    def chooseCard(self, player, card):
+        if card not in player.hand: 
             print("error card not in hand")
-            return
-        self.applewood.card = a
-        self.yarg.card = y
-        self.applewood.hand.remove(a)
-        self.yarg.hand.remove(y)
+            return False
+        player.card = card
+        player.hand.remove(card)
+        return True
 
     def handleDraws(self, winner): # >0 apple <0 yarg
         for i in range(len(self.curDraws)):

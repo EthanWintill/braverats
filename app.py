@@ -39,17 +39,14 @@ def handleMessage(cardNum):
         sender = 'applewood'
         global waitingOnApplewood
         waitingOnApplewood = False
-        global appPickedcard 
-        appPickedcard = cardNum
+        game.chooseCard(game.applewood,int(cardNum))
     else:
         sender = 'yarg'
         global waitingOnYarg 
         waitingOnYarg = False
-        global yargPickedcard
-        yargPickedcard = cardNum
+        game.chooseCard(game.yarg,int(cardNum))
     
     if(not waitingOnApplewood and not waitingOnYarg):
-        game.chooseCards(int(appPickedcard),int(yargPickedcard))
         roundWinner = game.calculate()
         waitingOnApplewood = True
         waitingOnYarg = True
