@@ -26,14 +26,17 @@
                 $('#result').text(data.winner);
             });
 
-      socket.on('message', function(pickedCard) {
+      socket.on('played', function(data) {
+          pickedCard = data["cardValue"]
           playedCards = $('#player2played_cards').text()
           playedCards += " " + pickedCard
           $('#player2played_cards').text(playedCards)
 
           currentHand = $('#player2_card').text()
           $('#player2_card').text(currentHand.replace(pickedCard + " ", ""))
-      })
+
+          $('#winners').text(data['result'])
+        })
 
 
       $('#send-button').click(function() {
@@ -46,6 +49,7 @@
 
                 currentHand = $('#player1_card').text()
                 $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
+
             });
         
     });
@@ -57,7 +61,7 @@
   <p id="player2_card">Player 2's cards: 1 2 3 4 5 6 7 8</p>
   <input id="cardToPlay" type="text">
   <button id="send-button">Play</button>
-  <p>Round winners: <span id="winners"></span></p>
+  <p id="winners"></p>
 
 </body>
 

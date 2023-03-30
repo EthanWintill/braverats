@@ -1,4 +1,5 @@
 from braverats import Game
 
-games = {1:"game1"}
-curInc = 1
+testGame = Game()
+games = {0:testGame}
+curInc = 0
