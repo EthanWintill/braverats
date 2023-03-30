@@ -61,31 +61,10 @@ def assignPlayer(data):
     sendGameState(gid)
 
 
-def sendGameState(gid):
+def sendGameState(gid, round_winner=None):
     game = findGame(gid)
     sockets = socketIdsInGame(gid)
-    for socket in sockets:
-        socketio.emit("gstate", {"state":game.printGameState()}, room=socket)
-    
-
-@socketio.on('message')
-def handleMessage(cardNum):
-    game = findGame('keyForTesting')
-
-    if(game.applewood_id==request.sid): #senders team should be taken from client data eventually, but this will do for not
-        global waitingOnApplewood
-        waitingOnApplewood = False
-        game.chooseCard(game.applewood,int(cardNum))
-    else:
-        global waitingOnYarg
-        waitingOnYarg = False
-        game.chooseCard(game.yarg,int(cardNum))
-    
-    if(not waitingOnApplewood and not waitingOnYarg):
-        roundWinner = game.calculate()
-        waitingOnApplewood = True
-        waitingOnYarg = True
-        data = {
+    dataForClient = {
             'applewood_hand': game.applewood.hand,
             'yarg_hand':game.yarg.hand,
             'applewood_score':game.applewood.score,
@@ -94,11 +73,31 @@ def handleMessage(cardNum):
             'yard_card':game.yarg.card,
             'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
             'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
-            'round_winner': roundWinner
+            'round_winner': round_winner
         }
-        print(json.dumps(data))
-        emit("played",{'data':json.dumps(data)}, room = game.applewood_id)
-        emit("played",{'data':json.dumps(data)}, room = game.yarg_id)
+    for socket in sockets:
+        socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket)}, room=socket)
+    
+
+@socketio.on('playedCard')
+def handleMessage(data):
+    try:
+        game = findGame(data['gid'])
+    except:
+        print("game not found dumb TY")
+        return
+    sid = data['sid']
+ #fix this 
+    if(game.applewood.sessionid==sid): 
+        game.chooseApplewood(int(data['card']))
+    elif(game.yarg.sessionid==sid):
+        game.chooseYarg(int(data['card']))
+    else:
+        print("you're a spectatr AR")
+    
+    if(game.applewood.card and game.yarg.card):
+        roundWinner = game.calculate()
+        sendGameState(data['gid'], roundWinner)
 
     
 
