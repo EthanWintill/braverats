@@ -10,7 +10,7 @@
     integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  
+  <h2 id="sid">{{sid}}</h2>
   <h1>Brave Rats</h1>
   <p id="player1_card">Player 1's cards: 1 2 3 4 5 6 7 8</p>
   <p>P1 played crds: <span id="player1played_cards"></span></p>
@@ -23,7 +23,7 @@
   <div>
     <h3>Game State:</h3>
     <p id="gameState">
-      {{gstate}}
+      
     </p>
   </div>
   <script src="{{ url_for('static', filename='js/play.js') }}"></script>

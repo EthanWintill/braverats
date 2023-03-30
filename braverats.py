@@ -6,6 +6,9 @@ class Player:
     generalLast : bool
     spyLast : bool
     card : int
+
+    sessionid : str
+    socketid : str
    
 
     def __init__(self):
@@ -14,6 +17,9 @@ class Player:
         self.generalLast = False
         self.spyLast = False
         self.card = None
+
+        self.sessionid = None
+        self.socketid = None
         
 
     def resetEffects(self):
@@ -80,15 +86,15 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
         result.winner = aStrength - yStrength
     
     return result
-            
+
+         
 class Game:
     applewood : Player
     yarg : Player
     curDraws : list[Result]
     maxScore = 4
     winner : int
-    yarg_id : str
-    applewood_id: str
+
 
     gId : str
 
@@ -102,25 +108,44 @@ class Game:
         self.gId = gId
 
     def sidToTeam(self, sid):
-        if self.applewood_id == sid:
+        if self.applewood.sessionid == sid:
             return 1
-        elif self.yarg_id == sid:
+        elif self.yarg.sessionid == sid:
             return -1
         else:
             return None
 
+    def sidToSocket(self, sid):
+        if self.applewood.sessionid == sid:
+            return self.applewood.socketid
+        elif self.yarg.sessionid == sid:
+            return self.yarg.socketid
+        else:
+            return None
+
     def assignPlayer(self, sid):
-        if self.yarg_id and self.applewood_id:
+        if self.yarg.sessionid and self.applewood.sessionid:
             print("Both players assigned")
             return False
-        if not self.applewood_id:
-            self.applewood_id = sid
+        if not self.applewood.sessionid:
+            self.applewood.sessionid = sid
         else:
-            self.yarg_id = sid
+            self.yarg.sessionid = sid
         return True
 
+    def assignSocket(self, sid, socketid):
+        team = self.sidToTeam(sid)
+        if not team:
+            return False
+        if team > 0:
+            self.applewood.socketid = socketid
+        else:
+            self.yarg.socketid = socketid
+
+    
+
     def playersIn(self):
-        return self.yarg_id and self.applewood_id
+        return self.yarg.sessionid and self.applewood.sessionid
 
     def chooseApplewood(self, c):
         assert c in self.applewood.hand, "Error card not in hand in chooseApplewood()"
@@ -201,7 +226,8 @@ class Game:
         else:
             return False
     def printGameState(self):
-        result = f"Game id: {self.gId}, Applewood sid: {self.applewood_id}, Yarg sid: {self.yarg_id}"
+        result = f"Game id: {self.gId}, Applewood sid: {self.applewood.sessionid}, Yarg sid: {self.yarg.sessionid}"
+        result += f"\n Applewood socketid: {self.applewood.socketid}, Yarg socketid: {self.yarg.socketid}"
         result += f"\n a_hand: {self.applewood.hand}, y_hand: {self.yarg.hand}"
         result += f"\n a_score: {self.applewood.score}, y_score: {self.yarg.score}"
         result += f"\n a_card: {self.applewood.card}, y_card: {self.yarg.card}"

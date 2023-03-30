@@ -4,8 +4,15 @@
       var socket = io.connect('http://127.0.0.1:3000');
 
       socket.on('connect', function () {
-        socket.emit('my event', { data: 'I\'m connected!' });
+        let gid = window.location.pathname.slice(6)
+        let sid = $('#sid').text()
+
+        socket.emit('connection', { gid: gid, sid: sid});
         console.log("connected")
+      });
+
+      socket.on("gstate", (data) => {
+        $("#gameState").text(data.state)
       });
 
       /*socket.on('result', function(data) {

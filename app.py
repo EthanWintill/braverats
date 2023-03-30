@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_session import Session
 #FLASK TOOLS
-from flask_socketio import SocketIO, send
-#FLASK SOCKETIO
-from games import createNewGame, findGame
-#GAMES STORAGE
 from flask_socketio import SocketIO, send, emit
-from braverats import Game
-#GAME LOGIC
+#FLASK SOCKETIO
+from games import createNewGame, findGame, socketIdsInGame
+#GAMES STORAGE
+
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -35,8 +33,8 @@ def play(gId):
     game = findGame(gId)
     if not game.playersIn() and not game.sidToTeam(session.sid):
         game.assignPlayer(session.sid)
-
-    return render_template("play.html", gstate=game.printGameState())
+    
+    return render_template("play.html", sid=session.sid)
 
 
 
@@ -48,6 +46,26 @@ def index():
         return render_template("index.html", gameId=val)
     return render_template("index.html")
 
+@socketio.on("connection")
+def assignPlayer(data):
+    
+    gid = data['gid']
+    try:
+        game = findGame(gid)
+    except:
+        return
+    sid = data['sid']
+    print("SID " + sid)
+    game.assignSocket(sid,request.sid) # handles wrong users in func
+    sendGameState(gid)
+
+
+def sendGameState(gid):
+    game = findGame(gid)
+    sockets = socketIdsInGame(gid)
+    for socket in sockets:
+        socketio.emit("gstate", {"state":game.printGameState()}, room=socket)
+    
 
 @socketio.on('message')
 def handleMessage(cardNum):
@@ -82,12 +100,8 @@ def handleConnect():
     
 
 
-gameID = 0 #need to fix these to generalize to multiple games
-waitingOnApplewood = True
-waitingOnYarg = True
-appPickedcard = -1
-yargPickedcard = -1
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=3000, debug=True)
+    
  
  

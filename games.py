@@ -25,6 +25,17 @@ def findGame(gId) -> Game:
         return None
     return games[gId]
 
+def socketIdsInGame(gId):
+    game = findGame(gId)
+    ids = []
+    if game.applewood.socketid:
+        ids.append(game.applewood.socketid)
+    if game.yarg.socketid:
+        ids.append(game.yarg.socketid)
+    return ids
+
+
+
 
 
 
