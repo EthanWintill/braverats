@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import games as games
-import numpy as np
 from flask_socketio import SocketIO, send, emit
 from braverats import Game
 #from forms import AddTaskForm, CreateUserForm, LoginForm
