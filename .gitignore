@@ -8,6 +8,7 @@ node_modules/
 dist/
 
 venv
+flask_session
 
 # Compiled Java class files
 *.class
