@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Flask Chat App</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+      console.log(io.version)
+      var socket = io.connect('http://127.0.0.1:5000');
+
+      socket.on('connect', function () {
+        socket.emit('my event', { data: 'I\'m connected!' });
+        console.log("connected")
+      });
+
+      socket.on('result', function(data) {
+                $('#player1_card').text(data.player1_card);
+                $('#player2_card').text(data.player2_card);
+                $('#result').text(data.winner);
+            });
+
+      socket.on('message', function(pickedCard) {
+          playedCards = $('#player2played_cards').text()
+          playedCards += " " + pickedCard
+          $('#player2played_cards').text(playedCards)
+
+          currentHand = $('#player2_card').text()
+          $('#player2_card').text(currentHand.replace(pickedCard + " ", ""))
+      })
+
+
+      $('#send-button').click(function() {
+                pickedCard = $('#cardToPlay').val()
+                playedCards = $('#player1played_cards').text()
+                playedCards += " " + pickedCard
+                $('#player1played_cards').text(playedCards)
+                socket.send($('#cardToPlay').val());
+		            $('#cardToPlay').val('');
+
+                currentHand = $('#player1_card').text()
+                $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
+            });
+        
+    });
+  </script>
+  <h1>Brave Rats</h1>
+  <p id="player1_card">Player 1's cards: 1 2 3 4 5 6 7 8</p>
+  <p>P1 played crds: <span id="player1played_cards"></span></p>
+  <p>P2 played crds: <span id="player2played_cards"></span></p>
+  <p id="player2_card">Player 2's cards: 1 2 3 4 5 6 7 8</p>
+  <input id="cardToPlay" type="text">
+  <button id="send-button">Play</button>
+  <p>Round winners: <span id="winners"></span></p>
+
+</body>
+
+</html>
