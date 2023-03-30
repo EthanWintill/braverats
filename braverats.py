@@ -6,7 +6,7 @@ class Player:
     generalLast : bool
     spyLast : bool
     card : int
-    id : str
+   
 
     def __init__(self):
         self.hand = [0,1,2,3,4,5,6,7]
@@ -14,7 +14,7 @@ class Player:
         self.generalLast = False
         self.spyLast = False
         self.card = None
-        self.applewoodPlayed = False
+        
 
     def resetEffects(self):
         self.generalLast = False
@@ -23,13 +23,13 @@ class Player:
 
 class Result:
     winner : int # 0:TIE, >0:APPLEWOOD, <0:YARG
-    aAmbass : bool
+    aAmbass : bool # AMBASSADOR ACTIVE
     yAmbass : bool
-    aGeneral : bool
+    aGeneral : bool #GENERAL ACTIVE
     yGeneral : bool
-    aSpy : bool
+    aSpy : bool #SPY ACTIVE
     ySpy : bool
-    aWin : bool
+    aWin : bool #GAME WON VIA PRINCESS
     yWin : bool
 
     def __init__(self):
@@ -90,13 +90,47 @@ class Game:
     yarg_id : str
     applewood_id: str
 
-    def __init__(self):
+    gId : str
+
+    def __init__(self, gId):
         self.applewood = Player()
         self.yarg = Player()
         self.curDraws = []
         self.winner = None
         self.yarg_id = None
         self.applewood_id = None
+        self.gId = gId
+
+    def sidToTeam(self, sid):
+        if self.applewood_id == sid:
+            return 1
+        elif self.yarg_id == sid:
+            return -1
+        else:
+            return None
+
+    def assignPlayer(self, sid):
+        if self.yarg_id and self.applewood_id:
+            print("Both players assigned")
+            return False
+        if not self.applewood_id:
+            self.applewood_id = sid
+        else:
+            self.yarg_id = sid
+        return True
+
+    def playersIn(self):
+        return self.yarg_id and self.applewood_id
+
+    def chooseApplewood(self, c):
+        assert c in self.applewood.hand, "Error card not in hand in chooseApplewood()"
+        self.applewood.card = c
+        self.applewood.hand.remove(c)
+
+    def chooseYarg(self, c):
+        assert c in self.yarg.hand, "Error card not in hand in chooseYarg()"
+        self.yarg.card = c
+        self.yarg.hand.remove(c)
 
     def chooseCards(self, a, y):
         if a not in self.applewood.hand or y not in self.yarg.hand:
@@ -167,11 +201,13 @@ class Game:
         else:
             return False
     def printGameState(self):
-        result = f"apple: \{self.applewood.hand} \{self.applewood.score}\n\{self.yarg.hand} \{self.yarg.score} \{self.winner}"
-        print("apple: ", self.applewood.hand, self.applewood.score)
-        print("yarg: ", self.yarg.hand, self.yarg.score)
-        print(self.winner)
+        result = f"Game id: {self.gId}, Applewood sid: {self.applewood_id}, Yarg sid: {self.yarg_id}"
+        result += f"\n a_hand: {self.applewood.hand}, y_hand: {self.yarg.hand}"
+        result += f"\n a_score: {self.applewood.score}, y_score: {self.yarg.score}"
+        result += f"\n a_card: {self.applewood.card}, y_card: {self.yarg.card}"
+        result += f"\n gameover: {self.gameOver()}"
         return result
+        
         
 
 def testGame():
