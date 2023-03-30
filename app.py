@@ -7,6 +7,7 @@ from games import createNewGame, findGame
 #GAMES STORAGE
 from flask_socketio import SocketIO, send, emit
 from braverats import Game
+import json
 #GAME LOGIC
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
@@ -51,26 +52,37 @@ def index():
 
 @socketio.on('message')
 def handleMessage(cardNum):
-    if(games.games[gameID].applewood_id==request.sid): #senders team should be taken from client data eventually, but this will do for not
+    game = games.games[gameID]
+
+    if(game.applewood_id==request.sid): #senders team should be taken from client data eventually, but this will do for not
         sender = 'applewood'
         global waitingOnApplewood
         waitingOnApplewood = False
-        global appPickedcard 
-        appPickedcard = cardNum
+        game.chooseCard(game.applewood,int(cardNum))
     else:
         sender = 'yarg'
         global waitingOnYarg 
         waitingOnYarg = False
-        global yargPickedcard
-        yargPickedcard = cardNum
+        game.chooseCard(game.yarg,int(cardNum))
     
     if(not waitingOnApplewood and not waitingOnYarg):
-        games.games[gameID].chooseCards(int(appPickedcard),int(yargPickedcard))
-        games.games[gameID].calculate()
+        roundWinner = game.calculate()
         waitingOnApplewood = True
         waitingOnYarg = True
-        emit("played",{"cardValue":yargPickedcard, 'result':games.games[gameID].printGameState()}, room = games.games[gameID].applewood_id)
-        emit("played",{"cardValue":appPickedcard, 'result':games.games[gameID].printGameState()}, room = games.games[gameID].yarg_id)
+        data = {
+            'applewood_hand': game.applewood.hand,
+            'yarg_hand':game.yarg.hand,
+            'applewood_score':game.applewood.score,
+            'yarg_score':game.yarg.score,
+            'applewood_card':appPickedcard,
+            'yard_card':yargPickedcard,
+            'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
+            'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
+            'round_winner': roundWinner
+        }
+        print(json.dumps(data))
+        emit("played",{"cardValue":yargPickedcard, 'result':json.dumps(data)}, room = game.applewood_id)
+        emit("played",{"cardValue":appPickedcard, 'result':json.dumps(data)}, room = game.yarg_id)
 
     
 

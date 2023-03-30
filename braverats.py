@@ -132,14 +132,13 @@ class Game:
         self.yarg.card = c
         self.yarg.hand.remove(c)
 
-    def chooseCards(self, a, y):
-        if a not in self.applewood.hand or y not in self.yarg.hand:
+    def chooseCard(self, player, card):
+        if card not in player.hand: 
             print("error card not in hand")
-            return
-        self.applewood.card = a
-        self.yarg.card = y
-        self.applewood.hand.remove(a)
-        self.yarg.hand.remove(y)
+            return False
+        player.card = card
+        player.hand.remove(card)
+        return True
 
     def handleDraws(self, winner): # >0 apple <0 yarg
         for i in range(len(self.curDraws)):
@@ -186,6 +185,8 @@ class Game:
         self.yarg.spyLast = result.ySpy
 
         self.checkWin()
+
+        return 'applewood' if result.aWin else ('yarg' if result.yWin else 'tie')
 
     def checkWin(self):
         if self.applewood.score >= self.maxScore:
