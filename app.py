@@ -1,8 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import games as games
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_session import Session
+#FLASK TOOLS
+from flask_socketio import SocketIO, send
+#FLASK SOCKETIO
+from games import createNewGame, findGame
+#GAMES STORAGE
 from flask_socketio import SocketIO, send, emit
 from braverats import Game
 import json
+#GAME LOGIC
+
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
 #from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -11,22 +18,34 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
+
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-@app.route("/play/<int:gId>")
+
+@app.route("/play/<string:gId>")
 def play(gId):
-    try: 
-        g = games.games[gId]
+    try:
+        findGame(gId)
     except:
-        return "GAME NO EXISTO"
-    return render_template("play.html")
+        return "GAME NOT FOUND"
+    
+    session['gid'] = gId
+    game = findGame(gId)
+    if not game.playersIn() and not game.sidToTeam(session.sid):
+        game.assignPlayer(session.sid)
+
+    return render_template("play.html", gstate=game.printGameState())
+
+
+
 
 @app.route("/", methods=["GET","POST"])
 def index():
     if request.method == "POST":
-        val = games.curInc
-        games.games[games.curInc] = Game()
-        games.curInc += 1
+        val = createNewGame()
         return render_template("index.html", gameId=val)
     return render_template("index.html")
 
@@ -69,13 +88,10 @@ def handleMessage(cardNum):
 
 @socketio.on('connect')
 def handleConnect():
-    print(f"it worked! Game: {games.curInc}")
-    if(games.games[gameID].yarg_id is None):
-        print("\n\n\n\nsetting yarg_id to this player: "+request.sid)
-        games.games[gameID].yarg_id = request.sid
-    elif(games.games[gameID].applewood_id is None):
-        print("\n\n\n\nsetting applewood id to this player: "+request.sid)
-        games.games[gameID].applewood_id = request.sid
+    pass
+        
+    
+    
 
 
 gameID = 0 #need to fix these to generalize to multiple games
