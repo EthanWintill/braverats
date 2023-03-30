@@ -153,6 +153,8 @@ class Game:
 
         self.checkWin()
 
+        return 'applewood' if result.aWin else ('yarg' if result.yWin else 'tie')
+
     def checkWin(self):
         if self.applewood.score >= self.maxScore:
             self.winner = 1
