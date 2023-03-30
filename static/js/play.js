@@ -45,6 +45,6 @@
                 currentHand = $('#player1_card').text()
                 $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
 
-            });*/
+            });
         
     });

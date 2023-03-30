@@ -70,16 +70,14 @@ def sendGameState(gid):
 
 @socketio.on('message')
 def handleMessage(cardNum):
-    game = games.games[gameID]
+    game = findGame('keyForTesting')
 
     if(game.applewood_id==request.sid): #senders team should be taken from client data eventually, but this will do for not
-        sender = 'applewood'
         global waitingOnApplewood
         waitingOnApplewood = False
         game.chooseCard(game.applewood,int(cardNum))
     else:
-        sender = 'yarg'
-        global waitingOnYarg 
+        global waitingOnYarg
         waitingOnYarg = False
         game.chooseCard(game.yarg,int(cardNum))
     
@@ -92,15 +90,15 @@ def handleMessage(cardNum):
             'yarg_hand':game.yarg.hand,
             'applewood_score':game.applewood.score,
             'yarg_score':game.yarg.score,
-            'applewood_card':appPickedcard,
-            'yard_card':yargPickedcard,
+            'applewood_card':game.applewood.card,
+            'yard_card':game.yarg.card,
             'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
             'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
             'round_winner': roundWinner
         }
         print(json.dumps(data))
-        emit("played",{"cardValue":yargPickedcard, 'result':json.dumps(data)}, room = game.applewood_id)
-        emit("played",{"cardValue":appPickedcard, 'result':json.dumps(data)}, room = game.yarg_id)
+        emit("played",{'data':json.dumps(data)}, room = game.applewood_id)
+        emit("played",{'data':json.dumps(data)}, room = game.yarg_id)
 
     
 

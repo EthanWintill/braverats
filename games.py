@@ -2,8 +2,8 @@ from braverats import Game
 import random
 import string
 
-
-games = {}
+testGame = Game()
+games = {'keyForTesting':testGame}
 
 
 CHARACTERS = (
