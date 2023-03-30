@@ -6,6 +6,7 @@ class Player:
     generalLast : bool
     spyLast : bool
     card : int
+    id : str
 
     def __init__(self):
         self.hand = [0,1,2,3,4,5,6,7]
@@ -13,6 +14,7 @@ class Player:
         self.generalLast = False
         self.spyLast = False
         self.card = None
+        self.applewoodPlayed = False
 
     def resetEffects(self):
         self.generalLast = False
@@ -85,12 +87,16 @@ class Game:
     curDraws : list[Result]
     maxScore = 4
     winner : int
+    yarg_id : str
+    applewood_id: str
 
     def __init__(self):
         self.applewood = Player()
         self.yarg = Player()
         self.curDraws = []
         self.winner = None
+        self.yarg_id = None
+        self.applewood_id = None
 
     def chooseCards(self, a, y):
         if a not in self.applewood.hand or y not in self.yarg.hand:
@@ -161,9 +167,11 @@ class Game:
         else:
             return False
     def printGameState(self):
+        result = f"apple: \{self.applewood.hand} \{self.applewood.score}\n\{self.yarg.hand} \{self.yarg.score} \{self.winner}"
         print("apple: ", self.applewood.hand, self.applewood.score)
         print("yarg: ", self.yarg.hand, self.yarg.score)
         print(self.winner)
+        return result
         
 
 def testGame():
@@ -176,5 +184,3 @@ def testGame():
         game.calculate()
         game.printGameState()
 
-testGame()
-        
