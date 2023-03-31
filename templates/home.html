@@ -2,31 +2,54 @@
 <html>
   <head>
     <title>Brave Rats</title>
+    <style>
+      body {
+        background-image: url(/Users/selahboyle/Desktop/BraveRat/brave_rats/templates/homeBackground.jpg);
+        background-size: contain;
+        background-position: center;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      
+      button {
+        background-color: rgba(0, 0, 50, 0.25);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-size: 24px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      
+      button:hover {
+        background-color: rgba(0, 0, 100, 0.75);
+      }
+      
+      html, body {
+        height: 100%;
+      } 
+    </style>
   </head>
   <body>
-    <h1>Brave Rats</h1>
-    <button id="rules">Rules</button>
-    <script>
-      var rules = document.getElementById("rules");
-      rules.addEventListener("click", function() {
-        window.location.href = "rules.html";
-      });
-    </script>
-    <button id="play">Play</button>
-    <script>
-      var play = document.getElementById("play");
-      play.addEventListener("click", function() {
-        play.classList.toggle("clicked");
-      });
-    </script>
-    <button id="playWithAFriend">Play With A Friend</button>
-    <script>
-      var playWithAFriend = document.getElementById("playWithAFriend");
-      playWithAFriend.addEventListener("click", function() {
-        playWithAFriend.classList.toggle("clicked");
-      });
-    </script>
-    <script src="script.js"></script>
+    <div class="container">
+      <button id="rules">Rules</button>
+      <button id="play">Play</button>
+      <button id="playWithAFriend">Play With A Friend</button>
+    </div>
+    <script src="home.js"></script>
   </body>
 </html>
-
