@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Brave Rats</title>
+  </head>
+  <body>
+    <h1>Brave Rats</h1>
+    <button id="rules">Rules</button>
+    <script>
+      var rules = document.getElementById("rules");
+      rules.addEventListener("click", function() {
+        window.location.href = "rules.html";
+      });
+    </script>
+    <button id="play">Play</button>
+    <script>
+      var play = document.getElementById("play");
+      play.addEventListener("click", function() {
+        play.classList.toggle("clicked");
+      });
+    </script>
+    <button id="playWithAFriend">Play With A Friend</button>
+    <script>
+      var playWithAFriend = document.getElementById("playWithAFriend");
+      playWithAFriend.addEventListener("click", function() {
+        playWithAFriend.classList.toggle("clicked");
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
