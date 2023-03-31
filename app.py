@@ -87,11 +87,16 @@ def handleMessage(data):
         print("game not found dumb TY")
         return
     sid = data['sid']
- #fix this 
     if(game.applewood.sessionid==sid): 
-        game.chooseApplewood(int(data['card']))
+        try:
+            game.chooseApplewood(int(data['card']))
+        except:
+            print("invalid card\n\n\n\n\n\n")
     elif(game.yarg.sessionid==sid):
-        game.chooseYarg(int(data['card']))
+        try:
+            game.chooseYarg(int(data['card']))
+        except:
+            print("invalid card\n\n\n\n\n\n")
     else:
         print("you're a spectatr AR")
     
