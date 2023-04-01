@@ -68,8 +68,19 @@ def sendGameState(gid, round_winner=None):
     game = findGame(gid)
     sockets = socketIdsInGame(gid)
     dataForClient = {
+        'applewood_hand': game.applewood.hand,
+        'yarg_hand':game.yarg.hand,
+        'applewood_score':game.applewood.score,
+        'yarg_score':game.yarg.score,
+        'applewood_card':game.applewood.card,
+        'yard_card':game.yarg.card,
+        'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
+        'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
+        'round_winner': round_winner
+        }
     for socket in sockets:
-        socketio.emit("gstate", {"state":game.printGameState()}, room=socket)
+        socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket),"debugstate":game.printGameState()}, room=socket)
+    
 
 @socketio.on('chooseCard')
 def chooseCard(data):
@@ -96,11 +107,11 @@ def chooseCard(data):
         print("game is over why choose card")
         return
     
-    if team == 1 and (not game.applewood.card) and (card in game.applewood.hand):
+    if team == 1 and (game.applewood.card is None) and (card in game.applewood.hand):
         #APPLEWOOD AND CARD NOT PLAYED YET
         print("SUCCESSFUL APPLE PICK")
         game.chooseApplewood(card)
-    elif team == -1 and (not game.yarg.card) and (card in game.yarg.hand):
+    elif team == -1 and (game.yarg.card is None) and (card in game.yarg.hand):
         #YARG AND CARD NOT PLAYED YET
         print("SUCCESSFUL YARG PICK")
         game.chooseYarg(card)
@@ -112,20 +123,8 @@ def chooseCard(data):
     sendGameState(gid)
     
 
-            'applewood_hand': game.applewood.hand,
-            'yarg_hand':game.yarg.hand,
-            'applewood_score':game.applewood.score,
-            'yarg_score':game.yarg.score,
-            'applewood_card':game.applewood.card,
-            'yard_card':game.yarg.card,
-            'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
-            'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
-            'round_winner': round_winner
-        }
-    for socket in sockets:
-        socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket)}, room=socket)
-    
-
+            
+""""
 @socketio.on('playedCard')
 def handleMessage(data):
     try:
@@ -150,7 +149,7 @@ def handleMessage(data):
     if(game.applewood.card and game.yarg.card):
         roundWinner = game.calculate()
         sendGameState(data['gid'], roundWinner)
-
+"""
     
 
 @socketio.on('connect')

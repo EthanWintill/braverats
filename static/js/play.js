@@ -23,7 +23,7 @@
     
       socket.on("gstate", (data) => {
         // TODO: update client view based on recieved state instead of just printing it
-        $("#gameState").text(data.state)
+        $("#gameState").text(data.debugstate)
         $("#team").text(data.team)
         $("applewood_card").text(data.state.applewood_card)
         $("#applewood_hand").text(data.state.applewood_hand)
@@ -83,5 +83,5 @@
                 $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
 
             });
-        
+       */ 
     });

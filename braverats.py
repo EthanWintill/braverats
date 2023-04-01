@@ -170,10 +170,10 @@ class Game:
         self.curDraws = []
 
     def readyToFight(self):
-        return self.applewood.card and self.yarg.card
+        return self.applewood.card is not None and self.yarg.card is not None
     
     def calculate(self):
-        if not self.applewood or not self.yarg:
+        if not self.readyToFight():
             print("cards not chosen before fight")
             return
         result = battle(self.applewood, self.yarg)
@@ -217,7 +217,7 @@ class Game:
             self.winner = 0
 
     def gameOver(self):
-        if self.winner:
+        if self.winner is not None:
             return True
         else:
             return False
@@ -227,6 +227,7 @@ class Game:
         result += f"\n a_hand: {self.applewood.hand}, y_hand: {self.yarg.hand}"
         result += f"\n a_score: {self.applewood.score}, y_score: {self.yarg.score}"
         result += f"\n a_card: {self.applewood.card}, y_card: {self.yarg.card}"
+        result += f"\n curDraws: {self.curDraws}"
         result += f"\n gameover: {self.gameOver()}"
         return result
         
