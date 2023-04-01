@@ -15,6 +15,20 @@
         $("#gameState").text(data.state)
       });
 
+      $('#send-button').click(function() {
+        const pickedCard = $('#cardToPlay').val()
+        data = {
+          gid:window.location.pathname.slice(6),
+          sid:$('#sid').text(),
+          card:pickedCard,
+        }
+        
+        socket.emit('chooseCard', data)
+
+        
+
+    });
+
       /*socket.on('result', function(data) {
                 $('#player1_card').text(data.player1_card);
                 $('#player2_card').text(data.player2_card);

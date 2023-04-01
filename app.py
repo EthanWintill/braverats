@@ -66,6 +66,46 @@ def sendGameState(gid):
     sockets = socketIdsInGame(gid)
     for socket in sockets:
         socketio.emit("gstate", {"state":game.printGameState()}, room=socket)
+
+@socketio.on('chooseCard')
+def chooseCard(data):
+    sid = data['sid']
+    gid = data['gid']
+    card = data['card']
+    print(sid, gid, card)
+    ##socketid = request.sid - use sidToSocket() for more accurate socketid
+    try:
+        game = findGame(gid)
+        card = int(card)
+    except:
+        print("RETURN 1")
+        return
+    #game.applewood.spyLast # # todo
+    #game.yarg.spyLast
+    team = game.sidToTeam(sid)
+    if not team:
+        print("RETURN 2")
+        return
+    print(team)
+
+    if game.gameOver():
+        print("game is over why choose card")
+        return
+    
+    if team == 1 and (not game.applewood.card) and (card in game.applewood.hand):
+        #APPLEWOOD AND CARD NOT PLAYED YET
+        print("SUCCESSFUL APPLE PICK")
+        game.chooseApplewood(card)
+    elif team == -1 and (not game.yarg.card) and (card in game.yarg.hand):
+        #YARG AND CARD NOT PLAYED YET
+        print("SUCCESSFUL YARG PICK")
+        game.chooseYarg(card)
+    
+    # HAVE BOTH CARDS BEEN CHOSEN?
+    if game.readyToFight():
+        res = game.calculate()
+        print(res.winner)
+    sendGameState(gid)
     
 
 @socketio.on('message')

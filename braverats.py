@@ -68,16 +68,16 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
             result.winner = 0
         elif a.card == 7 and y.card != 7:
             if y.card == 1:
-                win = -1
+                result.winner = -1
                 result.yWin = True
             else:
-                win = 1
+                result.winner = 1
         elif y.card == 7 and a.card != 7:
             if a.card == 1:
-                win = 1
+                result.winner = 1
                 result.aWin = True
             else:
-                win = -1
+                result.winner = -1
         elif a.card == 3 or y.card == 3:
             result.winner = yStrength - aStrength
         else:
@@ -176,6 +176,9 @@ class Game:
                 if self.curDraws[i].yAmbass:
                     self.yarg.score += 1
         self.curDraws = []
+
+    def readyToFight(self):
+        return self.applewood.card and self.yarg.card
     
     def calculate(self):
         if not self.applewood or not self.yarg:
@@ -211,7 +214,7 @@ class Game:
 
         self.checkWin()
 
-        return 'applewood' if result.aWin else ('yarg' if result.yWin else 'tie')
+        return result
 
     def checkWin(self):
         if self.applewood.score >= self.maxScore:
