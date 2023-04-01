@@ -2,7 +2,6 @@ from braverats import Game
 import random
 import string
 
-
 games = {}
 
 
