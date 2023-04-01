@@ -44,8 +44,8 @@ def play(gId):
 def index():
     if request.method == "POST":
         val = createNewGame()
-        return render_template("index.html", gameId=val)
-    return render_template("index.html")
+        return render_template("home.html", gameId=val)
+    return render_template("home.html")
 
 @socketio.on("connection")
 def assignPlayer(data):

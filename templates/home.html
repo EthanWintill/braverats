@@ -47,8 +47,11 @@
   <body>
     <div class="container">
       <button id="rules">Rules</button>
-      <button id="play">Play</button>
+      <button id="play" action="/" method="post">Play</button>
       <button id="playWithAFriend">Play With A Friend</button>
+      {% if gameId %}
+       <p>Your game is ready at: <a href="http://127.0.0.1:3000/play/{{gameId}}">http://127.0.0.1:3000/play/{{gameId}}</a> </p>
+      {% endif %}
     </div>
     <script src="home.js"></script>
   </body>
