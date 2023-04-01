@@ -20,10 +20,20 @@
         socket.emit('connection', { gid: gid, sid: sid});
         console.log("connected")
       });
-
+    
       socket.on("gstate", (data) => {
         // TODO: update client view based on recieved state instead of just printing it
         $("#gameState").text(data.state)
+        $("#team").text(data.team)
+        $("applewood_card").text(data.state.applewood_card)
+        $("#applewood_hand").text(data.state.applewood_hand)
+        $("#yarg_card").text(data.state.yarg_card)
+        $("#yarg_hand").text(data.state.yarg_hand)
+        $("#yarg_score").text(data.state.yarg_score)
+        $("#applewood_score").text(data.state.applewood_score)
+        $("#gameover").text(data.state.gameover)
+        $("#game_over").text(data.state.game_winner)
+        $("#round_winner").text(data.state.round_winner)
       });
 
       $('#send-button').click(function() {
@@ -64,12 +74,14 @@
                 playedCards = $('#player1played_cards').text()
                 playedCards += " " + pickedCard
                 $('#player1played_cards').text(playedCards)
-                socket.send($('#cardToPlay').val());
+                let gid = window.location.pathname.slice(6)
+                let sid = $('#sid').text()
+                socket.emit('playedCard', { gid: gid, sid: sid, card: pickedCard});
 		            $('#cardToPlay').val('');
 
                 currentHand = $('#player1_card').text()
                 $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
 
-            });*/
+            });
         
     });

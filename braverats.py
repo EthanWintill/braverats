@@ -157,14 +157,6 @@ class Game:
         self.yarg.card = c
         self.yarg.hand.remove(c)
 
-    def chooseCard(self, player, card):
-        if card not in player.hand: 
-            print("error card not in hand")
-            return False
-        player.card = card
-        player.hand.remove(card)
-        return True
-
     def handleDraws(self, winner): # >0 apple <0 yarg
         for i in range(len(self.curDraws)):
             if winner > 0:
