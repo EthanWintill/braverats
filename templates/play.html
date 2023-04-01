@@ -16,14 +16,37 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <h2 id="sid">{{sid}}</h2>
   <h1>Brave Rats</h1>
+  <div id="gameboard">
+<!--ENEMY ON TOP, FRIENDLY ON BOTTOM, PLAY AREA IN MIDDLE AS PER DESIGN-->
+    <div id="enemy_view">
+<!--FENEMY AREA, SHOW ENEMY PROFILE PIC, NAME, HAND HERE-->
+      <div id="enemy_hand">
+        <div class="e_card">1</div>
+      </div>
+    </div>
+    <div id="play_board">
+<!--PLAY AREA, SHOW HISTORY AND PLAYED CARDS HERE-->
+      <div class="round">1 vs 3(you win)</div>
+    </div>
+    <div id="friendly_view">
+<!--FRIENDLY AREA, SHOW YOUR PROFILE PIC, NAME, HAND HERE-->
+      <div id="friendly_hand">
+        <div class="f_card">1</div>
+      </div>
+      <input id="cardToPlay" type="text">
+      <button id="send-button">Play</button>
+    </div>
+  </div>
   <p id="player1_card">Player 1's cards: 1 2 3 4 5 6 7 8</p>
   <p>P1 played crds: <span id="player1played_cards"></span></p>
   <p>P2 played crds: <span id="player2played_cards"></span></p>
   <p id="player2_card">Player 2's cards: 1 2 3 4 5 6 7 8</p>
-  <input id="cardToPlay" type="text">
-  <button id="send-button">Play</button>
+  
   <p id="winners"></p>
 
+
+  <!--DEBUG DISPLAY, SHOW GAME STATE FOR DEVELOPER VIEW-->
+  <!--REMOVE THIS LATER-->
   <div>
     <h3>Game State:</h3>
     <p id="gameState">

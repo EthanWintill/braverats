@@ -1,4 +1,14 @@
 
+// basic game loop:
+
+// client recieves game state from socket.on("gstate"),
+// client updates view for user,
+// user chooses a card,
+// client sends choice to server with socket.emit("chooseCard")
+// server calculates game state,
+// server sends game state,
+// repeat...
+
     $(document).ready(function () {
       console.log(io.version)
       var socket = io.connect('http://127.0.0.1:3000');
@@ -12,6 +22,7 @@
       });
 
       socket.on("gstate", (data) => {
+        // TODO: update client view based on recieved state instead of just printing it
         $("#gameState").text(data.state)
       });
 
