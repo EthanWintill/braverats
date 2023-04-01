@@ -61,46 +61,48 @@ def assignPlayer(data):
     sendGameState(gid)
 
 
-def sendGameState(gid):
+def sendGameState(gid, round_winner=None):
     game = findGame(gid)
     sockets = socketIdsInGame(gid)
-    for socket in sockets:
-        socketio.emit("gstate", {"state":game.printGameState()}, room=socket)
-    
-
-@socketio.on('message')
-def handleMessage(cardNum):
-    game = games.games[gameID]
-
-    if(game.applewood_id==request.sid): #senders team should be taken from client data eventually, but this will do for not
-        sender = 'applewood'
-        global waitingOnApplewood
-        waitingOnApplewood = False
-        game.chooseCard(game.applewood,int(cardNum))
-    else:
-        sender = 'yarg'
-        global waitingOnYarg 
-        waitingOnYarg = False
-        game.chooseCard(game.yarg,int(cardNum))
-    
-    if(not waitingOnApplewood and not waitingOnYarg):
-        roundWinner = game.calculate()
-        waitingOnApplewood = True
-        waitingOnYarg = True
-        data = {
+    dataForClient = {
             'applewood_hand': game.applewood.hand,
             'yarg_hand':game.yarg.hand,
             'applewood_score':game.applewood.score,
             'yarg_score':game.yarg.score,
-            'applewood_card':appPickedcard,
-            'yard_card':yargPickedcard,
+            'applewood_card':game.applewood.card,
+            'yard_card':game.yarg.card,
             'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
             'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
-            'round_winner': roundWinner
+            'round_winner': round_winner
         }
-        print(json.dumps(data))
-        emit("played",{"cardValue":yargPickedcard, 'result':json.dumps(data)}, room = game.applewood_id)
-        emit("played",{"cardValue":appPickedcard, 'result':json.dumps(data)}, room = game.yarg_id)
+    for socket in sockets:
+        socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket)}, room=socket)
+    
+
+@socketio.on('playedCard')
+def handleMessage(data):
+    try:
+        game = findGame(data['gid'])
+    except:
+        print("game not found dumb TY")
+        return
+    sid = data['sid']
+    if(game.applewood.sessionid==sid): 
+        try:
+            game.chooseApplewood(int(data['card']))
+        except:
+            print("invalid card\n\n\n\n\n\n")
+    elif(game.yarg.sessionid==sid):
+        try:
+            game.chooseYarg(int(data['card']))
+        except:
+            print("invalid card\n\n\n\n\n\n")
+    else:
+        print("you're a spectatr AR")
+    
+    if(game.applewood.card and game.yarg.card):
+        roundWinner = game.calculate()
+        sendGameState(data['gid'], roundWinner)
 
     
 
