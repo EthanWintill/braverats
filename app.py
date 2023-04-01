@@ -22,6 +22,9 @@ Session(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+@app.route("/rules")
+def rules():
+    return render_template("rules.html")
 
 @app.route("/play/<string:gId>")
 def play(gId):

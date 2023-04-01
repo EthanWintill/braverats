@@ -4,7 +4,7 @@
     <title>Brave Rats</title>
     <style>
       body {
-        background-image: url(/Users/selahboyle/Desktop/BraveRat/brave_rats/templates/homeBackground.jpg);
+        background-image: url("{{ url_for('static', filename='assets/homeBackground.jpg') }}");
         background-size: contain;
         background-position: center;
         font-family: Arial, sans-serif;
@@ -47,12 +47,14 @@
   <body>
     <div class="container">
       <button id="rules">Rules</button>
-      <button id="play" action="/" method="post">Play</button>
-      <button id="playWithAFriend">Play With A Friend</button>
+      <button id="play">Play</button>
+      <form action="/" method="post">
+        <button id="playWithAFriend">Play With A Friend</button>
+      </form>
       {% if gameId %}
        <p>Your game is ready at: <a href="http://127.0.0.1:3000/play/{{gameId}}">http://127.0.0.1:3000/play/{{gameId}}</a> </p>
       {% endif %}
     </div>
-    <script src="home.js"></script>
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
   </body>
 </html>
