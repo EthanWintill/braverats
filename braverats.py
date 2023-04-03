@@ -68,16 +68,16 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
             result.winner = 0
         elif a.card == 7 and y.card != 7:
             if y.card == 1:
-                win = -1
+                result.winner = -1
                 result.yWin = True
             else:
-                win = 1
+                result.winner = 1
         elif y.card == 7 and a.card != 7:
             if a.card == 1:
-                win = 1
+                result.winner = 1
                 result.aWin = True
             else:
-                win = -1
+                result.winner = -1
         elif a.card == 3 or y.card == 3:
             result.winner = yStrength - aStrength
         else:
@@ -168,9 +168,12 @@ class Game:
                 if self.curDraws[i].yAmbass:
                     self.yarg.score += 1
         self.curDraws = []
+
+    def readyToFight(self):
+        return self.applewood.card is not None and self.yarg.card is not None
     
     def calculate(self):
-        if not self.applewood or not self.yarg:
+        if not self.readyToFight():
             print("cards not chosen before fight")
             return
         result = battle(self.applewood, self.yarg)
@@ -203,7 +206,7 @@ class Game:
 
         self.checkWin()
 
-        return 'applewood' if result.aWin else ('yarg' if result.yWin else 'tie')
+        return result
 
     def checkWin(self):
         if self.applewood.score >= self.maxScore:
@@ -214,7 +217,7 @@ class Game:
             self.winner = 0
 
     def gameOver(self):
-        if self.winner:
+        if self.winner is not None:
             return True
         else:
             return False
@@ -224,6 +227,7 @@ class Game:
         result += f"\n a_hand: {self.applewood.hand}, y_hand: {self.yarg.hand}"
         result += f"\n a_score: {self.applewood.score}, y_score: {self.yarg.score}"
         result += f"\n a_card: {self.applewood.card}, y_card: {self.yarg.card}"
+        result += f"\n curDraws: {self.curDraws}"
         result += f"\n gameover: {self.gameOver()}"
         return result
         

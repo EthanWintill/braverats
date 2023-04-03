@@ -1,4 +1,14 @@
 
+// basic game loop:
+
+// client recieves game state from socket.on("gstate"),
+// client updates view for user,
+// user chooses a card,
+// client sends choice to server with socket.emit("chooseCard")
+// server calculates game state,
+// server sends game state,
+// repeat...
+
     $(document).ready(function () {
       console.log(io.version)
       var socket = io.connect('http://127.0.0.1:3000');
@@ -12,7 +22,8 @@
       });
     
       socket.on("gstate", (data) => {
-        $("#gameState").text(data.state)
+        // TODO: update client view based on recieved state instead of just printing it
+        $("#gameState").text(data.debugstate)
         $("#team").text(data.team)
         $("applewood_card").text(data.state.applewood_card)
         $("#applewood_hand").text(data.state.applewood_hand)
@@ -25,6 +36,25 @@
         $("#round_winner").text(data.state.round_winner)
       });
 
+      $('#send-button').click(function() {
+        const pickedCard = $('#cardToPlay').val()
+        data = {
+          gid:window.location.pathname.slice(6),
+          sid:$('#sid').text(),
+          card:pickedCard,
+        }
+        
+        socket.emit('chooseCard', data)
+
+        
+
+    });
+
+      /*socket.on('result', function(data) {
+                $('#player1_card').text(data.player1_card);
+                $('#player2_card').text(data.player2_card);
+                $('#result').text(data.winner);
+            });
 
       socket.on('played', function(data) {
           pickedCard = data["cardValue"]
@@ -53,5 +83,5 @@
                 $('#player1_card').text(currentHand.replace(pickedCard + " ", ""))
 
             });
-        
+       */ 
     });
