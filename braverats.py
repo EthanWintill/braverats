@@ -1,5 +1,4 @@
 import pdb
-import json
 
 class Player:
     hand : list[int]
@@ -90,7 +89,6 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
 
          
 class Game:
-    history : list[str]
     applewood : Player
     yarg : Player
     curDraws : list[Result]
@@ -108,7 +106,6 @@ class Game:
         self.yarg_id = None
         self.applewood_id = None
         self.gId = gId
-        self.history = []
 
     def sidToTeam(self, sid):
         if self.applewood.sessionid == sid:
@@ -123,14 +120,6 @@ class Game:
             return self.applewood.socketid
         elif self.yarg.sessionid == sid:
             return self.yarg.socketid
-        else:
-            return None
-
-    def socketToTeam(self, socketid):
-        if self.applewood.socketid == socketid:
-            return 1
-        elif self.yarg.socketid == socketid:
-            return -1
         else:
             return None
 
@@ -206,8 +195,6 @@ class Game:
             self.handleDraws(-1)
         else:
             print("You should not be seeing this")
-        
-        self.history.append(json.dumps(result.__dict__))
         
         self.applewood.resetEffects()
         self.yarg.resetEffects()

@@ -24,10 +24,8 @@
       socket.on("gstate", (data) => {
         // TODO: update client view based on recieved state instead of just printing it
         $("#gameState").text(data.debugstate)
-        
-        console.log(data)
-        $("#team").text(data.state.team)
-        $("#applewood_card").text(data.state.applewood_card)
+        $("#team").text(data.team)
+        $("applewood_card").text(data.state.applewood_card)
         $("#applewood_hand").text(data.state.applewood_hand)
         $("#yarg_card").text(data.state.yarg_card)
         $("#yarg_hand").text(data.state.yarg_hand)
@@ -36,7 +34,6 @@
         $("#gameover").text(data.state.gameover)
         $("#game_over").text(data.state.game_winner)
         $("#round_winner").text(data.state.round_winner)
-        $("#history").text(data.state.history)
       });
 
       $('#send-button').click(function() {

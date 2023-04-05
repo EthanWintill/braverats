@@ -1,16 +1,3 @@
 h2 {
     color:red;
 }
-
-#container {
-    justify-content: space-between;
-    flex-direction:row;
-    display:flex
-}
-
-#debug {
-    width:30%;
-    border-style:dashed;
-    padding:10px;
-    border-width:medium;
-}
