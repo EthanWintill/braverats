@@ -9,11 +9,11 @@
 	height: 25vh;
 	background-color: #f20000;
 	border: 1px solid #000;
-}
+  }
 
 .player {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	height: 25vh;
 	background-color: #3400f2;
@@ -27,16 +27,16 @@
 
 .opponent-cards {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-  }
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	padding: 10px;
+}
   
-  .card {
-	width: 140px;
-	height: 200px;
+.card {
+	width: 14vw;
+	height: 20vh;
 	background-color: #f7f7f7;
-	margin: 0 10px;
+	margin: 0 1vw;
 	border-radius: 5px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 	position: relative;
@@ -46,7 +46,8 @@
 	width: 100%;
 	height: 100%;
 	background-image: url("cardImages/backimage.png");
-	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
 	background-position: center center;
 	border-radius: 5px;
 	position: absolute;
@@ -57,7 +58,8 @@
   .face-up {
 	width: 100%;
 	height: 100%;
-	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
 	background-position: center center;
 	border-radius: 5px;
 	position: absolute;
@@ -65,34 +67,37 @@
 	left: 0;
   }
   
+
+  
   .card-0 .face-up {
 	background-image: url("cardImages/Y-M.png");
   }
+
+  .card-1 .face-up {
+	background-image: url("cardImages/Y-PS.png");
+  }
   
   .card-2 .face-up {
-	background-image: url("cardImages/card2.png");
+	background-image: url("cardImages/Y-S.png");
   }
   
   .card-3 .face-up {
-	background-image: url("cardImages/card3.png");
+	background-image: url("cardImages/Y-AS.png");
   }
   
   .card-4 .face-up {
-	background-image: url("cardImages/card4.png");
+	background-image: url("cardImages/Y-A.png");
   }
   
   .card-5 .face-up {
-	background-image: url("cardImages/card5.png");
+	background-image: url("cardImages/Y-W.png");
   }
   
   .card-6 .face-up {
-	background-image: url("cardImages/card6.png");
+	background-image: url("cardImages/Y-G.png");
   }
   
   .card-7 .face-up {
-	background-image: url("cardImages/card7.png");
+	background-image: url("cardImages/Y-P.png");
   }
   
-  .card-8 .face-up {
-	background-image: url("cardImages/card8.png");
-  }
