@@ -76,9 +76,14 @@ def sendGameState(gid, round_winner=None):
         'yard_card':game.yarg.card,
         'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
         'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
-        'round_winner': round_winner
+        'round_winner': round_winner,
+        'team' : None,
+        'history' : game.history
         }
+    
     for socket in sockets:
+        dataForClient['team'] = game.socketToTeam(socket)
+      
         socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket),"debugstate":game.printGameState()}, room=socket)
     
 
