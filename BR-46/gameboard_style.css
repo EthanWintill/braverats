@@ -1,7 +1,11 @@
 .container-fluid {
 	height: 100vh;
 }
-
+body {
+	margin: 0;
+	padding: 0;
+  }
+  
 .opponent {
 	display: flex;
 	justify-content: center;
@@ -22,7 +26,7 @@
 
 .middle {
 	height: 50vh;
-	background-color: #000000;
+	background-color: #343e50;
 }
 
 .opponent-cards {
@@ -33,12 +37,17 @@
 }
   
 .card {
-	width: 14vw;
+	width: 7vw;
 	height: 20vh;
-	background-color: #f7f7f7;
-	margin: 0 1vw;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
 	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: none;
+	box-shadow: none;
 	position: relative;
   }
   
@@ -100,4 +109,26 @@
   .card-7 .face-up {
 	background-image: url("cardImages/Y-P.png");
   }
+  
+  .middle-card {
+	position: absolute;
+	top: 50%;
+	left: 30%;
+	transform: translate(-50%, -50%);
+	width: 45%;
+	height: 45%;
+	border-radius: 50%;
+}
+
+.right-card {
+	position: absolute;
+	top: 50%;
+	left: 70%;
+	transform: translate(-50%, -50%);
+	width: 45%;
+	height: 45%;
+	border-radius: 20%;
+}
+
+
   
