@@ -52,7 +52,6 @@
 
     socket.on('gameover', function () {
       window.location.href = 'gameover'
-      console.log("\n\nit worked\n\n")
     });
 
       /*socket.on('result', function(data) {

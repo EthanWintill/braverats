@@ -138,7 +138,6 @@ def chooseCard(data):
 
     if(game.gameOver()):
         emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
-        print('brrr\n\n\n\nn\n')
 
 
     
