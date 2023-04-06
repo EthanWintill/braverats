@@ -48,9 +48,10 @@
         }
         
         socket.emit('chooseCard', data)
+    });
 
-        
-
+    socket.on('gameover', function () {
+      window.location.href = 'gameover'
     });
 
       /*socket.on('result', function(data) {

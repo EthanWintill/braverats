@@ -26,6 +26,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def rules():
     return render_template("rules.html")
 
+@app.route("/play/gameover")
+def gameover():
+    return render_template("gameover_popup.html")
+
 @app.route("/play/<string:gId>")
 def play(gId):
     try:
@@ -40,7 +44,11 @@ def play(gId):
     
     return render_template("play.html", sid=session.sid)
 
-
+@app.route('/rematch', methods=['POST'])
+def rematch():
+    val = createNewGame()
+    print("helll")
+    return redirect(f"/play/{val}")
 
 
 @app.route("/", methods=["GET","POST"])
@@ -125,7 +133,13 @@ def chooseCard(data):
     if game.readyToFight():
         res = game.calculate()
         print(res.winner)
+
     sendGameState(gid)
+
+    if(game.gameOver()):
+        emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
+
+
     
 
             
