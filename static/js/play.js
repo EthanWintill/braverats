@@ -14,6 +14,8 @@
 const OPP_CLASS = ".row.opponent"
 const PLYR_CLASS = ".row.player"
 
+const MIDDLE_CLASS = '.row.middle'
+
 const NEW_OPP_CLASS = "row opponent"
 const NEW_PLYR_CLASS = "row player"
 
@@ -37,7 +39,7 @@ function generateCard(cardkey) { // example: A-3 (applewood 3)
   el.className = "card card-" + cardkey
 
   el2 = document.createElement("div")
-  el2.className = "face-up"
+  el2.className = "face-up hand"
 
   el.appendChild(el2)
   return el
@@ -58,6 +60,12 @@ function renderUnknownHand(userCls, handSize){
     userHand.append(faceDownCard())
     counter += 1
   }
+}
+
+function clearHandsAndHistory() {
+  $(PLYR_CLASS).empty()
+  $(OPP_CLASS).empty()
+  $(MIDDLE_CLASS).empty()
 }
 
 
@@ -94,6 +102,8 @@ function renderUnknownHand(userCls, handSize){
         //render player card, or opp card, depending who played first
         // gucci
 
+        clearHandsAndHistory()
+
         var playerTeamName = data.state.team == -1 ? "yarg" : "applewood"
         var oppTeamName = playerTeamName == "yarg" ? "applewood" : "yarg"
         $(PLYR_CLASS).attr("class",NEW_PLYR_CLASS + " " + playerTeamName)
@@ -107,7 +117,13 @@ function renderUnknownHand(userCls, handSize){
           renderKnownHand(PLYR_CLASS, data.state.yarg_hand, "Y")
           renderUnknownHand(OPP_CLASS, data.state.applewood_hand.length)
         }
-    
+        
+        const prevRounds = data.state.history
+
+        for (i in prevRounds){
+          thisRound = prevRounds[i]
+          console.log(thisRound)
+        }
         
 
 
@@ -135,6 +151,21 @@ function renderUnknownHand(userCls, handSize){
         
         socket.emit('chooseCard', data)
     });*/
+
+   
+      $(PLYR_CLASS).on('click', '.face-up.hand', function() {
+        console.log("picker")
+      const pickedCard = $(this).parent().attr('class').split(' ')[1].split('-')[2]
+      data = {
+        gid:window.location.pathname.slice(6),
+        sid:$('#sid').text(),
+        card:pickedCard,
+      }
+
+      socket.emit('chooseCard', data)
+      })
+      
+    
 
     socket.on('gameover', function () {
       window.location.href = 'gameover'
