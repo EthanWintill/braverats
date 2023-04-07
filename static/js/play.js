@@ -114,6 +114,32 @@ function generateRound(round, team){
 
 }
 
+function generateFriendlyCardPreview(card, team) {
+  var roundEl = document.createElement("div")
+  roundEl.className = NEW_ROUND_CLASS
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+  topEl.className = "row card"
+  bottomEl.className = "row card"
+  var face = document.createElement("div")
+  face.className = "face-up"
+
+  if (team == -1) {
+    
+    bottomEl.className = "row card card-Y-" + card
+    bottomEl.appendChild(face)
+
+  } else{
+    bottomEl.className = "row card card-A-" + card
+    bottomEl.appendChild(face)
+
+
+  }
+  roundEl.appendChild(topEl)
+  roundEl.appendChild(bottomEl)
+  return roundEl
+}
+
 
 
 
@@ -167,11 +193,24 @@ function generateRound(round, team){
         const middleEl = $(MIDDLE_CLASS)
 
         for (i in prevRounds){
-          thisRound = prevRounds[i]
+          var thisRound = prevRounds[i]
           console.log(thisRound)
-          roundEl = generateRound(JSON.parse(thisRound), data.state.team)
+          var roundEl = generateRound(JSON.parse(thisRound), data.state.team)
           middleEl.append(roundEl)
         }
+        
+        const aCard = data.state.applewood_card
+        const yCard = data.state.yarg_card
+        
+        if (aCard != null && data.state.team == 1){
+          var previewEl = generateFriendlyCardPreview(aCard, data.state.team)
+          middleEl.append(previewEl)
+        } else if (yCard != null && data.state.team == -1){
+
+          var previewEl = generateFriendlyCardPreview(yCard, data.state.team)
+          middleEl.append(previewEl)
+        }
+
         
 
 
