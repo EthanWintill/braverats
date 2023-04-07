@@ -20,7 +20,7 @@ body {
 
 
 .container-fluid {
-	height: 100%;
+	height: 99%;
   }
   
   .opponent {
@@ -140,38 +140,71 @@ body {
   .player .card:hover {
 	cursor: pointer;
   }
+
+  .card-A-0 .face-up {
+	background-image: url("../assets/cardImages/A-0.png");
+
+  }
   
-  .card-0 .face-up {
+  .card-A-1 .face-up {
+	background-image: url("../assets/cardImages/A-1.png");
+  }
+  
+  .card-A-2 .face-up {
+	background-image: url("../assets/cardImages/A-2.png");
+  }
+  
+  .card-A-3 .face-up {
+	background-image: url("../assets/cardImages/A-3.png");
+  }
+  
+  .card-A-4 .face-up {
+	background-image: url("../assets/cardImages/A-4.png");
+  }
+  
+  .card-A-5 .face-up {
+	background-image: url("../assets/cardImages/A-5.png");
+  }
+  
+  .card-A-6 .face-up {
+	background-image: url("../assets/cardImages/A-6.png");
+  }
+  
+  .card-A-7 .face-up {
+	background-image: url("../assets/cardImages/A-7.png");
+  }
+  
+  .card-Y-0 .face-up {
 	background-image: url("../assets/cardImages/Y-0.png");
 
   }
   
-  .card-1 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-1 .face-up {
+	background-image: url("../assets/cardImages/Y-1.png");
   }
   
-  .card-2 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-2 .face-up {
+	background-image: url("../assets/cardImages/Y-2.png");
   }
   
-  .card-3 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-3 .face-up {
+	background-image: url("../assets/cardImages/Y-3.png");
   }
   
-  .card-4 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-4 .face-up {
+	background-image: url("../assets/cardImages/Y-4.png");
   }
   
-  .card-5 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-5 .face-up {
+	background-image: url("../assets/cardImages/Y-5.png");
   }
   
-  .card-6 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-6 .face-up {
+	background-image: url("../assets/cardImages/Y-6.png");
   }
   
-  .card-7 .face-up {
-	background-image: url("../assets/cardImages/Y-0.png");
+  .card-Y-7 .face-up {
+	background-image: url("../assets/cardImages/Y-7.png");
   }
   
   .middle-card {

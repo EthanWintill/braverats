@@ -11,19 +11,62 @@
 
 //CONSTANTS
 
-const OPP_CLASS = "row opponent"
-const PLYR_CLASS = "row player"
+const OPP_CLASS = ".row.opponent"
+const PLYR_CLASS = ".row.player"
 
-const ROUND_CLASS = "col-sm round"
+const NEW_ROUND_CLASS = "col-sm round"
 
+function faceDownCard() {
+  el = document.createElement("div")
+  el.className = "card"
 
+  el2 = document.createElement("div")
+  el2.className = "face-down"
 
-function generateCard(cardkey) { // example: A-3 (applewood 3)
+  el.appendChild(el2)
+
+  return el
 
 }
 
+function generateCard(cardkey) { // example: A-3 (applewood 3)
+  el = document.createElement("div")
+  el.className = "card card-" + cardkey
 
-/*
+  el2 = document.createElement("div")
+  el2.className = "face-up"
+
+  el.appendChild(el2)
+  return el
+}
+
+function renderKnownHand(userCls, handArr, team) {
+  userHand = $(userCls)
+  for (i in handArr){
+    key = team + "-" + handArr[i]
+    userHand.append(generateCard(key))
+  }
+}
+
+function renderUnknownHand(userCls, handSize){
+  userHand = $(userCls)
+  counter = 0
+  while (counter < handSize){
+    userHand.append(faceDownCard())
+    counter += 1
+  }
+}
+
+$(document).ready(function () {
+  renderUnknownHand(OPP_CLASS, 8)
+  renderKnownHand(PLYR_CLASS, [0,1,3,4,5,7], "A")
+})
+
+
+
+
+
+
     $(document).ready(function () {
       console.log(io.version)
       var socket = io.connect('http://127.0.0.1:3000');
@@ -38,10 +81,16 @@ function generateCard(cardkey) { // example: A-3 (applewood 3)
     
       socket.on("gstate", (data) => {
         // TODO: update client view based on recieved state instead of just printing it
-        $("#gameState").text(data.debugstate)
+        //$("#gameState").text(data.debugstate)
         
         console.log(data)
-        $("#team").text(data.state.team)
+        // from this data i need to generate the board...
+        // it is 3 AM god please help me
+
+
+
+
+        /*$("#team").text(data.state.team)
         $("#applewood_card").text(data.state.applewood_card)
         $("#applewood_hand").text(data.state.applewood_hand)
         $("#yarg_card").text(data.state.yarg_card)
@@ -51,9 +100,10 @@ function generateCard(cardkey) { // example: A-3 (applewood 3)
         $("#gameover").text(data.state.gameover)
         $("#game_over").text(data.state.game_winner)
         $("#round_winner").text(data.state.round_winner)
-        $("#history").text(data.state.history)
+        $("#history").text(data.state.history)*/
       });
 
+      /*
       $('#send-button').click(function() {
         const pickedCard = $('#cardToPlay').val()
         data = {
@@ -63,13 +113,13 @@ function generateCard(cardkey) { // example: A-3 (applewood 3)
         }
         
         socket.emit('chooseCard', data)
-    });
+    });*/
 
     socket.on('gameover', function () {
       window.location.href = 'gameover'
     });
 
     });
-*/
+
 
     
