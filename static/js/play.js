@@ -140,6 +140,22 @@ function generateFriendlyCardPreview(card, team) {
   return roundEl
 }
 
+function generateEnemyCardPreview() {
+  var roundEl = document.createElement("div")
+  roundEl.className = NEW_ROUND_CLASS
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+  topEl.className = "row card"
+  bottomEl.className = "row card"
+  var face = document.createElement("div")
+  face.className = "face-down"
+
+  topEl.appendChild(face)
+  roundEl.appendChild(topEl)
+  roundEl.appendChild(bottomEl)
+  return roundEl
+}
+
 
 
 
@@ -201,14 +217,24 @@ function generateFriendlyCardPreview(card, team) {
         
         const aCard = data.state.applewood_card
         const yCard = data.state.yarg_card
-        
-        if (aCard != null && data.state.team == 1){
+        console.log(data)
+        if (aCard != null){
+          if (data.state.team == 1){
           var previewEl = generateFriendlyCardPreview(aCard, data.state.team)
           middleEl.append(previewEl)
-        } else if (yCard != null && data.state.team == -1){
-
+          } else {
+            var previewEl = generateEnemyCardPreview()
+          middleEl.append(previewEl)
+          }
+        } else if (yCard != null){
+          
+          if (data.state.team == -1){
           var previewEl = generateFriendlyCardPreview(yCard, data.state.team)
           middleEl.append(previewEl)
+          } else{
+            var previewEl = generateEnemyCardPreview()
+          middleEl.append(previewEl)
+          }
         }
 
         
