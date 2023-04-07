@@ -1,4 +1,5 @@
 import pdb
+import json
 
 class Player:
     hand : list[int]
@@ -7,12 +8,20 @@ class Player:
     spyLast : bool
     card : int
 
+    sessionid : str
+    socketid : str
+   
+
     def __init__(self):
         self.hand = [0,1,2,3,4,5,6,7]
         self.score = 0
         self.generalLast = False
         self.spyLast = False
         self.card = None
+
+        self.sessionid = None
+        self.socketid = None
+        
 
     def resetEffects(self):
         self.generalLast = False
@@ -21,13 +30,13 @@ class Player:
 
 class Result:
     winner : int # 0:TIE, >0:APPLEWOOD, <0:YARG
-    aAmbass : bool
+    aAmbass : bool # AMBASSADOR ACTIVE
     yAmbass : bool
-    aGeneral : bool
+    aGeneral : bool #GENERAL ACTIVE
     yGeneral : bool
-    aSpy : bool
+    aSpy : bool #SPY ACTIVE
     ySpy : bool
-    aWin : bool
+    aWin : bool #GAME WON VIA PRINCESS
     yWin : bool
 
     def __init__(self):
@@ -60,16 +69,16 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
             result.winner = 0
         elif a.card == 7 and y.card != 7:
             if y.card == 1:
-                win = -1
+                result.winner = -1
                 result.yWin = True
             else:
-                win = 1
+                result.winner = 1
         elif y.card == 7 and a.card != 7:
             if a.card == 1:
-                win = 1
+                result.winner = 1
                 result.aWin = True
             else:
-                win = -1
+                result.winner = -1
         elif a.card == 3 or y.card == 3:
             result.winner = yStrength - aStrength
         else:
@@ -78,28 +87,86 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
         result.winner = aStrength - yStrength
     
     return result
-            
+
+         
 class Game:
+    history : list[str]
     applewood : Player
     yarg : Player
     curDraws : list[Result]
     maxScore = 4
     winner : int
 
-    def __init__(self):
+
+    gId : str
+
+    def __init__(self, gId):
         self.applewood = Player()
         self.yarg = Player()
         self.curDraws = []
         self.winner = None
+        self.yarg_id = None
+        self.applewood_id = None
+        self.gId = gId
+        self.history = []
 
-    def chooseCards(self, a, y):
-        if a not in self.applewood.hand or y not in self.yarg.hand:
-            print("error card not in hand")
-            return
-        self.applewood.card = a
-        self.yarg.card = y
-        self.applewood.hand.remove(a)
-        self.yarg.hand.remove(y)
+    def sidToTeam(self, sid):
+        if self.applewood.sessionid == sid:
+            return 1
+        elif self.yarg.sessionid == sid:
+            return -1
+        else:
+            return None
+
+    def sidToSocket(self, sid):
+        if self.applewood.sessionid == sid:
+            return self.applewood.socketid
+        elif self.yarg.sessionid == sid:
+            return self.yarg.socketid
+        else:
+            return None
+
+    def socketToTeam(self, socketid):
+        if self.applewood.socketid == socketid:
+            return 1
+        elif self.yarg.socketid == socketid:
+            return -1
+        else:
+            return None
+
+    def assignPlayer(self, sid):
+        if self.yarg.sessionid and self.applewood.sessionid:
+            print("Both players assigned")
+            return False
+        if not self.applewood.sessionid:
+            self.applewood.sessionid = sid
+        else:
+            self.yarg.sessionid = sid
+        return True
+
+    def assignSocket(self, sid, socketid):
+        team = self.sidToTeam(sid)
+        if not team:
+            return False
+        if team > 0:
+            self.applewood.socketid = socketid
+        else:
+            self.yarg.socketid = socketid
+
+    
+
+    def playersIn(self):
+        return self.yarg.sessionid and self.applewood.sessionid
+
+    def chooseApplewood(self, c):
+        assert c in self.applewood.hand, "Error card not in hand in chooseApplewood()"
+        self.applewood.card = c
+        self.applewood.hand.remove(c)
+
+    def chooseYarg(self, c):
+        assert c in self.yarg.hand, "Error card not in hand in chooseYarg()"
+        self.yarg.card = c
+        self.yarg.hand.remove(c)
 
     def handleDraws(self, winner): # >0 apple <0 yarg
         for i in range(len(self.curDraws)):
@@ -112,9 +179,12 @@ class Game:
                 if self.curDraws[i].yAmbass:
                     self.yarg.score += 1
         self.curDraws = []
+
+    def readyToFight(self):
+        return self.applewood.card is not None and self.yarg.card is not None
     
     def calculate(self):
-        if not self.applewood or not self.yarg:
+        if not self.readyToFight():
             print("cards not chosen before fight")
             return
         result = battle(self.applewood, self.yarg)
@@ -137,6 +207,8 @@ class Game:
         else:
             print("You should not be seeing this")
         
+        self.history.append(json.dumps(result.__dict__))
+        
         self.applewood.resetEffects()
         self.yarg.resetEffects()
 
@@ -147,6 +219,8 @@ class Game:
 
         self.checkWin()
 
+        return result
+
     def checkWin(self):
         if self.applewood.score >= self.maxScore:
             self.winner = 1
@@ -156,14 +230,20 @@ class Game:
             self.winner = 0
 
     def gameOver(self):
-        if self.winner:
+        if self.winner is not None:
             return True
         else:
             return False
     def printGameState(self):
-        print("apple: ", self.applewood.hand, self.applewood.score)
-        print("yarg: ", self.yarg.hand, self.yarg.score)
-        print(self.winner)
+        result = f"Game id: {self.gId}, Applewood sid: {self.applewood.sessionid}, Yarg sid: {self.yarg.sessionid}"
+        result += f"\n Applewood socketid: {self.applewood.socketid}, Yarg socketid: {self.yarg.socketid}"
+        result += f"\n a_hand: {self.applewood.hand}, y_hand: {self.yarg.hand}"
+        result += f"\n a_score: {self.applewood.score}, y_score: {self.yarg.score}"
+        result += f"\n a_card: {self.applewood.card}, y_card: {self.yarg.card}"
+        result += f"\n curDraws: {self.curDraws}"
+        result += f"\n gameover: {self.gameOver()}"
+        return result
+        
         
 
 def testGame():
@@ -176,5 +256,3 @@ def testGame():
         game.calculate()
         game.printGameState()
 
-testGame()
-        
