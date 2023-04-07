@@ -1,4 +1,4 @@
-// get all player cards
+/*// get all player cards
 const playerCards = document.querySelectorAll('.player .card');
 
 // get all opponent cards
@@ -46,7 +46,7 @@ playerCards.forEach(card => {
 
 
 
-
+*/
 
 
 
