@@ -39,6 +39,9 @@ class Result:
     aWin : bool #GAME WON VIA PRINCESS
     yWin : bool
 
+    aCard : int
+    yCard: int
+
     def __init__(self):
         self.winner = 0 # 0:TIE, >0:APPLEWOOD, <0:YARG
         self.aAmbass = False
@@ -49,6 +52,8 @@ class Result:
         self.ySpy = False
         self.aWin = False
         self.yWin = False
+        self.aCard = None
+        self.yCard = None
 
 def battle(a, y): #a:Player(applewood) y:Player(yarg)
     aStrength = a.card + (a.generalLast * 2)
@@ -62,6 +67,8 @@ def battle(a, y): #a:Player(applewood) y:Player(yarg)
     result.yGeneral = y.card == 6 and not wizardInPlay
     result.aSpy = a.card == 2 and not wizardInPlay
     result.ySpy = y.card == 2 and not wizardInPlay
+    result.aCard = a.card
+    result.yCard = y.card
     
 
     if not wizardInPlay:

@@ -14,72 +14,43 @@
     integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <h2 id="sid">{{sid}}</h2>
-  <h1>Brave Rats</h1>
-  <div id="container">
-  <div id="gameboard">
-<!--ENEMY ON TOP, FRIENDLY ON BOTTOM, PLAY AREA IN MIDDLE AS PER DESIGN-->
-    <div id="enemy_view">
-<!--FENEMY AREA, SHOW ENEMY PROFILE PIC, NAME, HAND HERE-->
-      <div id="enemy_hand">
-        <div class="e_card">1</div>
-      </div>
-    </div>
-    <div id="play_board">
-<!--PLAY AREA, SHOW HISTORY AND PLAYED CARDS HERE-->
-      <div class="round">1 vs 3(you win)</div>
-    </div>
-    <div id="friendly_view">
-<!--FRIENDLY AREA, SHOW YOUR PROFILE PIC, NAME, HAND HERE-->
-      <div id="friendly_hand">
-        <div class="f_card">1</div>
-      </div>
-      <input id="cardToPlay" type="text">
-      <button id="send-button">Play</button>
-    </div>
-  </div>
-  <div id="debug">
-    <p>team</p>
-  <p id="team"></p>
-  <p>app hand</p>
-  <p id="applewood_hand"></p>
-  <p>app played</p>
-  <p id="applewood_played"></p>
-  <p>yarg hand</p>
-  <p id="yarg_hand"> </p>
-  <p>yarg played</p>
-  <p id="yarg_played"></p>
-  <p>app score</p>
-  <p id="applewood_score"> </p>
-  <p>yarg score</p>
-  <p id="yarg_score"> </p>
-  <p>app card</p>
-  <p id="applewood_card"></p>
-  <p>yarg card</p>
-  <p id="yard_card"> </p>
-  <p>gameover:</p>
-  <p id="gameover"></p>
-  <p>game winner:</p>
-  <p id="game_winner"></p>
-  <p>round winner</p>
-  <p id="round_winner"></p>
-  <p>HISTORY:</p>
-  <p id="history"></p>
   
-  <p id="winners"></p>
-  </div>
-</div>
   
-
-
-  <!--DEBUG DISPLAY, SHOW GAME STATE FOR DEVELOPER VIEW-->
-  <!--REMOVE THIS LATER-->
-  <div>
-    <h3>Game State:</h3>
-    <p id="gameState">
+  <div class="container-fluid">
+    <div class="row opponent">
       
-    </p>
+        
+          
+
+
+
+        
+      
+      
+    </div>
+    <div class="row middle">
+      
+        
+        
+
+
+
+      
+    </div>
+    <div class="row player">
+      
+        
+
+        
+      </div>
+    </div>
   </div>
+
+
+  <p id="sid" style="display:none">{{sid}}</p>
+
+
+  
   <script src="{{ url_for('static', filename='js/play.js') }}"></script>
 </body>
 
