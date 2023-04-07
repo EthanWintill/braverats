@@ -14,6 +14,9 @@
 const OPP_CLASS = ".row.opponent"
 const PLYR_CLASS = ".row.player"
 
+const NEW_OPP_CLASS = "row opponent"
+const NEW_PLYR_CLASS = "row player"
+
 const NEW_ROUND_CLASS = "col-sm round"
 
 function faceDownCard() {
@@ -57,10 +60,7 @@ function renderUnknownHand(userCls, handSize){
   }
 }
 
-$(document).ready(function () {
-  renderUnknownHand(OPP_CLASS, 8)
-  renderKnownHand(PLYR_CLASS, [0,1,3,4,5,7], "A")
-})
+
 
 
 
@@ -87,7 +87,28 @@ $(document).ready(function () {
         // from this data i need to generate the board...
         // it is 3 AM god please help me
 
+        //first render the team:
+        //change classes for team colors, if spectator put apple on bottom
+        //render hands, player face up
+        //render history
+        //render player card, or opp card, depending who played first
+        // gucci
 
+        var playerTeamName = data.state.team == -1 ? "yarg" : "applewood"
+        var oppTeamName = playerTeamName == "yarg" ? "applewood" : "yarg"
+        $(PLYR_CLASS).attr("class",NEW_PLYR_CLASS + " " + playerTeamName)
+        $(OPP_CLASS).attr("class",NEW_OPP_CLASS + " " + oppTeamName)
+        //done setting team colors
+
+        if (playerTeamName == "applewood"){
+          renderKnownHand(PLYR_CLASS, data.state.applewood_hand, "A")
+          renderUnknownHand(OPP_CLASS, data.state.yarg_hand.length)
+        } else {
+          renderKnownHand(PLYR_CLASS, data.state.yarg_hand, "Y")
+          renderUnknownHand(OPP_CLASS, data.state.applewood_hand.length)
+        }
+    
+        
 
 
         /*$("#team").text(data.state.team)
