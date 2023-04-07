@@ -9,6 +9,13 @@
 // server sends game state,
 // repeat...
 
+//TODO
+// update tied rounds when a future game wins
+// add spy functionality
+// show some display when special cards like general or ambass are played
+// show score and player name / picture
+
+
 //CONSTANTS
 
 const OPP_CLASS = ".row.opponent"
