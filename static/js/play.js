@@ -68,6 +68,51 @@ function clearHandsAndHistory() {
   $(MIDDLE_CLASS).empty()
 }
 
+function generateRound(round, team){
+  console.log(round)
+  const winner = round.winner
+  const aCard = round.aCard
+  const yCard = round.yCard
+  var roundClass = NEW_ROUND_CLASS
+  if (winner > 0){
+    roundClass += " a-win"
+  } else if (winner < 0){
+    roundClass += " y-win"
+  } else{
+    roundClass += " hold-win"
+  }
+  var roundEl = document.createElement("div")
+  roundEl.className = roundClass
+
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+
+  var face = document.createElement("div")
+    face.className = "face-up"
+    var face2 = document.createElement("div")
+    face2.className = "face-up"
+
+  if (team == -1) {
+    
+    bottomEl.className = "row card card-Y-" + yCard
+    bottomEl.appendChild(face)
+
+    topEl.className = "row card card-A-" + aCard
+    topEl.appendChild(face2)
+  } else{
+    bottomEl.className = "row card card-A-" + aCard
+    bottomEl.appendChild(face)
+
+    topEl.className = "row card card-Y-" + yCard
+    topEl.appendChild(face2)
+  }
+
+  roundEl.appendChild(topEl)
+  roundEl.appendChild(bottomEl)
+
+  return roundEl
+
+}
 
 
 
@@ -119,10 +164,13 @@ function clearHandsAndHistory() {
         }
         
         const prevRounds = data.state.history
+        const middleEl = $(MIDDLE_CLASS)
 
         for (i in prevRounds){
           thisRound = prevRounds[i]
           console.log(thisRound)
+          roundEl = generateRound(JSON.parse(thisRound), data.state.team)
+          middleEl.append(roundEl)
         }
         
 
