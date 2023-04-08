@@ -16,19 +16,38 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <div class="container-fluid">
 
-        <div class="Settings row">
+        <div class="container">
             <div class="settings-icon">
-                <i class="fas fa-cog"></i>
+              <i class="fas fa-cog"></i>
             </div>
-            <div class="settings-screen hidden">
-                <h1>Game Settings</h1>
+            <div class="settings-screen">
+              <div class="settings-content">
+                <h1>Settings</h1>
                 <ul>
-                    <li><a href="#" id="game-rules">Game Rules</a></li>
-                    <li><a href="#" id="quit-game">Quit Game</a></li>
+                  <li><a href="#">Game Rules</a></li>
+                  <li><a href="#">Quit Game</a></li>
+                  <button class="back-btn">Close Settings Menu</button>
                 </ul>
-                <button class="back-btn">Back</button>
+                
+              </div>
             </div>
-        </div>
+          </div>
+          
+          <script>
+            const settingsIcon = document.querySelector('.settings-icon');
+            const settingsScreen = document.querySelector('.settings-screen');
+            const backBtn = document.querySelector('.back-btn');
+            
+            settingsIcon.addEventListener('click', () => {
+              settingsScreen.classList.add('active');
+            });
+            
+            backBtn.addEventListener('click', () => {
+              settingsScreen.classList.remove('active');
+            });
+          </script>
+          
+        
         <div class="row opponent">
         </div>
         <div class="row middle">
@@ -40,12 +59,20 @@
     <p id="sid" style="display:none">{{sid}}</p>
     <script src="{{ url_for('static', filename='js/play.js') }}"></script>
     <script>
-        // Add click event listener to the gear icon
-        const gearIcon = document.querySelector(".settings-icon");
-        gearIcon.addEventListener("click", function () {
-            const settingsScreen = document.querySelector(".settings-screen");
-            settingsScreen.classList.toggle("hidden");
-        });
+    // Add click event listener to the gear icon
+    const gearIcon = document.querySelector(".settings-icon");
+    gearIcon.addEventListener("click", function () {
+        const settingsScreen = document.querySelector(".settings-screen");
+        settingsScreen.style.display = "block";
+    });
+
+    // Add click event listener to the Close button
+    const closeButton = document.querySelector(".close-btn");
+    closeButton.addEventListener("click", function () {
+        const settingsScreen = document.querySelector(".settings-screen");
+        settingsScreen.style.display = "none";
+    });
+
 
         // Add click event listener to the Game Rules link
         const gameRulesLink = document.querySelector("#game-rules");
@@ -60,14 +87,6 @@
             // Code to quit game goes here
             alert("Quit game");
         });
-
-        // Add click event listener to the Back button
-        const backButton = document.querySelector(".back-btn");
-        backButton.addEventListener("click", function () {
-            const settingsScreen = document.querySelector(".settings-screen");
-            settingsScreen.classList.toggle("hidden");
-        });
     </script>
 </body>
 </html>
-
