@@ -26,6 +26,10 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def rules():
     return render_template("rules.html")
 
+@app.route("/play/gameover")
+def gameover():
+    return render_template("gameover_popup.html")
+
 @app.route("/play/<string:gId>")
 def play(gId):
     try:
@@ -40,7 +44,11 @@ def play(gId):
     
     return render_template("play.html", sid=session.sid)
 
-
+@app.route('/rematch', methods=['POST'])
+def rematch():
+    val = createNewGame()
+    print("helll")
+    return redirect(f"/play/{val}")
 
 
 @app.route("/", methods=["GET","POST"])
@@ -73,7 +81,7 @@ def sendGameState(gid, round_winner=None):
         'applewood_score':game.applewood.score,
         'yarg_score':game.yarg.score,
         'applewood_card':game.applewood.card,
-        'yard_card':game.yarg.card,
+        'yarg_card':game.yarg.card,
         'gameover':game.gameOver(), #winner is set to applewood, or yarg if they win, none if game isn't over, and tie if they tie
         'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
         'round_winner': round_winner,
@@ -84,7 +92,7 @@ def sendGameState(gid, round_winner=None):
     for socket in sockets:
         dataForClient['team'] = game.socketToTeam(socket)
       
-        socketio.emit("gstate", {"state":dataForClient,"team":game.sidToTeam(socket),"debugstate":game.printGameState()}, room=socket)
+        socketio.emit("gstate", {"state":dataForClient,"team":game.socketToTeam(socket),"debugstate":game.printGameState()}, room=socket)
     
 
 @socketio.on('chooseCard')
@@ -100,8 +108,7 @@ def chooseCard(data):
     except:
         print("RETURN 1")
         return
-    #game.applewood.spyLast # # todo
-    #game.yarg.spyLast
+    
     team = game.sidToTeam(sid)
     if not team:
         print("RETURN 2")
@@ -112,20 +119,44 @@ def chooseCard(data):
         print("game is over why choose card")
         return
     
+    if(game.applewood.spyLast and game.yarg.spyLast):
+        game.applewood.spyLast = False
+        game.yarg.spyLast = False ##powers nullify each other
+
+    if(game.applewood.spyLast and game.yarg.card is None): ##pause until yarg plays
+        if(team==1):
+            socketio.emit('early_card_reveal',{"data":"Wait for the reveal!"}, room=game.applewood.socketid)
+            return #Don't let applewood play
+        socketio.emit('early_card_reveal',{"data":f"The opps have played a {card}"}, room=game.applewood.socketid)
+        #now let code keep running so yarg can actually pick the card
+
+    if(game.yarg.spyLast and game.applewood.card is None): ##pause until applewood plays
+        if(team==-1):
+            socketio.emit('early_card_reveal',{"data":"Wait for the reveal!"}, room=game.yarg.socketid)
+            return #Don't let yarg play
+        socketio.emit('early_card_reveal',{"data":f"da opps played a {card}"}, room=game.yarg.socketid)
+        #now let code keep running so yarg can actually pick the card
+
     if team == 1 and (game.applewood.card is None) and (card in game.applewood.hand):
-        #APPLEWOOD AND CARD NOT PLAYED YET
         print("SUCCESSFUL APPLE PICK")
+        #APPLEWOOD AND CARD NOT PLAYED YET
         game.chooseApplewood(card)
     elif team == -1 and (game.yarg.card is None) and (card in game.yarg.hand):
         #YARG AND CARD NOT PLAYED YET
-        print("SUCCESSFUL YARG PICK")
         game.chooseYarg(card)
+        print("SUCCESSFUL YARG PICK")
     
     # HAVE BOTH CARDS BEEN CHOSEN?
     if game.readyToFight():
         res = game.calculate()
         print(res.winner)
+
     sendGameState(gid)
+
+    if(game.gameOver()):
+        emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
+
+
     
 
             

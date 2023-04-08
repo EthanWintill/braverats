@@ -2,10 +2,12 @@ h2 {
     color:red;
 }
 
-#container {
-    justify-content: space-between;
-    flex-direction:row;
-    display:flex
+html,
+body {
+    height:100%;
+    margin:0;
+    overflow-y: hidden;
+    
 }
 
 #debug {
@@ -14,3 +16,218 @@ h2 {
     padding:10px;
     border-width:medium;
 }
+
+
+
+.container-fluid {
+	height: 99%;
+  }
+  
+  .opponent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 25%;
+	
+	border: 1px solid #000;
+  }
+
+  .applewood {
+    background-color: #f20000;
+  }
+
+  .yarg {
+    background-color: #3400f2;
+  }
+  
+  .player {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 25%;
+	
+	border: 1px solid #000;
+  }
+  
+  .middle {
+    box-sizing: border-box;
+    padding:1%;
+	height: 50%;
+	background-color: #343e50;
+	position: relative;
+    display:flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .round {
+    box-sizing: border-box;
+    background-color: beige;
+    margin-right:1%;
+    width:12%;
+    display: flex;
+    justify-content: center;
+    height:100%;
+    flex-direction: column;
+  }
+
+  .y-win {
+    border-style:solid;
+    border-color:#3400f2;
+    border-width: medium;
+  }
+
+  .a-win {
+    border-style:solid;
+    border-color:#f20000;
+    border-width: medium;
+  }
+  
+  .hold-win {
+    border-style:dashed;
+    border-color:azure;
+    opacity: 60%;
+  }
+  .opponent-cards {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	padding: 10px;
+  }
+  
+  .card {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	border-radius: 5px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: none;
+	box-shadow: none;
+	position: relative;
+  }
+  
+  .face-down {
+	width: 100%;
+	height: 100%;
+	background-image: url("../assets/cardImages/backimage.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+  }
+  
+  .face-up {
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-radius: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+  }
+  
+  .player .card:hover {
+	cursor: pointer;
+  }
+
+  .card-A-0 .face-up {
+	background-image: url("../assets/cardImages/A-0.png");
+
+  }
+  
+  .card-A-1 .face-up {
+	background-image: url("../assets/cardImages/A-1.png");
+  }
+  
+  .card-A-2 .face-up {
+	background-image: url("../assets/cardImages/A-2.png");
+  }
+  
+  .card-A-3 .face-up {
+	background-image: url("../assets/cardImages/A-3.png");
+  }
+  
+  .card-A-4 .face-up {
+	background-image: url("../assets/cardImages/A-4.png");
+  }
+  
+  .card-A-5 .face-up {
+	background-image: url("../assets/cardImages/A-5.png");
+  }
+  
+  .card-A-6 .face-up {
+	background-image: url("../assets/cardImages/A-6.png");
+  }
+  
+  .card-A-7 .face-up {
+	background-image: url("../assets/cardImages/A-7.png");
+  }
+  
+  .card-Y-0 .face-up {
+	background-image: url("../assets/cardImages/Y-0.png");
+
+  }
+  
+  .card-Y-1 .face-up {
+	background-image: url("../assets/cardImages/Y-1.png");
+  }
+  
+  .card-Y-2 .face-up {
+	background-image: url("../assets/cardImages/Y-2.png");
+  }
+  
+  .card-Y-3 .face-up {
+	background-image: url("../assets/cardImages/Y-3.png");
+  }
+  
+  .card-Y-4 .face-up {
+	background-image: url("../assets/cardImages/Y-4.png");
+  }
+  
+  .card-Y-5 .face-up {
+	background-image: url("../assets/cardImages/Y-5.png");
+  }
+  
+  .card-Y-6 .face-up {
+	background-image: url("../assets/cardImages/Y-6.png");
+  }
+  
+  .card-Y-7 .face-up {
+	background-image: url("../assets/cardImages/Y-7.png");
+  }
+  
+  .middle-card {
+	position: absolute;
+	top: 50%;
+	left: 30%;
+	transform: translate(-50%, -50%);
+	width: 45%;
+	height: 45%;
+	border-radius: 50%;
+	z-index: 0;
+  }
+  
+  .right-card {
+	position: absolute;
+	top: 50%;
+	left: 70%;
+	transform: translate(-50%, -50%);
+	width: 45%;
+	height: 45%;
+	border-radius: 20%;
+	z-index: 1;
+  }
+  
+
+  
