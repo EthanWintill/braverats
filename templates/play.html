@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BraveRats - Play</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-    crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  
-  
-  <div class="container-fluid">
-    <div class="row opponent">
-      
-        
-          
-
-
-
-        
-      
-      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <div class="container-fluid">
+        <div class="row opponent">
+        </div>
+        <div class="row middle">
+        </div>
+        <div class="row player">
+            <div class="settings-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="settings-screen hidden">
+                <h1>Game Settings</h1>
+                <ul>
+                    <li><a href="#" id="game-rules">Game Rules</a></li>
+                    <li><a href="#" id="quit-game">Quit Game</a></li>
+                </ul>
+                <button class="back-btn">Back</button>
+            </div>
+        </div>
     </div>
-    <div class="row middle">
-      
-        
-        
+    <p id="sid" style="display:none">{{sid}}</p>
+    <script src="{{ url_for('static', filename='js/play.js') }}"></script>
+    <script>
+        // Add click event listener to the gear icon
+        const gearIcon = document.querySelector(".settings-icon");
+        gearIcon.addEventListener("click", function () {
+            const settingsScreen = document.querySelector(".settings-screen");
+            settingsScreen.classList.toggle("hidden");
+        });
 
+        // Add click event listener to the Game Rules link
+        const gameRulesLink = document.querySelector("#game-rules");
+        gameRulesLink.addEventListener("click", function () {
+            // Code to display game rules goes here
+            alert("Display game rules");
+        });
 
+        // Add click event listener to the Quit Game link
+        const quitGameLink = document.querySelector("#quit-game");
+        quitGameLink.addEventListener("click", function () {
+            // Code to quit game goes here
+            alert("Quit game");
+        });
 
-      
-    </div>
-    <div class="row player">
-      
-        
-
-        
-      </div>
-    </div>
-  </div>
-
-
-  <p id="sid" style="display:none">{{sid}}</p>
-
-
-  
-  <script src="{{ url_for('static', filename='js/play.js') }}"></script>
+        // Add click event listener to the Back button
+        const backButton = document.querySelector(".back-btn");
+        backButton.addEventListener("click", function () {
+            const settingsScreen = document.querySelector(".settings-screen");
+            settingsScreen.classList.toggle("hidden");
+        });
+    </script>
 </body>
-
 </html>
+
