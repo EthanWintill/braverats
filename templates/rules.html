@@ -6,6 +6,12 @@
   <body>
     <h1>Brave Rats</h1>
     <button id="backButton">Back</button>
+    <script>
+      var backButton = document.getElementById("backButton");
+      backButton.addEventListener("click", function() {
+        window.location.href = "/";
+      });
+    </script>
       <button onclick="toggleText('text1')">History</button>
       <button onclick="toggleText('text2')">Contents</button>
       <button onclick="toggleText('text3')">Preperation</button>
@@ -24,7 +30,24 @@
       <p id="text6" style="display:none">The game ends when a player has won 4 rounds. This player's clan conquers the kingdom! If the players run out of cards before this happens, declare a tie and play again!</p>
       <p id="text7" style="display:none">Prince You win the round This card always wins the round except against the Princess and the Musician. It doesn't matter if the Assassin has turned the tables, the Prince beats the Assassin. However, the Musician still puts the round on hold. Warning: if the opponent plays the Princess against your Prince, he doesn't just win the round, he wins the game! General The card in your next round gets +2 strength The General's power affects the next round. If the opponent plays the Wizard in the next round, it does not nullify the General's power. Wizard Nullifies the special power of your opponent's card The Wizard nullifies the opponent's special power, which simply means that the highest card wins the round. Ambassador If you win with this card, it counts as 2 victories This effect is valid even if the round is on hold. If the player who played the Ambassador wins the round following a hold, it's worth 3 victories. Assassin The lowest strength wins The lowest strength wins, except against a Prince. Spy Next round, your opponent reveals his card before you choose yours If both players choose the Spy the same round, their powers nullify each other. Princess If your opponent plays the Prince, you automatically win the game If your opponent plays the Prince, the game ends immediately and you win, regardless of the number of victories. Musician This round is nullified and put on hold This power wins over all powers, except the Wizard's. </p>
       <p id="text8" style="display:none">Some of the variations can be used in combination with others. A. Traitor: Before the game, both players exchange a card randomly. B. Lucky Draw: The 8 starting cards are shuffled to make a draw pile. Each player draws 3 cards and chooses one to play. As soon as a card is played, a new card is drawn. C. Fast Rat: The game is won after 3 victories instead of 4. D. Draft: Shuffle all 16 cards. One player draws 4, chooses one to keep and gives the rest to the other player who chooses one to keep and gives the rest back and so on. Then the other player draws 4 new cards, chooses one to keep and so on until all cards are dealt. E. Random Deal: Shuffle the 16 cards and deal 8 to each player. F. Princess Attack: Before the game, one player exchanges his Princess for the opponent's Prince. This means one player starts with both Princes, the other with both Princesses. G. The Emperor Play 3 times. The first to win 2 games wins.</p>
-      <img id="resultsTable" src="resultsTable.jpg" style="display:none">
-      <script src="rules.js"></script>
+      <img id="resultsTable" src="{{ url_for('static', filename='assets/resultsTable.jpg') }}" style="display:none">
+      <script>
+      function toggleText(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+      function toggleImage() {
+        var x = document.getElementById("resultsTable");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }
+    </script>      
   </body>
 </html>
