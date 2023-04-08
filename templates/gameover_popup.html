@@ -1,10 +1,4 @@
-<script>
-	function openWindow() {
-		// Open a new window with specific features
-		window.open("gameover_popup.html", "newWindow", "width=500,height=500,scrollbars=yes");
-	}
 
-</script>
 <!DOCTYPE html>
 <html>
 
@@ -12,39 +6,16 @@
 
 <head>
 	<title>GameEnd</title>
-	<style>
-		body {
-			width: 400px;
-			height: 500px;
-			margin: 0 auto;
-		}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/gameover.css') }}">
 
-
-		.button-container {
-			text-align: center;
-		}
-
-		.button {
-			padding: 10px 20px;
-			background-color: rgb(241, 13, 13);
-			border: none;
-			border-radius: 5px;
-			color: rgb(216, 32, 32);
-			font-size: 100px;
-			cursor: pointer;
-		}
-	</style>
 </head>
 
 
 <body>
-	<button onclick="openWindow()">Open Window</button>
-	<img src="{{ url_for('static', filename='assets/homeBackground.jpg') }}" alt="braverat" width="254"
-		height="253"><br><br>
-
+	<h1 class="game-over-header">GAME OVER!</h1>
 	<div class="button-container">
 		<form action="/">
-			<button>Return to Homepage</button><br><br>
+			<button>Home</button><br><br>
 		</form>
 		<form action="/rematch" method="post">
 			<button>Rematch</button>
@@ -54,12 +25,3 @@
 
 
 </html>
-
-<!DOCTYPE html>
-<html>
-
-<button onclick="openWindow()">Open Window</button>
-
-
-
-<html>
