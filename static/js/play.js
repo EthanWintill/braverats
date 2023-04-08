@@ -183,8 +183,8 @@ function generateEnemyCardPreview() {
     
       socket.on("early_card_reveal", (data) => {
         oppcard = data['data'];
-        console.log(data+" ahhhhhhasdfag")
-        $("#spyview").text(oppcard);
+        console.log(oppcard)
+        $("#spyview").text(oppcard); // TODO update this bit so that the card is face up
       } 
       )
 
