@@ -17,7 +17,22 @@ body {
     justify-content: center;
     height: 100%;
   }
-
+  @media screen and (max-width: 600px) {
+    .game-over-header {
+        font-size: 3EM;
+        text-align: center;
+        margin-top: 10PX;
+        POSITION: absolute;
+        top: 0;
+    }
+    .button-container{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+    }
+  }
   .game-over-header {
     font-size: 7EM;
     text-align: center;
