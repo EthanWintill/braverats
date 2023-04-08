@@ -181,6 +181,13 @@ function generateEnemyCardPreview() {
         console.log("connected")
       });
     
+      socket.on("early_card_reveal", (data) => {
+        oppcard = data['data'];
+        console.log(data+" ahhhhhhasdfag")
+        $("#spyview").text(oppcard);
+      } 
+      )
+
       socket.on("gstate", (data) => {
         // TODO: update client view based on recieved state instead of just printing it
         //$("#gameState").text(data.debugstate)
