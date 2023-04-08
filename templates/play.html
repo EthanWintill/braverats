@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BraveRats - Play</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
 </head>
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
@@ -13,11 +15,8 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <div class="container-fluid">
-        <div class="row opponent">
-        </div>
-        <div class="row middle">
-        </div>
-        <div class="row player">
+
+        <div class="Settings row">
             <div class="settings-icon">
                 <i class="fas fa-cog"></i>
             </div>
@@ -29,6 +28,13 @@
                 </ul>
                 <button class="back-btn">Back</button>
             </div>
+        </div>
+        <div class="row opponent">
+        </div>
+        <div class="row middle">
+        </div>
+        <div class="row player">
+
         </div>
     </div>
     <p id="sid" style="display:none">{{sid}}</p>
