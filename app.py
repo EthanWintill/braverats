@@ -157,6 +157,15 @@ def chooseCard(data):
         emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
 
 
+@socketio.on('quit')
+def endGame(data):
+    gid = data['gid']
+    try:
+        findGame(gid)
+    except:
+        print("RETURN 1")
+        return
+    emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
     
 
             

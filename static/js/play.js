@@ -163,8 +163,9 @@ function generateEnemyCardPreview() {
   return roundEl
 }
 
-
-
+function openRules(){
+  window.open('/rules')
+}
 
 
 
@@ -292,7 +293,9 @@ function generateEnemyCardPreview() {
       socket.emit('chooseCard', data)
       })
       
-    
+    $("#quit").on('click', function(){
+      socket.emit('quit',{gid:window.location.pathname.slice(6)})
+    })
 
     socket.on('gameover', function () {
       window.location.href = 'gameover'
