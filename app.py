@@ -204,9 +204,9 @@ def handleConnect():
     
     
 
-port = int(os.environ.get('PORT', 33507))
+port = int(os.environ.get('PORT'))
 if __name__ == '__main__':
-    socketio.run(app, port=port, debug=True)
+    socketio.run(app, host='0.0.0.0', port=port, debug=True)
     
  
  
