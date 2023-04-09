@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, send, emit
 from games import createNewGame, findGame, socketIdsInGame
 #GAMES STORAGE
 import json
-
+import os
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -204,9 +204,9 @@ def handleConnect():
     
     
 
-
+port = int(os.environ.get('PORT', 33507))
 if __name__ == '__main__':
-    socketio.run(app, port=3000, debug=True)
+    socketio.run(app, port=port, debug=True)
     
  
  
