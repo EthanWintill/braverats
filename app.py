@@ -210,7 +210,10 @@ def handleConnect():
         
     
     
+# pip install -r requirements.txt
+# gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 app:app
 
+#to run app
 port = int(os.environ.get('PORT', 15357))
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=port, debug=True)
