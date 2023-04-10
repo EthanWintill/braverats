@@ -2,6 +2,23 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
+# todo for sprint 3 #
+* spy functionality for cards
+* possible refactor
+* rematch actually rematches
+* turn game over to a pop up
+* add player one mode
+* player one mode AI
+* finish tests
+* score in play screen
+* login
+* signup
+* leaderboard
+* database
+* user profile
+* user statistics
+
+
 ### What is this repository for? ###
 
 * Quick summary
