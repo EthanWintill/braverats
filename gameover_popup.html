@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>GameEnd</title>
+
+
+    <script>
+        function setDimensions() {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            document.body.style.width = width + "px";
+            document.body.style.height = height + "px";
+        }
+        window.onload = setDimensions;
+        window.onresize = setDimensions;
+    
+    </script>
+
+    <style>
+        body {
+          background-color: blue;
+        }
+        .rematch-btn {
+            background-color: red; /* Blue color */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            padding: 10px 20px; /* Add some padding */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change cursor on hover */
+        }
+        .homepage-btn {
+            background-color: red; /* Blue color */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            padding: 10px 20px; /* Add some padding */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Change cursor on hover */
+          }
+      </style>
+    
+</head>
+
+
+<body>
+
+    <img src="braveratsimage.jpeg" width="300" height="250">
+    <br><br>
+    <div class="button-container">
+        <button class="rematch-btn"><a href="index.html">Return to Homepage</a></button><br><br>
+        <button class="homepage-btn"></button><a href="gameboard_index.html">Rematch</a></button>
+    
+    </div>
+
+    
+</body>
+
+
+</html>
+
+
