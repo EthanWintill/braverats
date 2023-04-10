@@ -9,7 +9,7 @@ dist/
 
 venv
 flask_session
-
+.python-version
 # Compiled Java class files
 *.class
 

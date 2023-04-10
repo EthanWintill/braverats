@@ -172,7 +172,7 @@ function openRules(){
 
     $(document).ready(function () {
       console.log(io.version)
-      var socket = io.connect('http://127.0.0.1:3000');
+      var socket = io.connect(window.location.origin);
 
       socket.on('connect', function () {
         let gid = window.location.pathname.slice(6)
