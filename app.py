@@ -63,13 +63,14 @@ def index():
 def assignPlayer(data):
     print("ASSIGNING PLAYER: " + data['sid'])
     print("SOCKET: " + request.sid)
+    print(data['gid'])
     gid = data['gid']
     try:
         game = findGame(gid)
     except:
         return
     sid = data['sid']
-    
+    print("ASSIGN SUCCESS")
     game.assignSocket(sid,request.sid) # handles wrong users in func
     sendGameState(gid)
 
