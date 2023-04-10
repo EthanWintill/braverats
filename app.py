@@ -83,6 +83,8 @@ def sendGameState(gid, round_winner=None):
     dataForClient = {
         'applewood_hand': game.applewood.hand,
         'yarg_hand':game.yarg.hand,
+        'revealA': game.yarg.spyLast and not game.applewood.spyLast, # spy
+        'revealY': game.applewood.spyLast and not game.yarg.spyLast,
         'applewood_score':game.applewood.score,
         'yarg_score':game.yarg.score,
         'applewood_card':game.applewood.card,

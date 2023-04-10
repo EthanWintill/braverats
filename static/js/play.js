@@ -167,6 +167,32 @@ function openRules(){
   window.open('/rules')
 }
 
+function generateSpyCardReveal(card, team) {
+  var roundEl = document.createElement("div")
+  roundEl.className = NEW_ROUND_CLASS
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+  topEl.className = "row card"
+  bottomEl.className = "row card"
+  var face = document.createElement("div")
+  face.className = "face-up"
+
+  if (team == -1) {
+    
+    topEl.className = "row card card-A-" + card
+    topEl.appendChild(face)
+
+  } else{
+    topEl.className = "row card card-Y-" + card
+    topEl.appendChild(face)
+
+
+  }
+  roundEl.appendChild(topEl)
+  roundEl.appendChild(bottomEl)
+  return roundEl
+}
+
 
 
 
@@ -234,13 +260,15 @@ function openRules(){
         
         const aCard = data.state.applewood_card
         const yCard = data.state.yarg_card
-        console.log(data)
-        if (aCard != null){
-          if (data.state.team == 1){
+        const revealA = data.state.revealA
+        const revealY = data.state.revealY
+        
+        if (aCard != null){ // A CARD PLAYED
+          if (data.state.team == 1){ // YOU ARE A
           var previewEl = generateFriendlyCardPreview(aCard, data.state.team)
           middleEl.append(previewEl)
-          } else {
-            var previewEl = generateEnemyCardPreview()
+          } else { // YOU ARE NOT A
+            var previewEl = revealA ? generateSpyCardReveal(aCard, data.state.team) : generateEnemyCardPreview()
           middleEl.append(previewEl)
           }
         } else if (yCard != null){
@@ -249,7 +277,7 @@ function openRules(){
           var previewEl = generateFriendlyCardPreview(yCard, data.state.team)
           middleEl.append(previewEl)
           } else{
-            var previewEl = generateEnemyCardPreview()
+            var previewEl = revealY ? generateSpyCardReveal(yCard, data.state.team) : generateEnemyCardPreview()
           middleEl.append(previewEl)
           }
         }
