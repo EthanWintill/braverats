@@ -61,7 +61,7 @@ def index():
 
 @socketio.on("connection")
 def assignPlayer(data):
-    
+    print("ASSIGNING PLAYER: " + data['sid'])
     gid = data['gid']
     try:
         game = findGame(gid)
