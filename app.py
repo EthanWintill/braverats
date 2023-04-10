@@ -71,7 +71,9 @@ def assignPlayer(data):
         return
     sid = data['sid']
     print("ASSIGN SUCCESS")
-    game.assignSocket(sid,request.sid) # handles wrong users in func
+    if not game.assignSocket(sid,request.sid): # handles wrong users in func
+        game.assignPlayer(sid)
+        game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
     sendGameState(gid)
 
 

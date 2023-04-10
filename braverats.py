@@ -160,6 +160,7 @@ class Game:
             self.applewood.socketid = socketid
         else:
             self.yarg.socketid = socketid
+        return True
 
     
 
