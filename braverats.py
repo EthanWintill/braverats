@@ -154,6 +154,7 @@ class Game:
     def assignSocket(self, sid, socketid):
         team = self.sidToTeam(sid)
         if not team:
+            print("not in team")
             return False
         if team > 0:
             self.applewood.socketid = socketid
