@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Brave Rats</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button id="rules">Rules</button>
+    <button id="play">Play</button>
+    <form action="/" method="post">
+      <button id="playWithAFriend">Play With A Friend</button>
+    </form>
+    {% if gameId %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gameLinkModal">
+      Press here to get link!
+    </button>
+
+    <div class="modal fade" id="gameLinkModal" tabindex="-1" role="dialog" aria-labelledby="gameLinkModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gameLinkModalLabel">Game Link</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Copy and share this link with your friend:</p>
+            <input type="text" value="http://127.0.0.1:3000/play/{{gameId}}" class="form-control" readonly>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+
+</html>

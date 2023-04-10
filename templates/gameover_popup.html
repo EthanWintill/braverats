@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+	<title>GameEnd</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/gameover.css') }}">
+
+</head>
+
+
+<body>
+	<h1 class="game-over-header">GAME OVER!</h1>
+	<div class="button-container">
+		<form action="/">
+			<button>Home</button><br><br>
+		</form>
+		<form action="/rematch" method="post">
+			<button>Rematch</button>
+		</form>
+	</div>
+</body>
+
+
+</html>
