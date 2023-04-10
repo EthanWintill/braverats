@@ -38,9 +38,9 @@ def play(gId):
         return "GAME NOT FOUND"
     
     session['gid'] = gId
-    game = findGame(gId)
-    if not game.playersIn() and not game.sidToTeam(session.sid):
-        game.assignPlayer(session.sid)
+    #game = findGame(gId)
+    #if not game.playersIn() and not game.sidToTeam(session.sid):
+       # game.assignPlayer(session.sid) #really wtf
     
     return render_template("play.html", sid=session.sid)
 
