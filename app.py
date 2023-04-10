@@ -93,7 +93,7 @@ def sendGameState(gid, round_winner=None):
     
     for socket in sockets:
         dataForClient['team'] = game.socketToTeam(socket)
-      
+        print("SENDING STATE TO: " + socket)
         socketio.emit("gstate", {"state":dataForClient,"team":game.socketToTeam(socket),"debugstate":game.printGameState()}, room=socket)
     
 
