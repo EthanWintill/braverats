@@ -54,6 +54,7 @@ def rematch():
 @app.route("/", methods=["GET","POST"])
 def index():
     if request.method == "POST":
+        
         val = createNewGame()
         return render_template("home.html", gameId=val)
     return render_template("home.html")
