@@ -62,13 +62,14 @@ def index():
 @socketio.on("connection")
 def assignPlayer(data):
     print("ASSIGNING PLAYER: " + data['sid'])
+    print("SOCKET: " + request.sid)
     gid = data['gid']
     try:
         game = findGame(gid)
     except:
         return
     sid = data['sid']
-    print("SID " + sid)
+    
     game.assignSocket(sid,request.sid) # handles wrong users in func
     sendGameState(gid)
 

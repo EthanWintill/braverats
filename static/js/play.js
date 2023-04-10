@@ -180,6 +180,7 @@ function openRules(){
 
         socket.emit('connection', { gid: gid, sid: sid});
         console.log("connected")
+        console.log(socket.id)
       });
     
       socket.on("early_card_reveal", (data) => {
