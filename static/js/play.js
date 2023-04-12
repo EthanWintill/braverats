@@ -297,8 +297,9 @@ function openRules(){
       socket.emit('quit',{gid:window.location.pathname.slice(6)})
     })
 
-    socket.on('gameover', function () {
-      window.location.href = 'gameover'
+    socket.on('gameover', function (data) {
+      console.log(data)
+      window.location.href = 'gameover/'+data['win_or_lose']
     });
 
     });
