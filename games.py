@@ -2,6 +2,7 @@ from braverats import Game
 import random
 import string
 
+
 games = {}
 
 
@@ -14,6 +15,10 @@ def generate_unique_key():
     return ''.join(random.sample(CHARACTERS, 15))
 
 def createNewGame():
+    global games
+    if len(games) > 4:
+        games = {}
+    
     gId = generate_unique_key()
     ng = Game(gId)
     games[gId] = ng

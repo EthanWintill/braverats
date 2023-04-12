@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, send, emit
 from games import createNewGame, findGame, socketIdsInGame
 #GAMES STORAGE
 import json
-
+import os
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -38,9 +38,9 @@ def play(gId):
         return "GAME NOT FOUND"
     
     session['gid'] = gId
-    game = findGame(gId)
-    if not game.playersIn() and not game.sidToTeam(session.sid):
-        game.assignPlayer(session.sid)
+    #game = findGame(gId)
+    #if not game.playersIn() and not game.sidToTeam(session.sid):
+       # game.assignPlayer(session.sid) #really wtf
     
     return render_template("play.html", sid=session.sid)
 
@@ -54,21 +54,26 @@ def rematch():
 @app.route("/", methods=["GET","POST"])
 def index():
     if request.method == "POST":
+        
         val = createNewGame()
         return render_template("home.html", gameId=val)
     return render_template("home.html")
 
 @socketio.on("connection")
 def assignPlayer(data):
-    
+    print("ASSIGNING PLAYER: " + data['sid'])
+    print("SOCKET: " + request.sid)
+    print(data['gid'])
     gid = data['gid']
     try:
         game = findGame(gid)
     except:
         return
     sid = data['sid']
-    print("SID " + sid)
-    game.assignSocket(sid,request.sid) # handles wrong users in func
+    print("ASSIGN SUCCESS")
+    if not game.assignSocket(sid,request.sid): # handles wrong users in func
+        game.assignPlayer(sid)
+        game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
     sendGameState(gid)
 
 
@@ -78,6 +83,8 @@ def sendGameState(gid, round_winner=None):
     dataForClient = {
         'applewood_hand': game.applewood.hand,
         'yarg_hand':game.yarg.hand,
+        'revealA': game.yarg.spyLast and not game.applewood.spyLast, # spy
+        'revealY': game.applewood.spyLast and not game.yarg.spyLast,
         'applewood_score':game.applewood.score,
         'yarg_score':game.yarg.score,
         'applewood_card':game.applewood.card,
@@ -91,7 +98,7 @@ def sendGameState(gid, round_winner=None):
     
     for socket in sockets:
         dataForClient['team'] = game.socketToTeam(socket)
-      
+        print("SENDING STATE TO: " + socket)
         socketio.emit("gstate", {"state":dataForClient,"team":game.socketToTeam(socket),"debugstate":game.printGameState()}, room=socket)
     
 
@@ -209,9 +216,9 @@ def handleConnect():
     
     
 
-
+port = int(os.environ.get('PORT', 15357))
 if __name__ == '__main__':
-    socketio.run(app, port=3000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=port, debug=True)
     
  
  
