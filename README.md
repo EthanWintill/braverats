@@ -125,7 +125,7 @@ The current version of the game is hosted at <a href="https://braverats.herokuap
 
 ___
 
-## Sprint 2
+## Sprint 3
 ## Contributions
 - ** Sam **: "Created UI elements for goal tracking and push notification features"
 	- `Jira Task: 
@@ -155,19 +155,25 @@ ___
 		- bitbucket reference: 
 		- jira referece: 
 		
-- ** Abigail Barrientos **: "Implemented timer UI"
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 		
+- ** Abigail Barrientos **: "Created the main play board where the users can play their cards"
+	- `Jira Task: Display user and bot cards
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/13
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-46?atlOrigin=eyJpIjoiODZkODhkYzAyMjg3NDQzNjhiYjdhODZiYTQ1MGQ3ZTciLCJwIjoiaiJ9
+	- `Jira Task: Create new playing cards
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/9
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-68?atlOrigin=eyJpIjoiN2VjNDdlMGEyMDI5NDk1NTliOWMzOTc5YTc2MmE2ZDEiLCJwIjoiaiJ9
+	- `Jira Task: User Profile
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/22
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-51?atlOrigin=eyJpIjoiZDM0OGUyNDY3MDM1NDMxODkzYTZjOGM1YzNhMTBlZDUiLCJwIjoiaiJ9
+	- `Jira Task: User Settings
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/19
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-55?atlOrigin=eyJpIjoiZTY0ZDhkOGUxODg2NDJhNDg0YzFlZDI0NmY2ODEyNDAiLCJwIjoiaiJ9
+	- `Jira Task: Game Audio
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/14
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-56?atlOrigin=eyJpIjoiMTc2MmNkMTAyYzYzNDU4NTk3Y2QzZDJmMjNjMWQ2YzMiLCJwIjoiaiJ9
+	- `Jira Task: Display cards that the users have played
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/24
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-48?atlOrigin=eyJpIjoiYzA5ZTNiMWM5ODY2NDliYjk1MmY4NmE5Mzc3ZDBiZjgiLCJwIjoiaiJ9
 - ** Ethan Wintill **: Connected front and backends, implemented socketio architecture. 
 	- `Jira Task: Get sockets working so that two clients can play each other
 		- bitbucket reference:https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/1
@@ -202,9 +208,9 @@ ___
 	- As a team decide on a different project or minimizing the scope of our current project to make it achievable with the amount of time and team member knowledge and ability.
 	- Allow more time for research and learning curve for any new languages or technologies we decide to use.
 - ** Abigail Barrientos **:
-	- Figure out what portion of the code keeps the timer running when stop button is pressed
-	- Edit code so that the user can change the time intervals
-	- Start reasearch on how to implement pop up in app.
+	- For this sprint my task is to create a button in the main screen that allows the user to play with a bot. I will also be incharge of making the code for that bot.
+	- Another task that I need to work on is giving the user the option to play with anyone who is currently searching for another player.
+	-  The last thing I will need to work on for this sprint is allowing the user to select a profile picture in their account page.
 - ** Ethan Wintill **:
 	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
 - ** Laiba **:
