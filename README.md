@@ -207,7 +207,6 @@ ___
 	- Start reasearch on how to implement pop up in app.
 - ** Ethan Wintill **:
 	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
-	- 
 - ** Laiba **:
 	- Starting Work way sooner and becoming more organized in handling my workload as I am dropping a class to decrease workload
 	- Discuss Sam's idea of possibly changing project 
