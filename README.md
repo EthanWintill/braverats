@@ -141,19 +141,16 @@ ___
 		- bitbucket reference: 
 		- jira referece: 
 		
-- ** Selah **: "Create UI elements for list of apps to block"
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
+Selah : "Create Home Page"
+`Jira Task: Create Rules page from button on home page
+bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/commits/fccc6f641104f96e43c69ca6e8f772668b12dd3b
+jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10073%2C10043%2C10051&selectedIssue=BR-43
+`Jira Task: Create page layout using html
+bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/b21f3a54a35da638abf3fa5b33968fe640ecf6cd
+jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10073%2C10043%2C10051&selectedIssue=BR-40
+`Jira Task: Play with friend button creating shareable url
+bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/commits/d122d1c9c65a3608489afbf468c0528cd887b5af
+jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10073%2C10043%2C10051&selectedIssue=BR-42
 		
 - ** Abigail Barrientos **: "Created the main play board where the users can play their cards"
 	- `Jira Task: Display user and bot cards
@@ -203,10 +200,10 @@ ___
 	- Before we begin sprint 2, I want to discuss with my team members the possibility of switching to a different project because the learning curve for our current project turned out to be very ambitious
 	- As an improvement to the team's overall productivity, I will organize more team meetings in the Alkek library to ensure everyone is on the same page and making contributions
 	- As far as improvements to the codebase itself, if we decide to stay with the current project, I will work on making the UI more pretty and responsive as well as more engaging for users.
-- ** Selah **:
-	- I will think more about my tasks and limit the scope of each task to make it more achievable in each sprint.
-	- As a team decide on a different project or minimizing the scope of our current project to make it achievable with the amount of time and team member knowledge and ability.
-	- Allow more time for research and learning curve for any new languages or technologies we decide to use.
+Selah :
+I will start and finish my tasks very early in the sprint.
+Communicate with team members on what I'm currently doing.
+Allow more time for merging and implementing team members code to work in sync with mine.
 - ** Abigail Barrientos **:
 	- For this sprint my task is to create a button in the main screen that allows the user to play with a bot. I will also be incharge of making the code for that bot.
 	- Another task that I need to work on is giving the user the option to play with anyone who is currently searching for another player.
