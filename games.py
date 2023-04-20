@@ -1,7 +1,7 @@
 from braverats import Game
 import random
 import string
-
+import hashlib
 
 games = {}
 
@@ -14,12 +14,14 @@ CHARACTERS = (
 def generate_unique_key():
     return ''.join(random.sample(CHARACTERS, 15))
 
-def createNewGame():
+def createNewGame(oldGID = None):
     global games
     if len(games) > 4:
         games = {}
-    
-    gId = generate_unique_key()
+    if oldGID:
+        gId = hashlib.md5(oldGID.encode()).hexdigest()
+    else:
+        gId = generate_unique_key()
     ng = Game(gId)
     games[gId] = ng
     return gId

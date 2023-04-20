@@ -298,18 +298,6 @@ function generateSpyCardReveal(card, team) {
         $("#history").text(data.state.history)*/
       });
 
-      /*
-      $('#send-button').click(function() {
-        const pickedCard = $('#cardToPlay').val()
-        data = {
-          gid:window.location.pathname.slice(6),
-          sid:$('#sid').text(),
-          card:pickedCard,
-        }
-        
-        socket.emit('chooseCard', data)
-    });*/
-
    
       $(PLYR_CLASS).on('click', '.face-up.hand', function() {
         console.log("picker")
