@@ -162,11 +162,11 @@ def chooseCard(data):
 
     if(game.gameOver()): #there's so many ways better ways to do this 
         if game.winner == 1: #but I'm probs refactoring the gameover anyways so.. 
-            emit('gameover', {'win_or_lose': 'win'}, room = game.applewood.socketid)
-            emit('gameover', {'win_or_lose': 'lose'}, room = game.yarg.socketid) 
+            emit('gameover', {'win_or_lose': 'WIN'}, room = game.applewood.socketid)
+            emit('gameover', {'win_or_lose': 'LOSE'}, room = game.yarg.socketid) 
         else:
-            emit('gameover', {'win_or_lose': 'lose'}, room = game.applewood.socketid)
-            emit('gameover', {'win_or_lose': 'win'}, room = game.yarg.socketid) 
+            emit('gameover', {'win_or_lose': 'LOSE'}, room = game.applewood.socketid)
+            emit('gameover', {'win_or_lose': 'WIN'}, room = game.yarg.socketid) 
 
 
 @socketio.on('quit')
