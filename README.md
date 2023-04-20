@@ -208,10 +208,8 @@ jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects
 ## Next Steps For Sprint 3
 
 - ** Sam **:
-	- For the upcoming sprint I will focus on starting my tasks as soon as possible to ensure that I am not waiting till the last minute
-	- Before we begin sprint 2, I want to discuss with my team members the possibility of switching to a different project because the learning curve for our current project turned out to be very ambitious
-	- As an improvement to the team's overall productivity, I will organize more team meetings in the Alkek library to ensure everyone is on the same page and making contributions
-	- As far as improvements to the codebase itself, if we decide to stay with the current project, I will work on making the UI more pretty and responsive as well as more engaging for users.
+	- For this next sprint I will add more features such as user logins and database functionality
+	- I will work quickly to ensure that our goals are reached by the end of the sprint
 Selah :
 I will start and finish my tasks very early in the sprint.
 Communicate with team members on what I'm currently doing.
