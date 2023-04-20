@@ -134,21 +134,24 @@ The current version of the game is hosted at <a href="https://braverats.herokuap
 
 ___
 
-## Sprint 3
+## Sprint 2
 ## Contributions
-- ** Sam **: "Created UI elements for goal tracking and push notification features"
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
+- ** Sam **: "Designed and implemented backend architecture for seamless multiplayer gameplay"
+	- `Jira Task: Add functionality to create a new game on server 
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/3
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-49
+	- `Jira Task: Handle routes for home page and play page, with respective post requests aswell
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/5
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-53
+	- `Jira Task: Create socket architecture to recieve input and send output to client
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/10
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-50
+	- `Jira Task: Implement functionality to use client input in game logic
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/8
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-52
+	- `Jira Task: Write unit tests to ensure server architecture works as intended
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/23
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-54
 		
 Selah : "Create Home Page"
 `Jira Task: Create Rules page from button on home page
