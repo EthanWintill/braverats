@@ -26,10 +26,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def rules():
     return render_template("rules.html")
 
-@app.route("/play/gameover/<string:result>")
-def gameover(result):
-    return render_template("gameover_popup.html", result=result)
-
 @app.route("/play/<string:gId>")
 def play(gId):
     try:
@@ -160,24 +156,19 @@ def chooseCard(data):
 
     sendGameState(gid)
 
-    if(game.gameOver()): #there's so many ways better ways to do this 
-        if game.winner == 1: #but I'm probs refactoring the gameover anyways so.. 
-            emit('gameover', {'win_or_lose': 'WIN'}, room = game.applewood.socketid)
-            emit('gameover', {'win_or_lose': 'LOSE'}, room = game.yarg.socketid) 
-        else:
-            emit('gameover', {'win_or_lose': 'LOSE'}, room = game.applewood.socketid)
-            emit('gameover', {'win_or_lose': 'WIN'}, room = game.yarg.socketid) 
+    
 
 
 @socketio.on('quit')
 def endGame(data):
     gid = data['gid']
     try:
-        findGame(gid)
+        game = findGame(gid)
     except:
         print("RETURN 1")
         return
-    emit('gameover', {'win_or_lose': 'draw'}, to=socketIdsInGame(gid)) 
+    game.winner = 0
+    sendGameState(gid)
     
 
             

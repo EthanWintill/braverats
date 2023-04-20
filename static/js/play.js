@@ -282,7 +282,22 @@ function generateSpyCardReveal(card, team) {
           }
         }
 
-        
+        if (data.state.gameover) {
+          // Show the game over modal box
+          const winner = data.state.game_winner
+          if (winner=="apple"){
+            $('#gameOverModalLabel').text('APPLEWOOD WINS')
+          } else if (winner=="yarg") {
+            $('#gameOverModalLabel').text('YARG WINS')
+          } else if (winner=="tie"){
+            $('#gameOverModalLabel').text('Its a draw!')
+          }else{
+            $('#gameOverModalLabel').text('GAME IS OVER')
+          }
+
+          $('#gameOverModal').modal('show');
+          
+        }
 
 
         /*$("#team").text(data.state.team)
@@ -312,7 +327,7 @@ function generateSpyCardReveal(card, team) {
 
    
       $(PLYR_CLASS).on('click', '.face-up.hand', function() {
-        console.log("picker")
+        console.log("a card has been picked!")
       const pickedCard = $(this).parent().attr('class').split(' ')[1].split('-')[2]
       data = {
         gid:window.location.pathname.slice(6),
@@ -327,10 +342,7 @@ function generateSpyCardReveal(card, team) {
       socket.emit('quit',{gid:window.location.pathname.slice(6)})
     })
 
-    socket.on('gameover', function (data) {
-      console.log(data)
-      window.location.href = 'gameover/'+data['win_or_lose']
-    });
+    
 
     });
 
