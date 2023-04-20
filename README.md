@@ -93,10 +93,19 @@ The current version of the game is hosted at <a href="https://braverats.herokuap
 		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-Screen-time-tracking/
 		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-17
 		
-- ** Laiba **: "Created Social Features for the Feed "
-	- `Jira Task: Implement Social Features for the feed`
-		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/social-features/
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-31
+- ** Laiba **: "Created GameOver Page"
+	- `Jira Task: Build Game Over POP-UP `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/eefff08659e7c8902f1b0ac97f044258d617930b 
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-58?atlOrigin=eyJpIjoiOGUzN2Y5ZTdmOTQ3NDcxMDk4MDFhMmY1MzQwMjkzMGQiLCJwIjoiaiJ9
+	- `Jira Task: Format Window Size `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/7642ee151f6d5985370a3d00f92ffab9a9d5b19f
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-60?atlOrigin=eyJpIjoiZDYwYTRhNDg1ZTIwNGRkNzhlZDJhZDc5N2Y5MzY1OGUiLCJwIjoiaiJ9
+	- `Jira Task: CSS TouchUP `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/a7cde8d5d5f98801e3f488acae949d0ebfc98c1a
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-63?atlOrigin=eyJpIjoiYmVjZjZiMGU0YzJhNDhmMTljMmE4MGI2MjUzODRhYTYiLCJwIjoiaiJ9
+	- `Jira Task: Connect POP-UP to gamescreen `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/ed047d48c5c795fdca53b8476a8f359ac331082f
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-59?atlOrigin=eyJpIjoiMWZjOGQ0NGM4NGM4NDVkNGFjYmQwMzlmOWI4ZTgxZmUiLCJwIjoiaiJ9
 	
 ## Next Steps For Sprint 2
 
