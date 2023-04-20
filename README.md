@@ -211,11 +211,9 @@ Allow more time for merging and implementing team members code to work in sync w
 - ** Ethan Wintill **:
 	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
 - ** Laiba **:
-	- Starting Work way sooner and becoming more organized in handling my workload as I am dropping a class to decrease workload
-	- Discuss Sam's idea of possibly changing project 
-	- more organization and discussion including reasonable task devision to make sure we don't over estimate abilities to get tasks done as a team
-	- for code starting sooner will allow me to lok more in detail in issues and find solutions and even come to teamamates sooner to help resolve and make progress 
-
+	- Assigned 3 front end tasks 
+	- do a multiple commits a day and 1 push atleast no matter how small the change 
+	- more open communication about workload help if needed 
 ___
 
 ## Acknowledgements
