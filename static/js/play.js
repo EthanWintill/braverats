@@ -330,6 +330,12 @@ function generateSpyCardReveal(card, team) {
       socket.emit('quit',{gid:window.location.pathname.slice(6)})
     })
 
+    $("#rematch").on('click', function(){
+      console.log("starting rematch...")
+      const gid = window.location.pathname.slice(6)
+      window.location.href = '/rematch/'+gid;
+    })
+
     
 
     });
