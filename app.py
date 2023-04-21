@@ -26,6 +26,11 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def rules():
     return render_template("rules.html")
 
+@app.route("/account")
+def account():
+    return render_template("account.html")
+
+
 @app.route("/play/gameover")
 def gameover():
     return render_template("gameover_popup.html")
