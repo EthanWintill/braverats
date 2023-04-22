@@ -313,18 +313,6 @@ function generateSpyCardReveal(card, team) {
         $("#history").text(data.state.history)*/
       });
 
-      /*
-      $('#send-button').click(function() {
-        const pickedCard = $('#cardToPlay').val()
-        data = {
-          gid:window.location.pathname.slice(6),
-          sid:$('#sid').text(),
-          card:pickedCard,
-        }
-        
-        socket.emit('chooseCard', data)
-    });*/
-
    
       $(PLYR_CLASS).on('click', '.face-up.hand', function() {
         console.log("a card has been picked!")
@@ -340,6 +328,12 @@ function generateSpyCardReveal(card, team) {
       
     $("#quit").on('click', function(){
       socket.emit('quit',{gid:window.location.pathname.slice(6)})
+    })
+
+    $("#rematch").on('click', function(){
+      console.log("starting rematch...")
+      const gid = window.location.pathname.slice(6)
+      window.location.href = '/rematch/'+gid;
     })
 
     

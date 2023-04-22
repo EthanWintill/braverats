@@ -40,11 +40,10 @@ def play(gId):
     
     return render_template("play.html", sid=session.sid)
 
-@app.route('/rematch', methods=['POST'])
-def rematch():
-    val = createNewGame()
-    print("helll")
-    return redirect(f"/play/{val}")
+@app.route('/rematch/<string:gId>', methods=['GET'])
+def rematch(gId):
+    val = createNewGame(gId) #hash old gid to get next game
+    return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
 
 @app.route("/", methods=["GET","POST"])

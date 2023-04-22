@@ -92,12 +92,12 @@ The current version of the game is hosted at <a href="https://braverats.herokuap
 	- `Jira Task: Implement the user interface for displaying screen time data`
 		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-Screen-time-tracking/
 		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-17
-		
 - ** Laiba **: "Created Social Features for the Feed "
 	- `Jira Task: Implement Social Features for the feed`
 		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/social-features/
 		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-31
-	
+		
+
 ## Next Steps For Sprint 2
 
 - ** Sam **:
@@ -125,21 +125,24 @@ The current version of the game is hosted at <a href="https://braverats.herokuap
 
 ___
 
-## Sprint 3
+## Sprint 2
 ## Contributions
-- ** Sam **: "Created UI elements for goal tracking and push notification features"
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
+- ** Sam **: "Designed and implemented backend architecture for seamless multiplayer gameplay"
+	- `Jira Task: Add functionality to create a new game on server 
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/3
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-49
+	- `Jira Task: Handle routes for home page and play page, with respective post requests aswell
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/5
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-53
+	- `Jira Task: Create socket architecture to recieve input and send output to client
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/10
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-50
+	- `Jira Task: Implement functionality to use client input in game logic
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/8
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-52
+	- `Jira Task: Write unit tests to ensure server architecture works as intended
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/pull-requests/23
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/backlog?issueParent=10049&selectedIssue=BR-54
 		
 Selah : "Create Home Page"
 `Jira Task: Create Rules page from button on home page
@@ -185,21 +188,26 @@ jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects
 		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/4
 		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/issues/BR-66
 		
-- ** Laiba **: "Created Social Features for the Feed "
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
-	- `Jira Task: 
-		- bitbucket reference: 
-		- jira referece: 
+- ** Laiba **: "Created GameOver Page"
+	- `Jira Task: Build Game Over POP-UP `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/eefff08659e7c8902f1b0ac97f044258d617930b 
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-58?atlOrigin=eyJpIjoiOGUzN2Y5ZTdmOTQ3NDcxMDk4MDFhMmY1MzQwMjkzMGQiLCJwIjoiaiJ9
+	- `Jira Task: Format Window Size `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/7642ee151f6d5985370a3d00f92ffab9a9d5b19f
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-60?atlOrigin=eyJpIjoiZDYwYTRhNDg1ZTIwNGRkNzhlZDJhZDc5N2Y5MzY1OGUiLCJwIjoiaiJ9
+	- `Jira Task: CSS TouchUP `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/a7cde8d5d5f98801e3f488acae949d0ebfc98c1a
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-63?atlOrigin=eyJpIjoiYmVjZjZiMGU0YzJhNDhmMTljMmE4MGI2MjUzODRhYTYiLCJwIjoiaiJ9
+	- `Jira Task: Connect POP-UP to gamescreen `
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/brave_rats/commits/ed047d48c5c795fdca53b8476a8f359ac331082f
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-59?atlOrigin=eyJpIjoiMWZjOGQ0NGM4NGM4NDVkNGFjYmQwMzlmOWI4ZTgxZmUiLCJwIjoiaiJ9
+	
 
 ## Next Steps For Sprint 3
 
 - ** Sam **:
-	- For the upcoming sprint I will focus on starting my tasks as soon as possible to ensure that I am not waiting till the last minute
-	- Before we begin sprint 2, I want to discuss with my team members the possibility of switching to a different project because the learning curve for our current project turned out to be very ambitious
-	- As an improvement to the team's overall productivity, I will organize more team meetings in the Alkek library to ensure everyone is on the same page and making contributions
-	- As far as improvements to the codebase itself, if we decide to stay with the current project, I will work on making the UI more pretty and responsive as well as more engaging for users.
+	- For this next sprint I will add more features such as user logins and database functionality
+	- I will work quickly to ensure that our goals are reached by the end of the sprint
 Selah :
 I will start and finish my tasks very early in the sprint.
 Communicate with team members on what I'm currently doing.
@@ -211,11 +219,9 @@ Allow more time for merging and implementing team members code to work in sync w
 - ** Ethan Wintill **:
 	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
 - ** Laiba **:
-	- Starting Work way sooner and becoming more organized in handling my workload as I am dropping a class to decrease workload
-	- Discuss Sam's idea of possibly changing project 
-	- more organization and discussion including reasonable task devision to make sure we don't over estimate abilities to get tasks done as a team
-	- for code starting sooner will allow me to lok more in detail in issues and find solutions and even come to teamamates sooner to help resolve and make progress 
-
+	- Assigned 3 front end tasks 
+	- do a multiple commits a day and 1 push atleast no matter how small the change 
+	- more open communication about workload help if needed 
 ___
 
 ## Acknowledgements
