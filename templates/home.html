@@ -46,11 +46,17 @@
           </div>
           <div class="modal-body">
             <p>Copy and share this link with your friend:</p>
-            <input type="text" id="game_link" value="/play/{{gameId}}" class="form-control" readonly>
+            <div class="input-group">
+              <input type="text" id="game_link" value="/play/{{gameId}}" class="form-control" readonly>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="copy_link_btn">Done</button>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+            <div id="tooltip"></div>
+          </div>         
         </div>
       </div>
     </div>
