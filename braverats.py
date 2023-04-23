@@ -10,6 +10,8 @@ class Player:
 
     sessionid : str
     socketid : str
+
+    userid : int
    
 
     def __init__(self):
@@ -21,6 +23,7 @@ class Player:
 
         self.sessionid = None
         self.socketid = None
+        self.userid = None
         
 
     def resetEffects(self):
@@ -117,6 +120,14 @@ class Game:
         self.gId = gId
         self.history = []
 
+    def sidToUid(self, sid):
+        if self.applewood.sessionid == sid:
+            return self.applewood.userid
+        elif self.yarg.sessionid == sid:
+            return self.yarg.userid
+        else:
+            return None
+
     def sidToTeam(self, sid):
         if self.applewood.sessionid == sid:
             return 1
@@ -141,14 +152,16 @@ class Game:
         else:
             return None
 
-    def assignPlayer(self, sid):
+    def assignPlayer(self, sid, uid = None):
         if self.yarg.sessionid and self.applewood.sessionid:
             print("Both players assigned")
             return False
         if not self.applewood.sessionid:
             self.applewood.sessionid = sid
+            self.applewood.userid = uid
         else:
             self.yarg.sessionid = sid
+            self.yarg.userid = uid
         return True
 
     def assignSocket(self, sid, socketid):

@@ -203,11 +203,13 @@ function generateSpyCardReveal(card, team) {
       socket.on('connect', function () {
         let gid = window.location.pathname.slice(6)
         let sid = $('#sid').text()
+        let token = $('#token').text()
 
-        socket.emit('connection', { gid: gid, sid: sid});
+        socket.emit('connection', { gid: gid, sid: sid, token:token});
         console.log("connected")
         console.log(socket.id)
         console.log(sid)
+        console.log(token)
       });
     
       socket.on("early_card_reveal", (data) => {
@@ -233,6 +235,8 @@ function generateSpyCardReveal(card, team) {
         // gucci
 
         clearHandsAndHistory()
+
+        console.log(data.state)
 
         var playerTeamName = data.state.team == -1 ? "yarg" : "applewood"
         var oppTeamName = playerTeamName == "yarg" ? "applewood" : "yarg"
