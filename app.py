@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_session import Session
 from forms import LoginForm, RegisterForm
 
+from utils import Authentic
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 #FLASK TOOLS
@@ -46,8 +48,13 @@ def play(gId):
     #game = findGame(gId)
     #if not game.playersIn() and not game.sidToTeam(session.sid):
        # game.assignPlayer(session.sid) #really wtf
+    if current_user.is_authenticated:
+        token = Authentic.gen_usr_token(current_user.id, current_user.password)
+    else:
+        token = "0 0"
     
-    return render_template("play.html", sid=session.sid)
+    
+    return render_template("play.html", sid=session.sid, token=token)
 
 @app.route('/rematch/<string:gId>', methods=['GET'])
 def rematch(gId):
@@ -58,7 +65,7 @@ def rematch(gId):
 @app.route("/", methods=["GET","POST"])
 def index():
     #print(Users.getAllUsers())
-    print(current_user)
+    
     if request.method == "POST":
         
         val = createNewGame()
@@ -95,8 +102,9 @@ def signup():
         if not Users.createUser(username,email,hashedpass):
             print("user not made")
             return render_template('signup.html', form=form)
-        print(username,password,email)
-        return redirect("/login") #log them in here
+        user = Users.getUserByName(username)
+        login_user(user)
+        return redirect("/") #log them in here
     return render_template('signup.html', form=form)
 
 @socketio.on("connection")
@@ -110,16 +118,26 @@ def assignPlayer(data):
     except:
         return
     sid = data['sid']
+    token = data['token']
+    uid = None
+    if Authentic.validate_usr_token(token):
+        uid = Authentic.token_to_id(token)
+
+
     print("ASSIGN SUCCESS")
-    if not game.assignSocket(sid,request.sid): # handles wrong users in func
-        game.assignPlayer(sid)
-        game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
+    
+    game.assignPlayer(sid, uid)
+    game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
     sendGameState(gid)
 
 
 def sendGameState(gid, round_winner=None):
     game = findGame(gid)
     sockets = socketIdsInGame(gid)
+    auid = game.applewood.userid
+    yuid = game.yarg.userid
+    aname = Users.getUserById(auid).username if auid else 'Guest'
+    yname = Users.getUserById(yuid).username if yuid else 'Guest'
     dataForClient = {
         'applewood_hand': game.applewood.hand,
         'yarg_hand':game.yarg.hand,
@@ -133,7 +151,9 @@ def sendGameState(gid, round_winner=None):
         'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
         'round_winner': round_winner,
         'team' : None,
-        'history' : game.history
+        'history' : game.history,
+        'applewood_username' : aname,
+        'yarg_username' : yname
         }
     
     for socket in sockets:
