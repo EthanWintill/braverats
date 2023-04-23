@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_session import Session
+from forms import LoginForm, RegisterForm
+
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 #FLASK TOOLS
 from flask_socketio import SocketIO, send, emit
 #FLASK SOCKETIO
@@ -7,6 +11,9 @@ from games import createNewGame, findGame, socketIdsInGame
 #GAMES STORAGE
 import json
 import os
+
+#DATABASE
+from models import Users, History
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -19,6 +26,8 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
@@ -48,11 +57,47 @@ def rematch(gId):
 
 @app.route("/", methods=["GET","POST"])
 def index():
+    #print(Users.getAllUsers())
+    print(current_user)
     if request.method == "POST":
         
         val = createNewGame()
         return render_template("home.html", gameId=val)
     return render_template("home.html")
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.getUserById(user_id)
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = Users.getUserByName(username)
+        if user and not check_password_hash(user.password,password):
+            user = None
+        if user: #AUTHENTICATED
+            login_user(user)
+            return redirect("/")
+        print(username,password)
+    return render_template('login.html', form=form)
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        hashedpass = generate_password_hash(password, method="sha256")
+        email = request.form.get('email')
+        if not Users.createUser(username,email,hashedpass):
+            print("user not made")
+            return render_template('signup.html', form=form)
+        print(username,password,email)
+        return redirect("/login") #log them in here
+    return render_template('signup.html', form=form)
 
 @socketio.on("connection")
 def assignPlayer(data):
