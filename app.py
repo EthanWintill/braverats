@@ -33,6 +33,12 @@ login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+@app.route('/leaderboard')
+def leaderboard():
+    board = History.getLeaderboard()
+    return render_template('leaderboard.html', board=board)
+
+
 @app.route("/rules")
 def rules():
     return render_template("rules.html")

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{{ url_for('static', filename='js/leaderboard.js') }}"></script>
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th># games</th>
+            <th>app wins</th>
+            <th>yarg wins</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in board %}
+            <tr>
+              {% for cell in row %}
+                <td>{{ row[cell] }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+</body>
+</html>
