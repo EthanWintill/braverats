@@ -2,6 +2,12 @@ var rules = document.getElementById("rules");
       rules.addEventListener("click", function() {
         window.location.href = "rules";
       });
+
+
+var account = document.getElementById("account");
+      account.addEventListener("click", function() {
+        window.location.href = "account";
+      });
 var play = document.getElementById("play");
       play.addEventListener("click", function() {
         play.classList.toggle("clicked");
@@ -29,14 +35,18 @@ var play = document.getElementById("play");
             copyTextArea.select();
             document.execCommand("copy");
             document.body.removeChild(copyTextArea);
-      
-            // Display the link in a pop-up
-            var tooltip = document.getElementById("tooltip");
-            tooltip.innerHTML = "Click to enter game: <a href='" + link + "' target='_blank'>" + link + "</a>";
-            tooltip.style.display = "block";
           }
+        
+          // Display the link in a pop-up
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+          var tooltip = document.getElementById("tooltip");
+          tooltip.innerHTML = "Click to enter game: <a href='" + link + "' target='_blank'>" + link + "</a>";
+          tooltip.style.display = "block";
         });
       });
+      
       
     
       

@@ -25,6 +25,7 @@
   </form>
   
     <button id="rules">Rules</button>
+    <button id="account">My Account</button>
     <button id="play">Play</button>
     <form action="/" method="post">
       <button id="playWithAFriend">Play With A Friend</button>
@@ -49,11 +50,13 @@
             <div class="input-group">
               <input type="text" id="game_link" value="/play/{{gameId}}" class="form-control" readonly>
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="copy_link_btn">Done</button>
+                <button class="btn btn-primary" type="button" id="copy_link_btn" data-toggle="tooltip">Copy</button>
+                <div id="tooltip" title="Link copied!"></div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
+            
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <div id="tooltip"></div>
           </div>         

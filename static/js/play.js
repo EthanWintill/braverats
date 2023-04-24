@@ -28,6 +28,13 @@ const NEW_PLYR_CLASS = "row player"
 
 const NEW_ROUND_CLASS = "col-sm round"
 
+const player1ScoreElement = document.getElementById('player1-score-value');
+const player2ScoreElement = document.getElementById('player2-score-value');
+
+let player1Score = 0;
+let player2Score = 0;
+
+
 function faceDownCard() {
   el = document.createElement("div")
   el.className = "card"
@@ -83,8 +90,12 @@ function generateRound(round, team){
   var roundClass = NEW_ROUND_CLASS
   if (winner > 0){
     roundClass += " a-win"
+    player1Score++;
+    player1ScoreElement.textContent = player1Score.toString();
   } else if (winner < 0){
     roundClass += " y-win"
+    player2Score++;
+    player2ScoreElement.textContent = player2Score.toString();
   } else{
     roundClass += " hold-win"
   }
