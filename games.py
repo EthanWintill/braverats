@@ -1,4 +1,4 @@
-from braverats import Game
+from braverats import Game, Bot
 import random
 import string
 import hashlib
@@ -14,13 +14,13 @@ CHARACTERS = (
 def generate_unique_key():
     return ''.join(random.sample(CHARACTERS, 15))
 
-def createNewGame(oldGID = None):
+def createNewGame(oldGID = None, isOneplayer=False):
     global games
     if len(games) > 4:
         games = {}
     if oldGID is None: #check if new match instead of rematch
         gId = generate_unique_key()
-        ng = Game(gId)
+        ng = Game(gId, isOneplayer=True) if isOneplayer else Game(gId)
         games[gId] = ng
         return gId
 
@@ -29,9 +29,13 @@ def createNewGame(oldGID = None):
     try: 
         findGame(gId) #check if game has already been created (client is second to click rematch)
     except:
-        ng = Game(gId) #create new game if client was the first to click rematch
+        ng = Game(gId, isOneplayer=True) if isOneplayer else Game(gId) #create new game if client was the first to click rematch
         games[gId] = ng
     return gId
+
+def createOnePlayerGame(oldGID = None): #literally exactly the same as before except for the game constuctor
+    return createNewGame(oldGID,True)
+
 
 def findGame(gId) -> Game:
     if not games[gId]:
@@ -45,7 +49,14 @@ def socketIdsInGame(gId):
         ids.append(game.applewood.socketid)
     if game.yarg.socketid:
         ids.append(game.yarg.socketid)
+    print("SPECS " )
+    print(game.spectators)
+    for spec in game.spectators:
+        if spec.socketid:
+            ids.append(spec.socketid)
     return ids
+
+
 
 
 

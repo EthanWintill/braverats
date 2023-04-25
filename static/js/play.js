@@ -28,6 +28,13 @@ const NEW_PLYR_CLASS = "row player"
 
 const NEW_ROUND_CLASS = "col-sm round"
 
+const player1ScoreElement = document.getElementById('player1-score-value');
+const player2ScoreElement = document.getElementById('player2-score-value');
+
+let player1Score = 0;
+let player2Score = 0;
+
+
 function faceDownCard() {
   el = document.createElement("div")
   el.className = "card"
@@ -83,8 +90,10 @@ function generateRound(round, team){
   var roundClass = NEW_ROUND_CLASS
   if (winner > 0){
     roundClass += " a-win"
+    
   } else if (winner < 0){
     roundClass += " y-win"
+    
   } else{
     roundClass += " hold-win"
   }
@@ -163,6 +172,23 @@ function generateEnemyCardPreview() {
   return roundEl
 }
 
+
+function generateSpecFriendlyCardPreview() {
+  var roundEl = document.createElement("div")
+  roundEl.className = NEW_ROUND_CLASS
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+  topEl.className = "row card"
+  bottomEl.className = "row card"
+  var face = document.createElement("div")
+  face.className = "face-down"
+
+  topEl.appendChild(face)
+  roundEl.appendChild(bottomEl)
+  roundEl.appendChild(topEl)
+  return roundEl
+}
+
 function openRules(){
   window.open('/rules')
 }
@@ -193,6 +219,31 @@ function generateSpyCardReveal(card, team) {
   return roundEl
 }
 
+function generateSpecFriendlySpyCardReveal(card, team) {
+  var roundEl = document.createElement("div")
+  roundEl.className = NEW_ROUND_CLASS
+  var topEl = document.createElement("div")
+  var bottomEl = document.createElement("div")
+  topEl.className = "row card"
+  bottomEl.className = "row card"
+  var face = document.createElement("div")
+  face.className = "face-up"
+
+  if (team == -1) {
+    
+    topEl.className = "row card card-A-" + card
+    topEl.appendChild(face)
+
+  } else{
+    topEl.className = "row card card-Y-" + card
+    topEl.appendChild(face)
+
+
+  }
+  roundEl.appendChild(bottomEl)
+  roundEl.appendChild(topEl)
+  return roundEl
+}
 
 
 
@@ -243,8 +294,12 @@ function generateSpyCardReveal(card, team) {
         $(PLYR_CLASS).attr("class",NEW_PLYR_CLASS + " " + playerTeamName)
         $(OPP_CLASS).attr("class",NEW_OPP_CLASS + " " + oppTeamName)
         //done setting team colors
-
-        if (playerTeamName == "applewood"){
+        
+        if (data.state.team === null){
+          renderUnknownHand(PLYR_CLASS, data.state.applewood_hand.length)
+          renderUnknownHand(OPP_CLASS, data.state.yarg_hand.length)
+        }
+        else if (playerTeamName == "applewood"){
           renderKnownHand(PLYR_CLASS, data.state.applewood_hand, "A")
           renderUnknownHand(OPP_CLASS, data.state.yarg_hand.length)
         } else {
@@ -261,28 +316,40 @@ function generateSpyCardReveal(card, team) {
           var roundEl = generateRound(JSON.parse(thisRound), data.state.team)
           middleEl.append(roundEl)
         }
+
+        // score
+        player1ScoreElement.innerText = data.state.applewood_score
+        player2ScoreElement.innerText = data.state.yarg_score
         
         const aCard = data.state.applewood_card
         const yCard = data.state.yarg_card
         const revealA = data.state.revealA
         const revealY = data.state.revealY
         
+        // this section is so jank good luck refactoring XD
         if (aCard != null){ // A CARD PLAYED
           if (data.state.team == 1){ // YOU ARE A
           var previewEl = generateFriendlyCardPreview(aCard, data.state.team)
           middleEl.append(previewEl)
-          } else { // YOU ARE NOT A
+          } else if (data.state.team == -1) { // YOU ARE NOT A
             var previewEl = revealA ? generateSpyCardReveal(aCard, data.state.team) : generateEnemyCardPreview()
           middleEl.append(previewEl)
+          } else {
+            var previewEl = revealA ? generateSpecFriendlySpyCardReveal(aCard, -1) : generateSpecFriendlyCardPreview()
+            middleEl.append(previewEl)
           }
         } else if (yCard != null){
           
           if (data.state.team == -1){
           var previewEl = generateFriendlyCardPreview(yCard, data.state.team)
           middleEl.append(previewEl)
-          } else{
+          } else if (data.state.team == 1){
             var previewEl = revealY ? generateSpyCardReveal(yCard, data.state.team) : generateEnemyCardPreview()
           middleEl.append(previewEl)
+          }
+          else {
+            var previewEl = revealY ? generateSpyCardReveal(yCard, 1) : generateEnemyCardPreview()
+            middleEl.append(previewEl)
           }
         }
 

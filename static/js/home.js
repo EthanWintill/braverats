@@ -15,17 +15,22 @@ var play = document.getElementById("play");
 
       
       $(document).ready(function() {
-        var link = $("#game_link").attr("value");
-        $("#game_link").attr("value", window.location.origin + link);
-      
+        var link = $("#game_link").text();
+        $("#game_link").text( window.location.origin + link);
+        $("#game_link").attr('hidden',false)
+        $("#game_link").attr('href', window.location.origin + link)
+        $("#gameLinkModal").modal("show");
+
         $("#copy_link_btn").on("click", function() {
-          var link = $("#game_link").val();
+          var link = $("#game_link").attr('href');
       
           if (navigator.clipboard) {
             navigator.clipboard.writeText(link).then(function() {
-              alert("Link copied to clipboard!");
+              console.log("Link copied to clipboard!");
+              $("#copy_link_btn").hide();
+              $("#copynotif").attr("hidden",false)        
             }, function() {
-              alert("Failed to copy link to clipboard!");
+              console.log("Failed to copy link to clipboard!");
             });
           } else {
             // fallback code for older browsers
@@ -35,14 +40,12 @@ var play = document.getElementById("play");
             copyTextArea.select();
             document.execCommand("copy");
             document.body.removeChild(copyTextArea);
-      
-            // Display the link in a pop-up
-            var tooltip = document.getElementById("tooltip");
-            tooltip.innerHTML = "Click to enter game: <a href='" + link + "' target='_blank'>" + link + "</a>";
-            tooltip.style.display = "block";
           }
+        
         });
+
       });
+      
       
     
       
