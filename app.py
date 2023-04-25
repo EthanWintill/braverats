@@ -263,7 +263,12 @@ def chooseCard(data):
     if game.readyToFight():
         res = game.calculate()
         print(res.winner)
-
+    if game.gameOver() and not isinstance(game.yarg, Bot):
+        aid = game.applewood.userid if game.applewood.userid else 0
+        yid = game.yarg.userid if game.yarg.userid else 0
+        ascr = game.applewood.score
+        yscr = game.yarg.score
+        History.append(aid,yid,ascr,yscr)
     sendGameState(gid)
 
     if game.applewood.spyLast and not game.yarg.spyLast and isinstance(game.yarg, Bot):
