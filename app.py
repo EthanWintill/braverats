@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_session import Session
 from forms import LoginForm, RegisterForm
 
-from utils import Authentic
+from utils import Authentic, getLeaderboard
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -33,6 +33,13 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+@app.route('/leaderboard')
+def leaderboard():
+    board = getLeaderboard()
+    return render_template('leaderboard.html', board=board)
+
+
 
 @app.route("/rules")
 def rules():
