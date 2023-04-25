@@ -90,12 +90,10 @@ function generateRound(round, team){
   var roundClass = NEW_ROUND_CLASS
   if (winner > 0){
     roundClass += " a-win"
-    player1Score++;
-    player1ScoreElement.textContent = player1Score.toString();
+    
   } else if (winner < 0){
     roundClass += " y-win"
-    player2Score++;
-    player2ScoreElement.textContent = player2Score.toString();
+    
   } else{
     roundClass += " hold-win"
   }
@@ -272,6 +270,10 @@ function generateSpyCardReveal(card, team) {
           var roundEl = generateRound(JSON.parse(thisRound), data.state.team)
           middleEl.append(roundEl)
         }
+
+        // score
+        player1ScoreElement.innerText = data.state.applewood_score
+        player2ScoreElement.innerText = data.state.yarg_score
         
         const aCard = data.state.applewood_card
         const yCard = data.state.yarg_card
