@@ -28,6 +28,13 @@ const NEW_PLYR_CLASS = "row player"
 
 const NEW_ROUND_CLASS = "col-sm round"
 
+const player1ScoreElement = document.getElementById('player1-score-value');
+const player2ScoreElement = document.getElementById('player2-score-value');
+
+let player1Score = 0;
+let player2Score = 0;
+
+
 function faceDownCard() {
   el = document.createElement("div")
   el.className = "card"
@@ -83,8 +90,12 @@ function generateRound(round, team){
   var roundClass = NEW_ROUND_CLASS
   if (winner > 0){
     roundClass += " a-win"
+    player1Score++;
+    player1ScoreElement.textContent = player1Score.toString();
   } else if (winner < 0){
     roundClass += " y-win"
+    player2Score++;
+    player2ScoreElement.textContent = player2Score.toString();
   } else{
     roundClass += " hold-win"
   }
@@ -203,11 +214,13 @@ function generateSpyCardReveal(card, team) {
       socket.on('connect', function () {
         let gid = window.location.pathname.slice(6)
         let sid = $('#sid').text()
+        let token = $('#token').text()
 
-        socket.emit('connection', { gid: gid, sid: sid});
+        socket.emit('connection', { gid: gid, sid: sid, token:token});
         console.log("connected")
         console.log(socket.id)
         console.log(sid)
+        console.log(token)
       });
     
       socket.on("early_card_reveal", (data) => {
@@ -233,6 +246,8 @@ function generateSpyCardReveal(card, team) {
         // gucci
 
         clearHandsAndHistory()
+
+        console.log(data.state)
 
         var playerTeamName = data.state.team == -1 ? "yarg" : "applewood"
         var oppTeamName = playerTeamName == "yarg" ? "applewood" : "yarg"
@@ -282,7 +297,22 @@ function generateSpyCardReveal(card, team) {
           }
         }
 
-        
+        if (data.state.gameover) {
+          // Show the game over modal box
+          const winner = data.state.game_winner
+          if (winner=="apple"){
+            $('#gameOverModalLabel').text('APPLEWOOD WINS')
+          } else if (winner=="yarg") {
+            $('#gameOverModalLabel').text('YARG WINS')
+          } else if (winner=="tie"){
+            $('#gameOverModalLabel').text('Its a draw!')
+          }else{
+            $('#gameOverModalLabel').text('GAME IS OVER')
+          }
+
+          $('#gameOverModal').modal('show');
+          
+        }
 
 
         /*$("#team").text(data.state.team)
@@ -298,21 +328,9 @@ function generateSpyCardReveal(card, team) {
         $("#history").text(data.state.history)*/
       });
 
-      /*
-      $('#send-button').click(function() {
-        const pickedCard = $('#cardToPlay').val()
-        data = {
-          gid:window.location.pathname.slice(6),
-          sid:$('#sid').text(),
-          card:pickedCard,
-        }
-        
-        socket.emit('chooseCard', data)
-    });*/
-
    
       $(PLYR_CLASS).on('click', '.face-up.hand', function() {
-        console.log("picker")
+        console.log("a card has been picked!")
       const pickedCard = $(this).parent().attr('class').split(' ')[1].split('-')[2]
       data = {
         gid:window.location.pathname.slice(6),
@@ -327,9 +345,13 @@ function generateSpyCardReveal(card, team) {
       socket.emit('quit',{gid:window.location.pathname.slice(6)})
     })
 
-    socket.on('gameover', function () {
-      window.location.href = 'gameover'
-    });
+    $("#rematch").on('click', function(){
+      console.log("starting rematch...")
+      const gid = window.location.pathname.slice(6)
+      window.location.href = '/rematch/'+gid;
+    })
+
+    
 
     });
 
