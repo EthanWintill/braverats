@@ -10,20 +10,22 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
   <style>
-    
+
   </style>
 </head>
 
 <body>
   <div class="container">
-   
+
     <form action="/login">
-    <button id="login">Log in</button>
-  </form>
-  <form action="/signup">
-    <button id="signup">Sign up</button>
-  </form>
-  
+      <button id="login">Log in</button>
+    </form>
+    <form action="/signup">
+      <button id="signup">Sign up</button>
+    </form>
+    <form action="/leaderboard">
+      <button>Leaderboard</button>
+    </form>
     <button id="rules">Rules</button>
     <button id="account">My Account</button>
     <form action="/oneplayer" method="post">
@@ -33,9 +35,7 @@
       <button id="playWithAFriend">Play With A Friend</button>
     </form>
     {% if gameId %}
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gameLinkModal">
-      Press here to get link!
-    </button>
+    
 
     <div class="modal fade" id="gameLinkModal" tabindex="-1" role="dialog" aria-labelledby="gameLinkModalLabel"
       aria-hidden="true">
@@ -49,18 +49,13 @@
           </div>
           <div class="modal-body">
             <p>Copy and share this link with your friend:</p>
-            <div class="input-group">
-              <input type="text" id="game_link" value="/play/{{gameId}}" class="form-control" readonly>
+              <a hidden="true" id="game_link" href="">/play/{{gameId}}</a>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="copy_link_btn" data-toggle="tooltip">Copy</button>
-                <div id="tooltip" title="Link copied!"></div>
+                <p id="copynotif" hidden="true">Link Copied!</p>
               </div>
-            </div>
           </div>
           <div class="modal-footer">
-            
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <div id="tooltip"></div>
           </div>         
         </div>
       </div>
