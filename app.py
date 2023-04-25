@@ -1,12 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_session import Session
+from forms import LoginForm, RegisterForm
+
+from utils import Authentic, getLeaderboard
+
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 #FLASK TOOLS
 from flask_socketio import SocketIO, send, emit
 #FLASK SOCKETIO
-from games import createNewGame, findGame, socketIdsInGame
+from games import createNewGame, findGame, socketIdsInGame, createOnePlayerGame
 #GAMES STORAGE
 import json
 import os
+from braverats import Bot
+
+#DATABASE
+from models import Users, History
+
+os.environ['GEVENT_SUPPORT'] = "True"
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -19,12 +31,26 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+@app.route('/leaderboard')
+def leaderboard():
+    board = getLeaderboard()
+    return render_template('leaderboard.html', board=board)
+
+
 
 @app.route("/rules")
 def rules():
     return render_template("rules.html")
+
+@app.route("/account")
+def account():
+    return render_template("account.html")
+
 
 @app.route("/play/gameover")
 def gameover():
@@ -41,23 +67,86 @@ def play(gId):
     #game = findGame(gId)
     #if not game.playersIn() and not game.sidToTeam(session.sid):
        # game.assignPlayer(session.sid) #really wtf
+    if current_user.is_authenticated:
+        token = Authentic.gen_usr_token(current_user.id, current_user.password)
+    else:
+        token = "0 0"
     
-    return render_template("play.html", sid=session.sid)
+    
+    return render_template("play.html", sid=session.sid, token=token)
 
-@app.route('/rematch', methods=['POST'])
-def rematch():
-    val = createNewGame()
-    print("helll")
-    return redirect(f"/play/{val}")
+@app.route('/rematch/<string:gId>', methods=['GET'])
+def rematch(gId):
+    
+    try:
+        game = findGame(gId)
+        sid = session.sid
+        if not game.sidToTeam(sid):
+            return redirect(f'/play/{gId}')
+        elif(isinstance(game.yarg, Bot)):
+            val = createOnePlayerGame(gId)
+        else:
+            val = createNewGame(gId) #hash old gid to get next game
+    except:
+        print("game not found to rematch!")
+        return render_template('home.html')
+
+    return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
 
 @app.route("/", methods=["GET","POST"])
 def index():
+    #print(Users.getAllUsers())
+    
     if request.method == "POST":
         
         val = createNewGame()
         return render_template("home.html", gameId=val)
     return render_template("home.html")
+
+@app.route("/oneplayer", methods=["GET","POST"])
+def oneplayer():
+    if request.method == "POST":
+        val = createOnePlayerGame()
+        #
+        return redirect(f"/play/{val}")
+    
+    return render_template("home.html")
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.getUserById(user_id)
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = Users.getUserByName(username)
+        if user and not check_password_hash(user.password,password):
+            user = None
+        if user: #AUTHENTICATED
+            login_user(user)
+            return redirect("/")
+        print(username,password)
+    return render_template('login.html', form=form)
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        hashedpass = generate_password_hash(password, method="sha256")
+        email = request.form.get('email')
+        if not Users.createUser(username,email,hashedpass):
+            print("user not made")
+            return render_template('signup.html', form=form)
+        user = Users.getUserByName(username)
+        login_user(user)
+        return redirect("/") #log them in here
+    return render_template('signup.html', form=form)
 
 @socketio.on("connection")
 def assignPlayer(data):
@@ -70,16 +159,29 @@ def assignPlayer(data):
     except:
         return
     sid = data['sid']
+    token = data['token']
+    uid = None
+    if Authentic.validate_usr_token(token):
+        uid = Authentic.token_to_id(token)
+
+
     print("ASSIGN SUCCESS")
-    if not game.assignSocket(sid,request.sid): # handles wrong users in func
-        game.assignPlayer(sid)
-        game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
+    
+    if game.assignPlayer(sid, uid):
+        game.assignSocket(sid,request.sid) 
+    else:
+        game.assignSpectator(sid,uid)
+        game.assignSpecSocket(sid,request.sid)
     sendGameState(gid)
 
 
 def sendGameState(gid, round_winner=None):
     game = findGame(gid)
     sockets = socketIdsInGame(gid)
+    auid = game.applewood.userid
+    yuid = game.yarg.userid
+    aname = Users.getUserById(auid).username if auid else 'Guest'
+    yname = Users.getUserById(yuid).username if yuid else 'Guest'
     dataForClient = {
         'applewood_hand': game.applewood.hand,
         'yarg_hand':game.yarg.hand,
@@ -93,7 +195,9 @@ def sendGameState(gid, round_winner=None):
         'game_winner':('tie' if game.gameOver() else 'none' ) if not game.winner else ('apple' if game.winner==1 else 'yarg'),
         'round_winner': round_winner,
         'team' : None,
-        'history' : game.history
+        'history' : game.history,
+        'applewood_username' : aname,
+        'yarg_username' : yname
         }
     
     for socket in sockets:
@@ -148,6 +252,8 @@ def chooseCard(data):
         print("SUCCESSFUL APPLE PICK")
         #APPLEWOOD AND CARD NOT PLAYED YET
         game.chooseApplewood(card)
+        if(isinstance(game.yarg, Bot) and game.yarg.card is None):
+            game.chooseBot()
     elif team == -1 and (game.yarg.card is None) and (card in game.yarg.hand):
         #YARG AND CARD NOT PLAYED YET
         game.chooseYarg(card)
@@ -160,19 +266,24 @@ def chooseCard(data):
 
     sendGameState(gid)
 
-    if(game.gameOver()):
-        emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
+    if game.applewood.spyLast and not game.yarg.spyLast and isinstance(game.yarg, Bot):
+        game.chooseBot()
+        sendGameState(gid)
+
+
+    
 
 
 @socketio.on('quit')
 def endGame(data):
     gid = data['gid']
     try:
-        findGame(gid)
+        game = findGame(gid)
     except:
         print("RETURN 1")
         return
-    emit('gameover', {'gameover': True}, to=socketIdsInGame(gid)) 
+    game.winner = 0
+    sendGameState(gid)
     
 
             
