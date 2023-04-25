@@ -2,20 +2,23 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_session import Session
 from forms import LoginForm, RegisterForm
 
-from utils import Authentic
+from utils import Authentic, getLeaderboard
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 #FLASK TOOLS
 from flask_socketio import SocketIO, send, emit
 #FLASK SOCKETIO
-from games import createNewGame, findGame, socketIdsInGame
+from games import createNewGame, findGame, socketIdsInGame, createOnePlayerGame
 #GAMES STORAGE
 import json
 import os
+from braverats import Bot
 
 #DATABASE
 from models import Users, History
+
+os.environ['GEVENT_SUPPORT'] = "True"
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -32,6 +35,13 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+@app.route('/leaderboard')
+def leaderboard():
+    board = getLeaderboard()
+    return render_template('leaderboard.html', board=board)
+
+
 
 @app.route("/rules")
 def rules():
@@ -67,7 +77,20 @@ def play(gId):
 
 @app.route('/rematch/<string:gId>', methods=['GET'])
 def rematch(gId):
-    val = createNewGame(gId) #hash old gid to get next game
+    
+    try:
+        game = findGame(gId)
+        sid = session.sid
+        if not game.sidToTeam(sid):
+            return redirect(f'/play/{gId}')
+        elif(isinstance(game.yarg, Bot)):
+            val = createOnePlayerGame(gId)
+        else:
+            val = createNewGame(gId) #hash old gid to get next game
+    except:
+        print("game not found to rematch!")
+        return render_template('home.html')
+
     return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
 
@@ -79,6 +102,15 @@ def index():
         
         val = createNewGame()
         return render_template("home.html", gameId=val)
+    return render_template("home.html")
+
+@app.route("/oneplayer", methods=["GET","POST"])
+def oneplayer():
+    if request.method == "POST":
+        val = createOnePlayerGame()
+        #
+        return redirect(f"/play/{val}")
+    
     return render_template("home.html")
 
 @login_manager.user_loader
@@ -135,8 +167,11 @@ def assignPlayer(data):
 
     print("ASSIGN SUCCESS")
     
-    game.assignPlayer(sid, uid)
-    game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
+    if game.assignPlayer(sid, uid):
+        game.assignSocket(sid,request.sid) 
+    else:
+        game.assignSpectator(sid,uid)
+        game.assignSpecSocket(sid,request.sid)
     sendGameState(gid)
 
 
@@ -217,6 +252,8 @@ def chooseCard(data):
         print("SUCCESSFUL APPLE PICK")
         #APPLEWOOD AND CARD NOT PLAYED YET
         game.chooseApplewood(card)
+        if(isinstance(game.yarg, Bot) and game.yarg.card is None):
+            game.chooseBot()
     elif team == -1 and (game.yarg.card is None) and (card in game.yarg.hand):
         #YARG AND CARD NOT PLAYED YET
         game.chooseYarg(card)
@@ -228,6 +265,11 @@ def chooseCard(data):
         print(res.winner)
 
     sendGameState(gid)
+
+    if game.applewood.spyLast and not game.yarg.spyLast and isinstance(game.yarg, Bot):
+        game.chooseBot()
+        sendGameState(gid)
+
 
     
 

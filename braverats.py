@@ -1,5 +1,6 @@
 import pdb
 import json
+import random
 
 class Player:
     hand : list[int]
@@ -30,6 +31,27 @@ class Player:
         self.generalLast = False
         self.spyLast = False
         self.card = None
+
+class Bot(Player):
+    def __init__(self):
+        super().__init__()
+        self.sessionid = 'botsession'
+        self.socketid = 'botsocket'
+
+    def play(self, history: list[str]):
+        return random.choice(self.hand)
+
+class Spectator():
+    sessionid : str
+    socketid : str
+
+    userid : int
+
+    def __init__(self):
+        self.sessionid = None
+        self.socketid = None
+        self.userid = None
+
 
 class Result:
     winner : int # 0:TIE, >0:APPLEWOOD, <0:YARG
@@ -107,18 +129,20 @@ class Game:
     maxScore = 4
     winner : int
 
+    spectators : list[Spectator]
 
     gId : str
 
-    def __init__(self, gId):
+    def __init__(self, gId, isOneplayer=False):
         self.applewood = Player()
-        self.yarg = Player()
+        self.yarg = Bot() if isOneplayer else Player()
         self.curDraws = []
         self.winner = None
         self.yarg_id = None
         self.applewood_id = None
         self.gId = gId
         self.history = []
+        self.spectators = []
 
     def sidToUid(self, sid):
         if self.applewood.sessionid == sid:
@@ -164,6 +188,23 @@ class Game:
             self.yarg.userid = uid
         return True
 
+    def assignSpectator(self, sid, uid = None):
+        duplicates = list(filter(lambda spec: spec.sessionid == sid or spec.userid == uid, self.spectators))
+        if len(duplicates) > 0:
+            return
+        new_spec = Spectator()
+        new_spec.sessionid = sid
+        new_spec.userid = uid
+        self.spectators.append(new_spec)
+
+
+    def assignSpecSocket(self, sid, socketid):
+        specs = list(filter(lambda spec: spec.sessionid == sid, self.spectators))
+        if len(specs) < 1:
+            return False
+        specs[0].socketid = socketid
+        return True
+
     def assignSocket(self, sid, socketid):
         team = self.sidToTeam(sid)
         if not team:
@@ -185,10 +226,16 @@ class Game:
         self.applewood.card = c
         self.applewood.hand.remove(c)
 
+            
+
     def chooseYarg(self, c):
         assert c in self.yarg.hand, "Error card not in hand in chooseYarg()"
         self.yarg.card = c
         self.yarg.hand.remove(c)
+
+    def chooseBot(self):
+        bot_card = self.yarg.play(self.history)
+        self.chooseYarg(bot_card)
 
     def handleDraws(self, winner): # >0 apple <0 yarg
         for i in range(len(self.curDraws)):
