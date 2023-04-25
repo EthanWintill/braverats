@@ -9,10 +9,11 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 #FLASK TOOLS
 from flask_socketio import SocketIO, send, emit
 #FLASK SOCKETIO
-from games import createNewGame, findGame, socketIdsInGame
+from games import createNewGame, findGame, socketIdsInGame, createOnePlayerGame
 #GAMES STORAGE
 import json
 import os
+from braverats import Bot
 
 #DATABASE
 from models import Users, History
@@ -67,7 +68,16 @@ def play(gId):
 
 @app.route('/rematch/<string:gId>', methods=['GET'])
 def rematch(gId):
-    val = createNewGame(gId) #hash old gid to get next game
+    try:
+        game = findGame(gId)
+        if(isinstance(game.yarg, Bot)):
+            val = createOnePlayerGame(gId)
+        else:
+            val = createNewGame(gId) #hash old gid to get next game
+    except:
+        print("game not found to rematch!")
+        return render_template('home.html')
+
     return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
 
@@ -79,6 +89,15 @@ def index():
         
         val = createNewGame()
         return render_template("home.html", gameId=val)
+    return render_template("home.html")
+
+@app.route("/oneplayer", methods=["GET","POST"])
+def oneplayer():
+    if request.method == "POST":
+        val = createOnePlayerGame()
+        #
+        return redirect(f"/play/{val}")
+    
     return render_template("home.html")
 
 @login_manager.user_loader
@@ -217,6 +236,8 @@ def chooseCard(data):
         print("SUCCESSFUL APPLE PICK")
         #APPLEWOOD AND CARD NOT PLAYED YET
         game.chooseApplewood(card)
+        if(isinstance(game.yarg, Bot) and game.yarg.card is None):
+            game.chooseBot()
     elif team == -1 and (game.yarg.card is None) and (card in game.yarg.hand):
         #YARG AND CARD NOT PLAYED YET
         game.chooseYarg(card)
@@ -228,6 +249,11 @@ def chooseCard(data):
         print(res.winner)
 
     sendGameState(gid)
+
+    if game.applewood.spyLast and not game.yarg.spyLast and isinstance(game.yarg, Bot):
+        game.chooseBot()
+        sendGameState(gid)
+
 
     
 
