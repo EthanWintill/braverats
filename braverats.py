@@ -41,6 +41,18 @@ class Bot(Player):
     def play(self, history: list[str]):
         return random.choice(self.hand)
 
+class Spectator():
+    sessionid : str
+    socketid : str
+
+    userid : int
+
+    def __init__(self):
+        self.sessionid = None
+        self.socketid = None
+        self.userid = None
+
+
 class Result:
     winner : int # 0:TIE, >0:APPLEWOOD, <0:YARG
     aAmbass : bool # AMBASSADOR ACTIVE
@@ -117,6 +129,7 @@ class Game:
     maxScore = 4
     winner : int
 
+    spectators : list[Spectator]
 
     gId : str
 
@@ -129,6 +142,7 @@ class Game:
         self.applewood_id = None
         self.gId = gId
         self.history = []
+        self.spectators = []
 
     def sidToUid(self, sid):
         if self.applewood.sessionid == sid:
@@ -172,6 +186,23 @@ class Game:
         else:
             self.yarg.sessionid = sid
             self.yarg.userid = uid
+        return True
+
+    def assignSpectator(self, sid, uid = None):
+        duplicates = list(filter(lambda spec: spec.sessionid == sid or spec.userid == uid, self.spectators))
+        if len(duplicates) > 0:
+            return
+        new_spec = Spectator()
+        new_spec.sessionid = sid
+        new_spec.userid = uid
+        self.spectators.append(new_spec)
+
+
+    def assignSpecSocket(self, sid, socketid):
+        specs = list(filter(lambda spec: spec.sessionid == sid, self.spectators))
+        if len(specs) < 1:
+            return False
+        specs[0].socketid = socketid
         return True
 
     def assignSocket(self, sid, socketid):

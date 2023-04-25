@@ -18,6 +18,8 @@ from braverats import Bot
 #DATABASE
 from models import Users, History
 
+os.environ['GEVENT_SUPPORT'] = "True"
+
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
 #from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -75,9 +77,13 @@ def play(gId):
 
 @app.route('/rematch/<string:gId>', methods=['GET'])
 def rematch(gId):
+    
     try:
         game = findGame(gId)
-        if(isinstance(game.yarg, Bot)):
+        sid = session.sid
+        if not game.sidToTeam(sid):
+            return redirect(f'/play/{gId}')
+        elif(isinstance(game.yarg, Bot)):
             val = createOnePlayerGame(gId)
         else:
             val = createNewGame(gId) #hash old gid to get next game
@@ -161,8 +167,11 @@ def assignPlayer(data):
 
     print("ASSIGN SUCCESS")
     
-    game.assignPlayer(sid, uid)
-    game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
+    if game.assignPlayer(sid, uid):
+        game.assignSocket(sid,request.sid) 
+    else:
+        game.assignSpectator(sid,uid)
+        game.assignSpecSocket(sid,request.sid)
     sendGameState(gid)
 
 
