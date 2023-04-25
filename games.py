@@ -49,7 +49,14 @@ def socketIdsInGame(gId):
         ids.append(game.applewood.socketid)
     if game.yarg.socketid:
         ids.append(game.yarg.socketid)
+    print("SPECS " )
+    print(game.spectators)
+    for spec in game.spectators:
+        if spec.socketid:
+            ids.append(spec.socketid)
     return ids
+
+
 
 
 
