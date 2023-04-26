@@ -15,6 +15,9 @@ import json
 import os
 from braverats import Bot
 
+import pdb
+
+
 #DATABASE
 from models import Users, History
 
@@ -142,6 +145,13 @@ def login():
             return redirect('/')
         print(username,password)
     return render_template('login.html', form=form)
+
+@app.route('/signout')
+def signout():
+    if current_user.is_authenticated:
+        logout_user()
+    return redirect('/')    
+    
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
