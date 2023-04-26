@@ -15,21 +15,27 @@
 </head>
 
 <body>
-  <div class="container">
 
-    <form action="/login">
-      <button id="login">Log in</button>
-    </form>
-    <form action="/signup">
-      <button id="signup">Sign up</button>
+  <nav>
+    <ul>
+      <li class="home"><a href="/">BraveRats</a></li>
+      {% if user %}
+        <li><a href="/account">Welcome {{user}}</a></li>
+      {% else %}
+      <li class="right-nav" ><a href="/login">Log in</a></li>
+      <li class="right-nav"><a href="/signup">Sign up</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  
+  <div class="container">
+    
+    <button id="rules">Rules</button>
+    <form action="/oneplayer" method="post">
+      <button id="play">Play With Computer</button>
     </form>
     <form action="/leaderboard">
       <button>Leaderboard</button>
-    </form>
-    <button id="rules">Rules</button>
-    <button id="account">My Account</button>
-    <form action="/oneplayer" method="post">
-      <button id="play">Play</button>
     </form>
     <form action="/" method="post">
       <button id="playWithAFriend">Play With A Friend</button>
@@ -61,9 +67,9 @@
       </div>
     </div>
     {% endif %}
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
   </div>
-  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 </body>
 
 </html>
