@@ -56,6 +56,14 @@ class History():
         games = session.query(Game).all()
         games_as_dict = [game.__dict__ for game in games]
         return games_as_dict
+
+    def filter_by_user_id(user_id):
+        filtered_games = []
+        games = History.readAll()
+        for game in games:
+            if game['appleid'] == user_id or game['yargid'] == user_id:
+                filtered_games.append(game)
+        return filtered_games
     
     @staticmethod
     def getLeaderboard():
