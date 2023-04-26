@@ -43,10 +43,49 @@ def getLeaderboard():
     return sorted(board, key=lambda x: x[5], reverse=True)
 
 def userStats(uid):
+    stats = {}
     user = Users.getUserById(uid)
     if not user:
         return None
-    stats = History.filter_by_user_id(uid)
+    games = History.filter_by_user_id(uid)
+    stats['userinfo']=user.__dict__
+    wins = 0
+    losses = 0
+    game_history = []
+    for game in games:
+        if game['appleid'] == uid:
+            userteam = 'applewood'
+            oppteam = 'yarg'
+            score = game['applescore']
+            oppscore = game['yargscore']
+            opp = Users.getUserById(game['yargid'])
+            if opp:
+                oppname = opp.__dict__['username']
+            else:
+                oppname = 'Guest'
+        else:
+            userteam = 'yarg'
+            oppteam = 'applewood'
+            score = game['yargscore']
+            oppscore = game['applescore']
+            opp = Users.getUserById(game['appleid'])
+            if opp:
+                oppname = opp.__dict__['username']
+            else:
+                oppname = 'Guest'
+            
+        if game['appleid'] == uid and game['applescore']==4 or game['yargid']==uid and game['yargscore']==4:
+            wins+=1
+        elif game['appleid'] == uid and game['applescore']!=4 or game['yargid']==uid and game['yargscore']!=4:
+            losses+=1
+        game_history.append({'user_team_name': userteam, 'score': score, 'opponent_team_name': oppteam, 'opponent_score':oppscore, 'opponent_username':oppname})
+    stats['games_played'] = wins+losses
+    raw_ratio = wins/(wins+losses) if losses>0 or wins>0 else -1
+    stats['ratio'] = int(raw_ratio*100)
+    stats['losses'] = losses
+    stats['wins']= wins
+    stats['game_history'] = game_history
+
     return stats
 
 

@@ -52,7 +52,10 @@ def account():
     stats = None
     if current_user.is_authenticated:
         stats = userStats(current_user.id)
-    return render_template("account.html", stats=stats)
+    return render_template("account.html", num_wins = stats['wins'], num_losses = stats['losses'],\
+                           win_loss_ratio=stats['ratio'], username=stats['userinfo']['username'],\
+                            email=stats['userinfo']['email'], num_games_played=stats['games_played']\
+                            , game_history= stats['game_history'] )
 
 
 @app.route("/play/gameover")
