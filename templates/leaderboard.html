@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,43 +10,68 @@
 
 
     <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      
-      th, td {
+        
+        body {
+            background-image: url("BraveRatsImage.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center
+        }
+        
+        table {
+            background-color: rgba(128, 128, 128, 0.5);
+            border-collapse: collapse;
+            margin: 250px auto 0; 
+        }
+        th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
-      }
+        background-color: transparent;
+        }
+        tr:hover {background-color:#f5f5f5;}
+        
+        th {
+            background-color: rgba(128, 128, 128, 0.5);
+            color: black;
+        }
+        
+        h1 {
+            color: yellow;
+        }
+        thead{
+            background-color: transparent;
+        }
+          
       
-      tr:hover {background-color:#f5f5f5;}
-      
-      th {
-        background-color: #4CAF50;
-        color: white;
-      }
     </style>
     
 </head>
 <body>
+
+    <h1> L.E.A.D.E.R.B.O.A.R.D.</h1>
     <table>
         <thead>
-          <tr>
-            <th>Username</th>
-            <th>User ID</th>
-            <th># games</th>
-            <th>wins</th>
-            <th>losses</th>
-            <th>ratio</th>
-          </tr>
+    
+            <tr>
+                <th>Player</th>
+                <th>ID</th>
+                <th>Games</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Ratio</th>
+            </tr>
         </thead>
         <tbody>
-          <tr> <td> 1</td> <td>2 </td>3<td> 4</td><td> 5</td><td>6</td><td>7</td><td> </td></tr>
-          <tr> <td>8</td> <td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
-          <tr> <td>15</td> <td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
-          <tr> <td>22</td> <td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td> 28</td></tr>
+          <tr> <td>1</td><td>2  </td><td> 3</td><td> 4</td><td>5</td><td>6</td></tr>
+          <tr> <td>7</td><td>8  </td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+          <tr> <td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+          <tr> <td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr> 
+        
+
+          <!-- This is a comment -->
+          <!--  
+
           {% for row in board %}
             <tr>
               {% for cell in row %}
@@ -54,8 +79,14 @@
               {% endfor %}
             </tr>
           {% endfor %}
+
+          -->
+        
+        
         </tbody>
       </table>
       
 </body>
 </html>
+
+
