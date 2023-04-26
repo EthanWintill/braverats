@@ -190,9 +190,9 @@ def assignPlayer(data):
 
     print("ASSIGN SUCCESS")
     
-    if game.assignPlayer(sid, uid):
-        game.assignSocket(sid,request.sid) 
-    else:
+    game.assignPlayer(sid, uid)
+    if not game.assignSocket(sid,request.sid):
+    
         game.assignSpectator(sid,uid)
         game.assignSpecSocket(sid,request.sid)
     sendGameState(gid)
