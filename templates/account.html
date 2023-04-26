@@ -10,17 +10,49 @@
 </head>
 <body>
   
-  <div class="user_img">
+  <!-- <div class="user_img">
     <img src="/static/assets/gameoverrat.png" id="photo">
     <input type="file"id="file"> 
     <label for="file" id="upload">Update Photo</label> 
-  </div>
+  </div> -->
 
   <div>
     {% if stats %}
       {{stats}}
     {% endif %}
   </div>
+  <h1>User Profile</h1>
+  <h2>User Info</h2>
+  <p>Email: {{ email }}</p>
+  <p>Username: {{ username }}</p>
+  <p>Number of Wins: {{ num_wins }}</p>
+  <p>Number of Losses: {{ num_losses }}</p>
+  <p>Games Played: {{ num_games_played }}</p>
+  <p>Win Loss Ratio: {{ win_loss_ratio }}</p>
+  <h2>Game History</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User's Team Name</th>
+        <th>Score</th>
+        <th>Opponent's Team Name</th>
+        <th>Opponent's Score</th>
+        <th>Opponent's Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for game in game_history %}
+        <tr>
+          <td>{{ game.user_team_name }}</td>
+          <td>{{ game.score }}</td>
+          <td>{{ game.opponent_team_name }}</td>
+          <td>{{ game.opponent_score }}</td>
+          <td>{{ game.opponent_username }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 
 
   <script src="{{ url_for('static', filename='js/account.js') }}"></script>
