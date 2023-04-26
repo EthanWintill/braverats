@@ -92,7 +92,8 @@ def rematch(gId):
             val = createNewGame(gId) #hash old gid to get next game
     except:
         print("game not found to rematch!")
-        return render_template('home.html')
+        return redirect('/')
+
 
     return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
@@ -100,12 +101,16 @@ def rematch(gId):
 @app.route("/", methods=["GET","POST"])
 def index():
     #print(Users.getAllUsers())
+    user = 'User' if current_user.is_authenticated else None #TODO change this to their actual name
+
     
     if request.method == "POST":
         
         val = createNewGame()
-        return render_template("home.html", gameId=val)
-    return render_template("home.html")
+        return render_template("home.html", gameId=val, user=user)
+    
+
+    return render_template("home.html", user=user)
 
 @app.route("/oneplayer", methods=["GET","POST"])
 def oneplayer():
@@ -114,7 +119,7 @@ def oneplayer():
         #
         return redirect(f"/play/{val}")
     
-    return render_template("home.html")
+    return redirect('/')
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -131,7 +136,7 @@ def login():
             user = None
         if user: #AUTHENTICATED
             login_user(user)
-            return redirect("/")
+            return redirect('/')
         print(username,password)
     return render_template('login.html', form=form)
 
@@ -148,7 +153,7 @@ def signup():
             return render_template('signup.html', form=form)
         user = Users.getUserByName(username)
         login_user(user)
-        return redirect("/") #log them in here
+        return redirect('/')
     return render_template('signup.html', form=form)
 
 @socketio.on("connection")
