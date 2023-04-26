@@ -50,7 +50,9 @@ def leaderboard():
 def rules():
     return render_template("rules.html")
 
+
 @app.route("/account")
+@login_required
 def account():
     stats = None
     if current_user.is_authenticated:
