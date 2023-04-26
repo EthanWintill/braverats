@@ -310,8 +310,10 @@ def endGame(data):
     except:
         print("RETURN 1")
         return
-    game.winner = 0
-    sendGameState(gid)
+    if (game.sidToTeam(session.sid)):
+        game.winner = 0
+        sendGameState(gid)
+        return redirect('/')
     
 
             
