@@ -107,7 +107,7 @@ def rematch(gId):
 @app.route("/", methods=["GET","POST"])
 def index():
     #print(Users.getAllUsers())
-    user = 'User' if current_user.is_authenticated else None #TODO change this to their actual name
+    user = current_user.username if current_user.is_authenticated else None #TODO change this to their actual name
 
     
     if request.method == "POST":
