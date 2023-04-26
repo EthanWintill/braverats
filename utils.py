@@ -42,4 +42,11 @@ def getLeaderboard():
 
     return sorted(board, key=lambda x: x[5], reverse=True)
 
+def userStats(uid):
+    user = Users.getUserById(uid)
+    if not user:
+        return None
+    stats = History.filter_by_user_id(uid)
+    return stats
+
 
