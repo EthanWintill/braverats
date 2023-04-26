@@ -1,4 +1,5 @@
-from sqlalchemy import create_engine, Column, Integer, String, select, update, delete
+from sqlalchemy import create_engine, Column, Integer, String, select, update, delete, func
+#from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_login import UserMixin
@@ -55,3 +56,40 @@ class History():
         games = session.query(Game).all()
         games_as_dict = [game.__dict__ for game in games]
         return games_as_dict
+
+    def filter_by_user_id(user_id):
+        filtered_games = []
+        games = History.readAll()
+        for game in games:
+            if game['appleid'] == user_id or game['yargid'] == user_id:
+                filtered_games.append(game)
+        return filtered_games
+    
+    @staticmethod
+    def getLeaderboard():
+        query = (
+            session.query(
+                User.id,
+                User.username,
+                func.sum(func.cast(Game.applescore == 4, Integer)),
+                func.sum(func.cast(Game.yargscore == 4, Integer)),
+                func.count(Game.id).label('games_played')
+            )
+            .outerjoin(Game, (User.id == Game.appleid) | (User.id == Game.yargid))
+            .group_by(User.id)
+        )
+
+        leaderboard = []
+        for user_id, username, appwins, yargwins, games_played in query:
+            #win_loss_ratio = wins / losses if losses > 0 else wins
+            leaderboard.append({
+                'id': user_id,
+                'username': username,
+                'games_played': games_played,
+                'wins': appwins,
+                'yargwins': yargwins
+                # 'losses': losses,
+                # 'win_loss_ratio': win_loss_ratio
+            })
+
+        return leaderboard

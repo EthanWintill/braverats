@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_session import Session
 from forms import LoginForm, RegisterForm
 
-from utils import Authentic
+from utils import Authentic, getLeaderboard, userStats
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -17,6 +17,8 @@ from braverats import Bot
 
 #DATABASE
 from models import Users, History
+
+os.environ['GEVENT_SUPPORT'] = "True"
 
 #from forms import AddTaskForm, CreateUserForm, LoginForm
 #from database import Tasks, Users
@@ -34,13 +36,23 @@ login_manager.init_app(app)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+@app.route('/leaderboard')
+def leaderboard():
+    board = getLeaderboard()
+    return render_template('leaderboard.html', board=board)
+
+
+
 @app.route("/rules")
 def rules():
     return render_template("rules.html")
 
 @app.route("/account")
 def account():
-    return render_template("account.html")
+    stats = None
+    if current_user.is_authenticated:
+        stats = userStats(current_user.id)
+    return render_template("account.html", stats=stats)
 
 
 @app.route("/play/gameover")
@@ -68,9 +80,13 @@ def play(gId):
 
 @app.route('/rematch/<string:gId>', methods=['GET'])
 def rematch(gId):
+    
     try:
         game = findGame(gId)
-        if(isinstance(game.yarg, Bot)):
+        sid = session.sid
+        if not game.sidToTeam(sid):
+            return redirect(f'/play/{gId}')
+        elif(isinstance(game.yarg, Bot)):
             val = createOnePlayerGame(gId)
         else:
             val = createNewGame(gId) #hash old gid to get next game
@@ -154,8 +170,11 @@ def assignPlayer(data):
 
     print("ASSIGN SUCCESS")
     
-    game.assignPlayer(sid, uid)
-    game.assignSocket(sid,request.sid) # RETRY, IF THIS DONT WORK IDK
+    if game.assignPlayer(sid, uid):
+        game.assignSocket(sid,request.sid) 
+    else:
+        game.assignSpectator(sid,uid)
+        game.assignSpecSocket(sid,request.sid)
     sendGameState(gid)
 
 
@@ -247,7 +266,12 @@ def chooseCard(data):
     if game.readyToFight():
         res = game.calculate()
         print(res.winner)
-
+    if game.gameOver() and not isinstance(game.yarg, Bot):
+        aid = game.applewood.userid if game.applewood.userid else 0
+        yid = game.yarg.userid if game.yarg.userid else 0
+        ascr = game.applewood.score
+        yscr = game.yarg.score
+        History.append(aid,yid,ascr,yscr)
     sendGameState(gid)
 
     if game.applewood.spyLast and not game.yarg.spyLast and isinstance(game.yarg, Bot):
