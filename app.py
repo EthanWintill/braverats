@@ -15,6 +15,9 @@ import json
 import os
 from braverats import Bot
 
+import pdb
+
+
 #DATABASE
 from models import Users, History
 
@@ -52,7 +55,10 @@ def account():
     stats = None
     if current_user.is_authenticated:
         stats = userStats(current_user.id)
-    return render_template("account.html", stats=stats)
+    return render_template("account.html", num_wins = stats['wins'], num_losses = stats['losses'],\
+                           win_loss_ratio=stats['ratio'], username=stats['userinfo']['username'],\
+                            email=stats['userinfo']['email'], num_games_played=stats['games_played']\
+                            , game_history= stats['game_history'] )
 
 
 @app.route("/play/gameover")
@@ -92,7 +98,8 @@ def rematch(gId):
             val = createNewGame(gId) #hash old gid to get next game
     except:
         print("game not found to rematch!")
-        return render_template('home.html')
+        return redirect('/')
+
 
     return redirect(f"/play/{val}") #EZ PZ lemon squeezy
 
@@ -100,12 +107,16 @@ def rematch(gId):
 @app.route("/", methods=["GET","POST"])
 def index():
     #print(Users.getAllUsers())
+    user = 'User' if current_user.is_authenticated else None #TODO change this to their actual name
+
     
     if request.method == "POST":
         
         val = createNewGame()
-        return render_template("home.html", gameId=val)
-    return render_template("home.html")
+        return render_template("home.html", gameId=val, user=user)
+    
+
+    return render_template("home.html", user=user)
 
 @app.route("/oneplayer", methods=["GET","POST"])
 def oneplayer():
@@ -114,7 +125,7 @@ def oneplayer():
         #
         return redirect(f"/play/{val}")
     
-    return render_template("home.html")
+    return redirect('/')
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -131,9 +142,16 @@ def login():
             user = None
         if user: #AUTHENTICATED
             login_user(user)
-            return redirect("/")
+            return redirect('/')
         print(username,password)
     return render_template('login.html', form=form)
+
+@app.route('/signout')
+def signout():
+    if current_user.is_authenticated:
+        logout_user()
+    return redirect('/')    
+    
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
@@ -148,7 +166,7 @@ def signup():
             return render_template('signup.html', form=form)
         user = Users.getUserByName(username)
         login_user(user)
-        return redirect("/") #log them in here
+        return redirect('/')
     return render_template('signup.html', form=form)
 
 @socketio.on("connection")

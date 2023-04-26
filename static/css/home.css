@@ -9,13 +9,53 @@ body {
     justify-content: center;
     align-items: center;
   }
+  nav {
+    background-color: rgba(0, 0, 50, 0.79);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    flex-direction: row-reverse;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav li:last-child {
+    margin-right: 14px;
+  }
+   
+  nav li:first-child {
+    position: absolute;
+    left: 2%;
+  }
+  
 
+  nav a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+    
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
+    margin-top: 60px; /* To push the container down below the navbar */
+
   }
 
   button {
@@ -39,15 +79,4 @@ body {
     height: 100%;
   }
   
-  tooltip {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-    z-index: 9999;
-  }
+  
