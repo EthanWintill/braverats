@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_session import Session
 from forms import LoginForm, RegisterForm
 
-from utils import Authentic, getLeaderboard
+from utils import Authentic, getLeaderboard, userStats
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -49,7 +49,10 @@ def rules():
 
 @app.route("/account")
 def account():
-    return render_template("account.html")
+    stats = None
+    if current_user.is_authenticated:
+        stats = userStats(current_user.id)
+    return render_template("account.html", stats=stats)
 
 
 @app.route("/play/gameover")
