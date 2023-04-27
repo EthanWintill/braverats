@@ -240,20 +240,16 @@ ___
 		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/unit-tests-for-push-notifications/
 		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-12
 		
-- ** Selah **: "Create UI elements for list of apps to block"
-	- `Jira Task: Create a list that displays list of apps on users phone and allows them to select which apps they want to block`
-		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/MOT-22
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-22?atlOrigin=eyJpIjoiZWZhNWQwZDdhYjAzNDY5ZWJmNDk0ZmQ1NjRmNWRkZWUiLCJwIjoiaiJ9
-	- `Jira Task: Identify key features and functions to determine app layout`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/572dd501e333b36bc6ac538ce97682c3556961a7
-		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-23?atlOrigin=eyJpIjoiYjRhNmUxMmQwMTQ2NDVmYzhiMDZkYTA0YTcxMjljYmQiLCJwIjoiaiJ9
-	- `Jira Task: Familiarize with Swift language and Xcode`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/572dd501e333b36bc6ac538ce97682c3556961a7
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-28?atlOrigin=eyJpIjoiYjQwMTlkYTU0MDFkNGY3MTkzODE3NGNmMjg3N2JmNjUiLCJwIjoiaiJ9
-	- `Jira Task: allow user to input their list of apps`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/Selah-Boyle/contentviewswift-edited-online-with-bitb-1679262115450
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-29?atlOrigin=eyJpIjoiYzdjZWQzMzFkOTUzNDgyM2E5MjU5MWFiODE5ZjQ2ZGUiLCJwIjoiaiJ9
-		
+- ** Selah **:
+	- `Jira Task: Make a simpler sharing link`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/commits/a113d9a3eff028195664a4804731e122d0eaa8a0
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-78?atlOrigin=eyJpIjoiM2QwYjg3ZDE2YzAxNDQxZWEwZWMxZTc1NDYxZjY0MmEiLCJwIjoiaiJ9
+	- `Jira Task: Display points for user and opponent`
+		- reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/30
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-74?atlOrigin=eyJpIjoiZGFlZGY0YWY2NjcwNDgyYWJmZGFkMTdlZTdkNzFlNjYiLCJwIjoiaiJ9
+	- `Jira Task: First player mode main screen`
+		- reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/37
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-81?atlOrigin=eyJpIjoiNmY1ZDE3ZmMzZGU0NGE5MDk0OTMxYjY0YTllNmEzOWMiLCJwIjoiaiJ9
 - ** Abigail Barrientos **: 
 	- `Jira Task: First Player Mode Bot`
 		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/31
@@ -288,8 +284,8 @@ ___
 	- For this next sprint I will add more features such as user logins and database functionality
 	- I will work quickly to ensure that our goals are reached by the end of the sprint
 - ** Selah ** :
-	- I will start and finish my tasks very early in the sprint.
-	- Communicate with team members on what I'm currently doing.
+	- Make the the rules page and flow of the game more aesthetically pleasing.
+	- Alow more time for research.
 	- Allow more time for merging and implementing team members code to work in sync with mine.
 - ** Abigail Barrientos **:
 	- For the next version I would have liked to have include social cues for the player to click the cards. Currently the user recives no prompt to click on the cards. It would be helpful to have a notification that tells them to click a card.
