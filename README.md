@@ -254,16 +254,16 @@ ___
 		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/Selah-Boyle/contentviewswift-edited-online-with-bitb-1679262115450
 		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-29?atlOrigin=eyJpIjoiYzdjZWQzMzFkOTUzNDgyM2E5MjU5MWFiODE5ZjQ2ZGUiLCJwIjoiaiJ9
 		
-- ** Abigail Barrientos **: "Implemented timer UI"
-	- `Jira Task: Display a ring around the timer`
-		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Timer_UI
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-24?atlOrigin=eyJpIjoiYzRjZWU5NzY2OGZkNDk5NzlkMWFiMzBlZTEyNDc1NzkiLCJwIjoiaiJ9
-	- `Jira Task: Implement a start and stop blocking button`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Start_and_StopButton
-		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-18?atlOrigin=eyJpIjoiYjhjMDlhN2M2ZTJkNGM1NjkzNGNjZDdlN2YwYWRkYWQiLCJwIjoiaiJ9
-	- `Jira Task: Allow user to edit timer`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Edit_Timer
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-19?atlOrigin=eyJpIjoiNWYyNGJmNjMwNmM4NGZkMWEwODQzYzliOTdjMThiYWMiLCJwIjoiaiJ9
+- ** Abigail Barrientos **: 
+	- `Jira Task: First Player Mode Bot`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/31
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-82?atlOrigin=eyJpIjoiYmY1Y2YwY2E4NTg0NDI4OWE3OWMzOTZkMDQ3MTA1MzYiLCJwIjoiaiJ9
+	- `Jira Task: Account Page to Database`
+		- reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/36
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/BR-83?atlOrigin=eyJpIjoiNmEzNDQ3ZmNlY2I2NDFhNzg5N2JjNzJmMDM0OTU3MDEiLCJwIjoiaiJ9
+	- `Jira Task: Select User profile picture`
+		- reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/29
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-92?atlOrigin=eyJpIjoiNzgxMTA5OTAwNzg1NGRhNmI4NzY5OTgyNjQyYWUwNTIiLCJwIjoiaiJ9
 		
 - ** Ethan Wintill **: Implented screen time tracking UI
 	- `Jira Task: Determine what data will be collected and stored
@@ -279,7 +279,28 @@ ___
 	- `Jira Task: Implement Social Features for the feed`
 		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/social-features/
 		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-31
-		
+
+
+
+## Next Steps For Sprint 4
+
+- ** Sam **:
+	- For this next sprint I will add more features such as user logins and database functionality
+	- I will work quickly to ensure that our goals are reached by the end of the sprint
+- ** Selah ** :
+	- I will start and finish my tasks very early in the sprint.
+	- Communicate with team members on what I'm currently doing.
+	- Allow more time for merging and implementing team members code to work in sync with mine.
+- ** Abigail Barrientos **:
+	- For the next version I would have liked to have include social cues for the player to click the cards. Currently the user recives no prompt to click on the cards. It would be helpful to have a notification that tells them to click a card.
+	- Another thing to add would be sound effects for clicking the cards and when the user wins or loses. 
+	-  The last thing I will need to work on for this sprint is allowing the user to select a difficulty for the first player bot. 
+- ** Ethan Wintill **:
+	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
+- ** Laiba **:
+	- Assigned 3 front end tasks 
+	- do a multiple commits a day and 1 push atleast no matter how small the change 
+	- more open communication about workload help if needed 
 ___
 
 ## Acknowledgements
