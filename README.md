@@ -226,19 +226,19 @@ ___
 
 ## Sprint 3 
 ## Contributions
-- ** Sam **: "Created UI elements for goal tracking and push notification features"
-	- `Jira Task: Design and implement a UI for users to configure their push notification preferences.`
-		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-push-notification-settings/
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-9
-	- `Jira Task: Implement push notification functionality based on user preferences.`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/push-notification-functionality/
-		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-10
-	- `Jira Task: Design and implement a UI for users to set and manage their goals.`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-goals/
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-8
-	- `Jira Task: Write unit tests to ensure that push notification and goal tracking functionality work as expected.`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/unit-tests-for-push-notifications/
-		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-12
+- ** Sam **: "Added database, user implementation, and spectator mode"
+	- `Jira Task: Add spectator mode`
+		- bitbucket reference: https://bitbucket.org/%7B%7D/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/33
+		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/roadmap?selectedIssue=BR-94
+	- `Jira Task: Timer for game deletions`
+		- bitbucket reference: https://bitbucket.org/%7B%7D/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/38
+		- jira referece: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/roadmap?selectedIssue=BR-86
+	- `Jira Task: Create SQLite DB with models.py for storing users and previous games`
+		- bitbucket reference: https://bitbucket.org/%7B%7D/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/27
+		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/roadmap?selectedIssue=BR-88
+	- `Jira Task: Connect db to game`
+		- bitbucket reference: https://bitbucket.org/%7B%7D/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/35
+		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/BR/boards/3/roadmap?selectedIssue=BR-89
 		
 - ** Selah **:
 	- `Jira Task: Make a simpler sharing link`
@@ -281,8 +281,9 @@ ___
 ## Next Steps For Sprint 4
 
 - ** Sam **:
-	- For this next sprint I will add more features such as user logins and database functionality
-	- I will work quickly to ensure that our goals are reached by the end of the sprint
+	- I want to add cool new features such as a chat box, play timer, and profile picture and username on the pkay page.
+	- I would also want to make the visuals look nicer so it is more presentable to the average person
+	- In the future I would like to monetize the game and sell things like skins, themes, profile pics, etc
 - ** Selah ** :
 	- Make the the rules page and flow of the game more aesthetically pleasing.
 	- Alow more time for research.
