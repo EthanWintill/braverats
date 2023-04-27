@@ -224,6 +224,64 @@ Allow more time for merging and implementing team members code to work in sync w
 	- more open communication about workload help if needed 
 ___
 
+## Sprint 3 
+## Contributions
+- ** Sam **: "Created UI elements for goal tracking and push notification features"
+	- `Jira Task: Design and implement a UI for users to configure their push notification preferences.`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-push-notification-settings/
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-9
+	- `Jira Task: Implement push notification functionality based on user preferences.`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/push-notification-functionality/
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-10
+	- `Jira Task: Design and implement a UI for users to set and manage their goals.`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-goals/
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-8
+	- `Jira Task: Write unit tests to ensure that push notification and goal tracking functionality work as expected.`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/unit-tests-for-push-notifications/
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-12
+		
+- ** Selah **: "Create UI elements for list of apps to block"
+	- `Jira Task: Create a list that displays list of apps on users phone and allows them to select which apps they want to block`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/MOT-22
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-22?atlOrigin=eyJpIjoiZWZhNWQwZDdhYjAzNDY5ZWJmNDk0ZmQ1NjRmNWRkZWUiLCJwIjoiaiJ9
+	- `Jira Task: Identify key features and functions to determine app layout`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/572dd501e333b36bc6ac538ce97682c3556961a7
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-23?atlOrigin=eyJpIjoiYjRhNmUxMmQwMTQ2NDVmYzhiMDZkYTA0YTcxMjljYmQiLCJwIjoiaiJ9
+	- `Jira Task: Familiarize with Swift language and Xcode`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/572dd501e333b36bc6ac538ce97682c3556961a7
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-28?atlOrigin=eyJpIjoiYjQwMTlkYTU0MDFkNGY3MTkzODE3NGNmMjg3N2JmNjUiLCJwIjoiaiJ9
+	- `Jira Task: allow user to input their list of apps`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/Selah-Boyle/contentviewswift-edited-online-with-bitb-1679262115450
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-29?atlOrigin=eyJpIjoiYzdjZWQzMzFkOTUzNDgyM2E5MjU5MWFiODE5ZjQ2ZGUiLCJwIjoiaiJ9
+		
+- ** Abigail Barrientos **: "Implemented timer UI"
+	- `Jira Task: Display a ring around the timer`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Timer_UI
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-24?atlOrigin=eyJpIjoiYzRjZWU5NzY2OGZkNDk5NzlkMWFiMzBlZTEyNDc1NzkiLCJwIjoiaiJ9
+	- `Jira Task: Implement a start and stop blocking button`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Start_and_StopButton
+		- jira referece: https://cs3398s23cardassians.atlassian.net/browse/MOT-18?atlOrigin=eyJpIjoiYjhjMDlhN2M2ZTJkNGM1NjkzNGNjZDdlN2YwYWRkYWQiLCJwIjoiaiJ9
+	- `Jira Task: Allow user to edit timer`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/branch/feature/Edit_Timer
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-19?atlOrigin=eyJpIjoiNWYyNGJmNjMwNmM4NGZkMWEwODQzYzliOTdjMThiYWMiLCJwIjoiaiJ9
+		
+- ** Ethan Wintill **: Implented screen time tracking UI
+	- `Jira Task: Determine what data will be collected and stored
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/2c88fe14ceb96f91afdfdcc8c2c76e2c755017ea
+		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-13
+	- `Jira Task: Design the user interface for displaying screen time data
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/82ea296641edd25e9f07a9271b23e0265e02172b
+		- jira referece:  https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-16
+	- `Jira Task: Implement the user interface for displaying screen time data`
+		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-Screen-time-tracking/
+		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-17
+- ** Laiba **: "Created Social Features for the Feed "
+	- `Jira Task: Implement Social Features for the feed`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/social-features/
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/MOT-31
+		
+___
+
 ## Acknowledgements
 - This project is based on Brave Rats, by Seiji Kanai. [](https://blueorangegames.eu/en/games/braverats/)
 - Brave Rats images and gameplay owned by respective copyright owners.
