@@ -262,15 +262,15 @@ ___
 		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-92?atlOrigin=eyJpIjoiNzgxMTA5OTAwNzg1NGRhNmI4NzY5OTgyNjQyYWUwNTIiLCJwIjoiaiJ9
 		
 - ** Ethan Wintill **: Implented screen time tracking UI
-	- `Jira Task: Determine what data will be collected and stored
-		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/2c88fe14ceb96f91afdfdcc8c2c76e2c755017ea
-		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-13
-	- `Jira Task: Design the user interface for displaying screen time data
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/commits/82ea296641edd25e9f07a9271b23e0265e02172b
-		- jira referece:  https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-16
-	- `Jira Task: Implement the user interface for displaying screen time data`
-		- reference: https://bitbucket.org/cs3398s23cardassians/mot/src/UI-for-Screen-time-tracking/
-		- jira reference: https://cs3398s23cardassians.atlassian.net/jira/software/projects/MOT/boards/3?assignee=63cf0915d73cd1e44e216d3c&selectedIssue=MOT-17
+	- `Jira Task: Create leaderboard route using DB queries`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/32
+		- jira reference: https://cs3398s23cardassians.atlassian.net/browse/BR-75
+	- `Jira Task: Fix gameover pop up`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/25
+		- jira referece:  https://cs3398s23cardassians.atlassian.net/browse/BR-93
+	- `Jira Task: Fix The Rematch`
+		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/%7B74c95d59-a787-4de7-ad93-16c74b62959a%7D/pull-requests/26
+		- jira referece:  https://cs3398s23cardassians.atlassian.net/browse/BR-77
 - ** Laiba **: "Created Social Features for the Feed "
 	- `Jira Task: Implement Social Features for the feed`
 		- bitbucket reference: https://bitbucket.org/cs3398s23cardassians/mot/src/social-features/
@@ -293,7 +293,7 @@ ___
 	- Another thing to add would be sound effects for clicking the cards and when the user wins or loses. 
 	-  The last thing I will need to work on for this sprint is allowing the user to select a difficulty for the first player bot. 
 - ** Ethan Wintill **:
-	- I want to make sure I am still on the same page as the rest of my team, because I have a schedule conflict with our normal meetings. I plan on taking asking in the groupme when everyone's free and announce when I'm working in bing so anyone on campus can swing by.
+	- I would like to make the AI more intelligent and, possible using a minimax alorithm
 - ** Laiba **:
 	- Assigned 3 front end tasks 
 	- do a multiple commits a day and 1 push atleast no matter how small the change 
